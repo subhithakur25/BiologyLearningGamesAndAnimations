@@ -1,0 +1,113 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="crossword.css">
+  <script type="text/javascript" src="iframeResizer.contentWindow.min.js"></script>
+</head>
+<body>
+
+<div class="col-lg-12">
+<div class="container crosswordDisplay">
+
+  
+<div class="row">
+    <div class="btn btn-default disabled" id="btnCreate">Create</div>
+    <div class="btn btn-default disabled" id="btnPlay">Play</div>
+    <div class="btn btn-default" id="btnCheck">Check Answers</div>
+	  <div class="btn btn-default" id="btnHintHard" >Hint</div>  
+	  <div class="btn btn-default disabled" id="btnReset">Reset</div>
+    <div class="status" id="divStatus"></div>
+</div>
+
+<div class="center crossword" id="crossword"></div>
+
+<div class="btn" id="btnGen">Generate</div>
+  
+  
+  <div class="col-lg-6 ">
+  <div class="clueBlock" id="cluesAcross">
+    <div class="clueDirection" id="directionAcross">ACROSS</div>
+
+    <div class="line">
+      <input class="word" type="text" value="ScientificMethod" />
+      <span class="lineNum"></span>
+      <input class="clue" value="It is a logical problem-solving approach used by scientists." />
+    </div>
+
+    <div class="line">
+      <input class="word" type="text" value="Experiment"/>
+      <span class="lineNum"></span>
+      <input class="clue" value="It is a detailed procedure to test a hypothesis." />
+    </div>
+
+    <div class="line">
+      <input class="word" type="text" value="ClinicalTrial"/>
+      <span class="lineNum"></span>
+      <input class="clue" value="The extensive evaluation process that all medical drugs, devices, "/>
+      <div style="text-align:left; padding-left:38px">treatments go through</div>
+    </div>
+
+    <div class="line">
+      <input class="word" type="text" value="QualityofLife"/>
+      <span class="lineNum"></span>
+      <input class="clue" value="These trials explore and measure ways to improve comfort for people with "/>
+      <div style="text-align:left; padding-left:38px">chronic illness</div>
+    </div>
+
+    <div class="line">
+      <input class="word" type="text" value="Preclinical"/>
+      <span class="lineNum"></span>
+      <input class="clue" value="This trial is a research conducted on new drug or medical device" />
+    </div>
+	
+	<div class="line">
+      <input class="word" type="text" value="Dependent"/>
+      <span class="lineNum"></span>
+      <input class="clue" value="The factor that scientists observes to see how it responds to "/>
+      <div style="text-align:left; padding-left:38px">independent variables</div>
+    </div>
+	
+	<div class="line">
+      <input class="word" type="text" value="Effectiveness"/>
+      <span class="lineNum"></span>
+      <input class="clue" value="The purpose of Phase II trials is to determine this"/>
+    </div>
+	
+	<div class="line">
+      <input class="word" type="text" value="Sideeffects"/>
+      <span class="lineNum"></span>
+      <input class="clue" value="Phase III trials are performed to confirm effectiveness and monitor this" />
+    </div>
+	
+	<div class="line">
+      <input class="word" type="text" value="Placebo"/>
+      <span class="lineNum"></span>
+      <input class="clue" value="It looks like a real drug but doesn't have the active ingredient in it" />
+    </div>
+	
+	<div class="line">
+      <input class="word" type="text" value="BlindTrial"/>
+      <span class="lineNum"></span>
+      <input class="clue" value="It is a trial in which patients do not know if they are getting placebo "/>
+      <div style="text-align:left; padding-left:38px">or treatment</div>
+    </div>
+    
+    </div>  
+    
+  </div>
+  
+  
+  <div class="col-lg-6">
+  <div class="clueBlock" id="cluesDown">
+    <div class="clueDirection" id="directionDown">DOWN</div>
+  </div>
+
+</div>
+</div>
+</div>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="crossword.js"></script>
+
+</body>
+</html>

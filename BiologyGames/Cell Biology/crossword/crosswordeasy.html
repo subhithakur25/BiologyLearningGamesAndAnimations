@@ -1,0 +1,79 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="crossword.css">
+  <script type="text/javascript" src="iframeResizer.contentWindow.min.js"></script>
+</head>
+<body>
+
+<div class="col-lg-12">
+<div class="container crosswordDisplay">
+
+  
+<div class="row">
+    <div class="btn btn-default disabled" id="btnCreate">Create</div>
+    <div class="btn btn-default disabled" id="btnPlay">Play</div>
+    <div class="btn btn-default" id="btnCheck">Check Answers</div>
+	  <div class="btn btn-default" id="btnHintEasy" >Hint</div>  
+	  <div class="btn btn-default disabled" id="btnReset">Reset</div>
+    <div class="status" id="divStatus"></div>
+</div>
+
+<div class="center crossword" id="crossword"></div>
+
+<div class="btn" id="btnGen">Generate</div>
+  
+  
+  <div class="col-lg-6 ">
+  <div class="clueBlock" id="cluesAcross">
+    <div class="clueDirection" id="directionAcross">ACROSS</div>
+
+    <div class="line">
+      <input class="word" type="text" value="DNA" />
+      <span class="lineNum"></span>
+      <input class="clue" value="Form of genetic material found in cells" />
+    </div>
+
+    <div class="line">
+      <input class="word" type="text" value="Cell"/>
+      <span class="lineNum"></span>
+      <input class="clue" value="The smallest structural and functional unit of an organism" />
+    </div>
+
+    <div class="line">
+      <input class="word" type="text" value="Bacteria"/>
+      <span class="lineNum"></span>
+      <input class="clue" value="A prokaryotic organism" />
+    </div>
+
+    <div class="line">
+      <input class="word" type="text" value="Cellwall"/>
+      <span class="lineNum"></span>
+      <input class="clue" value="A protective layer external to the plasma membrane in plant cells" />
+    </div>
+
+    <div class="line">
+      <input class="word" type="text" value="Glucose"/>
+      <span class="lineNum"></span>
+      <input class="clue" value="A sugar made during photosynthesis" />
+    </div>
+    
+    </div>  
+    
+  </div>
+  
+  
+  <div class="col-lg-6">
+  <div class="clueBlock" id="cluesDown">
+    <div class="clueDirection" id="directionDown">DOWN</div>
+  </div>
+
+</div>
+</div>
+</div>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="crossword.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+data = [
+{
+    "question" : "The things that change in an experiment, observations, or research are called _________.", 
+    "answer" : "variables"
+},
+{
+    "question" : "What are the things that respond to the change made to the independent variables?",
+    "answer" : "Dependent variables"
+}
+,
+{
+    "question" : "What are the factors that remain constant?",
+    "answer" : "Controlled variables"
+},
+{
+    "question" : "What is the average of a set of numbers?", 
+    "answer" : "Mean"
+},
+{
+    "question" : "What is the middle value between the smallest and largest of a set of numbers?", 
+    "answer" : "Median"
+},
+{
+    "question" : "What is the number that appears most often in a data set?", 
+    "answer" : "Mode"
+},
+{
+    "question" : "What is the difference between the largest and smallest numbers in a set of numbers?", 
+    "answer" : "Range"
+},
+{
+    "question" : "What is an infectious particle that reproduces by “hijacking” a host cell?", 
+    "answer" : "Virus"
+},
+{
+    "question" : "What is the occurrence in a community or region of cases of an illness clearly in excess of normal expectancy?", 
+    "answer" : "Epidemic"
+}
+];

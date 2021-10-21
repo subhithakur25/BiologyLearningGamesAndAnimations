@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+    <head>
+    
+        <title>Gravity Game</title>
+        <link href="main.css"rel="stylesheet"type="text/css"/>
+ <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        
+        
+        <link rel="stylesheet" href="bootstrap.min.css">
+        <script type="text/javascript" src="jquery-3.4.1.min.js"></script>
+        <script type="text/javascript" src="popper.min.js"></script>
+        <script type="text/javascript" src="bootstrap.min.js"></script>
+        <script type="text/javascript" src="controller.js"></script>
+		<script type="text/javascript" src="iframeResizer.contentWindow.min.js"></script>
+        <script type = "text/javascript" src = "questionSet.json"></script>
+
+    </head>
+
+    <body>
+<div class ="container">
+        <div id="banner">Gravity Game</div>
+        <div class="spacer"></div>
+        <style>
+        canvas {
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+            width: 600px;
+            border:1px solid #d3d3d3;
+            background-color: #f1f1f1;
+        }
+        </style>
+        <div class="currQuizStatus" id ="currQuizStatusText"></div>
+        <div class="spacer2"></div>
+
+        <div id="navContent">
+
+            <div id="currQuestion"></div>
+            
+            <div id="nextQuestion"></div>
+
+            <!-- The Modal -->
+            <div class="modal" id="chancesModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <script>
+                            setHardMode();
+                            // alert("he");
+                        </script>
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Message from the Quiz Master</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body"></div>
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+    </body>
+</html>

@@ -1,0 +1,39 @@
+data = [
+{
+    "question" : "______ is a branch of biology that studies the relationship and interactions between organisms and their environment.", 
+    "answer" : "Ecology"
+},
+{
+    "question" : "_______ are all the living or once living parts of the environment.",
+    "answer" : "Biotic factors"
+}
+,
+{
+    "question" : "_______ are the non-living parts of the environment.",
+    "answer" : "Abiotic factors"
+},
+{
+    "question" : "A(n) ______ is any living thing - a plant, an animal, a bacteria, etc.", 
+    "answer" : "Organism"
+},
+{
+    "question" : "What are the organisms that use the sun’s energy to make their own food through the process of photosynthesis?", 
+    "answer" : "Producers"
+},
+{
+    "question" : "What are the animals that only eat other animals?", 
+    "answer" : "Carnivores"
+},
+{
+    "question" : "Large geographic areas with similar ecosystems and climate are called _____.", 
+    "answer" : "biomes"
+},
+{
+    "question" : "________ refers to the normal, gradual changes that occur in ecosystems over time.", 
+    "answer" : "Succession"
+},
+{
+    "question" : "What obtains energy by consuming wastes and dead organisms?", 
+    "answer" : "Decomposers"
+}
+];

@@ -1,0 +1,92 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="crossword.css">
+  <script type="text/javascript" src="iframeResizer.contentWindow.min.js"></script>
+</head>
+<body>
+
+<div class="col-lg-12">
+<div class="container crosswordDisplay">
+
+  
+<div class="row">
+    <div class="btn btn-default disabled" id="btnCreate">Create</div>
+    <div class="btn btn-default disabled" id="btnPlay">Play</div>
+    <div class="btn btn-default" id="btnCheck">Check Answers</div>
+	  <div class="btn btn-default" id="btnHintMedium" >Hint</div>  
+	  <div class="btn btn-default disabled" id="btnReset">Reset</div>
+    <div class="status" id="divStatus"></div>
+</div>
+
+<div class="center crossword" id="crossword"></div>
+
+<div class="btn" id="btnGen">Generate</div>
+  
+  
+  <div class="col-lg-6 ">
+  <div class="clueBlock" id="cluesAcross">
+    <div class="clueDirection" id="directionAcross">ACROSS</div>
+
+    <div class="line">
+      <input class="word" type="text" value="Biomass" />
+      <span class="lineNum"></span>
+      <input class="clue" value="The total mass of an organism in a given area" />
+    </div>
+
+    <div class="line">
+      <input class="word" type="text" value="Cellmembrane"/>
+      <span class="lineNum"></span>
+      <input class="clue" value="The semipermeable membrane surrounding the cytoplasm of a cell" />
+    </div>
+
+    <div class="line">
+      <input class="word" type="text" value="Flagella"/>
+      <span class="lineNum"></span>
+      <input class="clue" value="Structure that enables a cell to move" />
+    </div>
+
+    <div class="line">
+      <input class="word" type="text" value="Lysosomes"/>
+      <span class="lineNum"></span>
+      <input class="clue" value="Stores enzymes responsible for inter cellular digestion" />
+    </div>
+
+    <div class="line">
+      <input class="word" type="text" value="Vacuole"/>
+      <span class="lineNum"></span>
+      <input class="clue" value="Plant organelle that stores wastes, water and other materials" />
+    </div>
+	
+	
+	<div class="line">
+      <input class="word" type="text" value="Cytoplasm" />
+      <span class="lineNum"></span>
+      <input class="clue" value="A feature common to prokaryotic and eukaryotic cells" />
+    </div>
+	
+	<div class="line">
+      <input class="word" type="text" value="Vesicles" />
+      <span class="lineNum"></span>
+      <input class="clue" value="Transport of materials within the cytoplasm" />
+    </div>
+    
+    </div>  
+    
+  </div>
+  
+  
+  <div class="col-lg-6">
+  <div class="clueBlock" id="cluesDown">
+    <div class="clueDirection" id="directionDown">DOWN</div>
+  </div>
+
+</div>
+</div>
+</div>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="crossword.js"></script>
+
+</body>
+</html>

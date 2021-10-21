@@ -1,0 +1,113 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="crossword.css">
+  <script type="text/javascript" src="iframeResizer.contentWindow.min.js"></script>
+</head>
+<body>
+
+<div class="col-lg-12">
+<div class="container crosswordDisplay">
+
+  
+<div class="row">
+    <div class="btn btn-default disabled" id="btnCreate">Create</div>
+    <div class="btn btn-default disabled" id="btnPlay">Play</div>
+    <div class="btn btn-default" id="btnCheck">Check Answers</div>
+	  <div class="btn btn-default" id="btnHintHard" >Hint</div>  
+	  <div class="btn btn-default disabled" id="btnReset">Reset</div>
+    <div class="status" id="divStatus"></div>
+</div>
+
+<div class="center crossword" id="crossword"></div>
+
+<div class="btn" id="btnGen">Generate</div>
+  
+  
+  <div class="col-lg-6 ">
+  <div class="clueBlock" id="cluesAcross">
+    <div class="clueDirection" id="directionAcross">ACROSS</div>
+
+    <div class="line">
+      <input class="word" type="text" value="Chloroplasts" />
+      <span class="lineNum"></span>
+      <input class="clue" value="Organelles responsible for photosynthesis" />
+    </div>
+
+    <div class="line">
+      <input class="word" type="text" value="Endoplasmicreticulum"/>
+      <span class="lineNum"></span>
+      <input class="clue" value="A network of membranous tubules within the cytoplasm of a eukaryotic cell" />
+    </div>
+
+    <div class="line">
+      <input class="word" type="text" value="Eukaryote"/>
+      <span class="lineNum"></span>
+      <input class="clue" value="Organism whose cells contain a nucleus surrounded by a membrane" />
+    </div>
+
+    <div class="line">
+      <input class="word" type="text" value="Mitochondria"/>
+      <span class="lineNum"></span>
+      <input class="clue" value="Organelle that provides energy for the cell to use" />
+    </div>
+
+    <div class="line">
+      <input class="word" type="text" value="Golgicomplex"/>
+      <span class="lineNum"></span>
+      <input class="clue" value="It is another packaging organelle like the endoplasmic reticulum" />
+    </div>
+	
+	<div class="line">
+      <input class="word" type="text" value="Chlorophyll"/>
+      <span class="lineNum"></span>
+      <input class="clue" value="Green pigment in chloroplast which traps energy from sun" />
+    </div>
+	
+	<div class="line">
+      <input class="word" type="text" value="Microtubules"/>
+      <span class="lineNum"></span>
+      <input class="clue" value="The thickest of the three main kinds of fibers making up the cytoskeleton of " />
+	  <div style="text-align:left; padding-left:38px">a eukaryotic cell</div>
+
+    </div>
+	
+	<div class="line">
+      <input class="word" type="text" value="Golgibodies"/>
+      <span class="lineNum"></span>
+      <input class="clue" value="Structures responsible for packaging materials & exporting them out of the cell" />
+    </div>
+	
+	<div class="line">
+      <input class="word" type="text" value="Prokaryote"/>
+      <span class="lineNum"></span>
+      <input class="clue" value="Single-celled organism which has neither a distinct nucleus with a membrane " />
+	  <div style="text-align:left; padding-left:38px">nor other specialized organelles</div>
+    </div>
+	
+	<div class="line">
+      <input class="word" type="text" value="Centralvacuole"/>
+      <span class="lineNum"></span>
+      <input class="clue" value="It is often the largest organelle in the cell surrounded by a membrane and" />
+	  <div style="text-align:left; padding-left:38px">functions to hold materials and wastes</div>
+    </div>
+    
+    </div>  
+    
+  </div>
+  
+  
+  <div class="col-lg-6">
+  <div class="clueBlock" id="cluesDown">
+    <div class="clueDirection" id="directionDown">DOWN</div>
+  </div>
+
+</div>
+</div>
+</div>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="crossword.js"></script>
+
+</body>
+</html>

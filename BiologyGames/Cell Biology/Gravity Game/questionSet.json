@@ -1,0 +1,39 @@
+data = [
+{
+    "question" : "What type of cells have no membrane-bound organelles?", 
+    "answer" : "Prokaryotic cells"
+},
+{
+    "question" : "What type of cells contain a nucleus and membrane bound organelles?",
+    "answer" : "Eukaryotic cells"
+}
+,
+{
+    "question" : "What type of cells does bacteria belong to?",
+    "answer" : "Prokaryotic cells"
+},
+{
+    "question" : "Which part of the cell regulates interactions between the cell and the environment?", 
+    "answer" : "Plasma membrane"
+},
+{
+    "question" : "What is plasma membrane made of?", 
+    "answer" : "Phospholipid bilayer"
+},
+{
+    "question" : "What holds the cell's genetic material(DNA)?", 
+    "answer" : "Cell nucleus"
+},
+{
+    "question" : "What is the energy producing organelle in plant cells?", 
+    "answer" : "Chloroplast"
+},
+{
+    "question" : "What part of the cell is similar to the digestive system and breaks down nutrients to produce energy?", 
+    "answer" : "Mitochondria"
+},
+{
+    "question" : "What part of the cell stores waste and removes waste?", 
+    "answer" : "Lysosome"
+}
+];

@@ -1,0 +1,115 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="crossword.css">
+  <script type="text/javascript" src="iframeResizer.contentWindow.min.js"></script>
+</head>
+<body>
+
+<div class="col-lg-12">
+<div class="container crosswordDisplay">
+
+  
+<div class="row">
+    <div class="btn btn-default disabled" id="btnCreate">Create</div>
+    <div class="btn btn-default disabled" id="btnPlay">Play</div>
+    <div class="btn btn-default" id="btnCheck">Check Answers</div>
+	  <div class="btn btn-default" id="btnHintHard" >Hint</div>  
+	  <div class="btn btn-default disabled" id="btnReset">Reset</div>
+    <div class="status" id="divStatus"></div>
+</div>
+
+<div class="center crossword" id="crossword"></div>
+
+<div class="btn" id="btnGen">Generate</div>
+  
+  
+  <div class="col-lg-6 ">
+  <div class="clueBlock" id="cluesAcross">
+    <div class="clueDirection" id="directionAcross">ACROSS</div>
+
+    <div class="line">
+      <input class="word" type="text" value="Zoonosis" />
+      <span class="lineNum"></span>
+      <input class="clue" value="A disease that can be transmitted from animals to humans." />
+    </div>
+
+    <div class="line">
+      <input class="word" type="text" value="Cholera"/>
+      <span class="lineNum"></span>
+      <input class="clue" value="Infectious diseases can be spread via infected water." />
+    </div>
+
+    <div class="line">
+      <input class="word" type="text" value="Epidemic"/>
+      <span class="lineNum"></span>
+      <input class="clue" value="A widespread occurrence of an infectious disease in a community at" />
+      <div style="text-align:left; padding-left:38px"> a particular time.</div>
+    </div>
+
+    <div class="line">
+      <input class="word" type="text" value="Autoimmune"/>
+      <span class="lineNum"></span>
+      <input class="clue" value="A type of disease which is caused when the immune system attacks the body." />
+    </div>
+
+    <div class="line">
+      <input class="word" type="text" value="Typhus"/>
+      <span class="lineNum"></span>
+      <input class="clue" value="Type of pandemic was spread to humans by infected body lice." />
+    </div>
+	
+	<div class="line">
+      <input class="word" type="text" value="Antitoxin"/>
+      <span class="lineNum"></span>
+      <input class="clue" value="These cancel out the toxins made by the pathogen." />
+    </div>
+	
+	<div class="line">
+      <input class="word" type="text" value="Virus"/>
+      <span class="lineNum"></span>
+      <input class="clue" value="A sub-microscopic infectious agent that is able to grow or reproduce only"/>
+	  <div style="text-align:left; padding-left:38px">within a host cell.</div>
+
+    </div>
+	
+	<div class="line">
+      <input class="word" type="text" value="Antibiotics"/>
+      <span class="lineNum"></span>
+      <input class="clue" value="Are medicines used to kill or slow the growth of bacteria and other" />
+    <div style="text-align:left; padding-left:38px">microorganisms, such as fungi.</div>
+    </div>
+	
+	<div class="line">
+      <input class="word" type="text" value="Skin"/>
+      <span class="lineNum"></span>
+      <input class="clue" value="Outer protective layer prevents pathogens coming into the body." />
+	  
+    </div>
+	
+	<div class="line">
+      <input class="word" type="text" value="Disinfectants"/>
+      <span class="lineNum"></span>
+      <input class="clue" value="Bacteriostatic agents used on inanimate objects." />
+	  
+    </div>
+    
+    </div>  
+    
+  </div>
+  
+  
+  <div class="col-lg-6">
+  <div class="clueBlock" id="cluesDown">
+    <div class="clueDirection" id="directionDown">DOWN</div>
+  </div>
+
+</div>
+</div>
+</div>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="crossword.js"></script>
+
+</body>
+</html>

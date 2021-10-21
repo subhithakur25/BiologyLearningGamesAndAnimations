@@ -1,0 +1,22 @@
+body {
+  background-color: #9d6b53;
+}
+
+p {
+  font-size: xx-large;
+}
+label {
+  text-decoration: underline;
+  color: darkgray;
+  transition: all 0.3s;
+}
+
+.selected {
+  font-weight: bold;
+  color: black;
+}
+
+.break {
+  flex-basis: 100%;
+  height: 0;
+}

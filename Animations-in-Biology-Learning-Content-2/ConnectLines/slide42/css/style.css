@@ -1,0 +1,38 @@
+body {
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+}
+
+#canvasDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  height: 500px;
+  width: 1000px;
+}
+
+/* Output if user got correct or wrong */
+#result {
+  font-size: 30px;
+  position: absolute;
+  z-index: 5;
+}
+
+/* Hide image answers that will later be drawn on canvas*/
+.imageAnswers {
+  visibility: hidden;
+  height: 0px;
+}
+
+#canvas {
+  background: transparent;
+  position: absolute;
+  height: 500px;
+  width: 1000px;
+}

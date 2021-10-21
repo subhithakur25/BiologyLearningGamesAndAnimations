@@ -1,0 +1,93 @@
+#master-container {
+  position: relative;
+  width: 100%;
+  padding-top: 50%;
+  background-color: #90e0ef;
+}
+
+div.question-container {
+  position: absolute;
+  float: center;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 65%;
+  background-image: url("img/neuron.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+div.answer {
+  font-weight: bold;
+  text-align: center;
+}
+div.answer-container {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  width: 15%;
+  height: 70.5%;
+}
+
+div.word-bank {
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  width: 55%;
+  height: 48%;
+  border: 2px solid black;
+}
+div.submit-container {
+  position: absolute;
+  top: 50%;
+  left: 3%;
+  right: 43%;
+  bottom: 0;
+  text-align: center;
+  display: table-cell;
+  padding-top: 7%;
+}
+#submit {
+  font-size: 1.5vw;
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 14px 32px;
+  text-align: center;
+  cursor: pointer;
+}
+
+/* styling of the individual answer blanks */
+.dropBox {
+  position: absolute;
+  background: #ffc6ff;
+  border: 2px solid black;
+  border-radius: 10px;
+  text-align: center;
+  color: black;
+  font-weight: 700;
+}
+
+.dropBox.answer-hover {
+  background: yellow;
+}
+
+.dropBox.has-answer.answer-hover {
+  background: yellow;
+}
+
+.dropBox.has-answer {
+  background: #9d4edd;
+}
+
+.answer {
+  cursor: pointer;
+  margin: 2%;
+  font-size: 1.6vw;
+}
+
+.dropBox > .answer {
+  margin: 0px;
+}

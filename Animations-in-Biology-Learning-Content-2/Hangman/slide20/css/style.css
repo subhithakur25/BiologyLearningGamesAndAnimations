@@ -1,0 +1,61 @@
+:root {
+  --banner-blue: rgb(142, 188, 193);
+  --banner-grey: #74746b;
+}
+
+body {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue",
+    Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-size: 18px;
+  position: relative;
+  background-color: #feeafa;
+}
+
+#main {
+  border-radius: 2em;
+  background-color: #feeafa;
+}
+
+#hangmanPic {
+  max-width: 50%;
+  height: auto;
+}
+
+#letters {
+  padding: 0;
+  margin: 0;
+}
+
+#letters .btn {
+  background-color: var(--banner-blue);
+  border: none;
+  color: white;
+  font-size: 100%;
+  width: 50px;
+  height: 50px;
+  margin: 10px 10px 10px 10px;
+}
+
+#letters .btn:hover {
+  box-shadow: 3px 3px 2px var(--banner-grey);
+}
+
+#letters .btn.disabled:hover {
+  box-shadow: none;
+}
+
+#reset {
+  background-color: var(--banner-grey);
+  border: none;
+}
+
+.word {
+  color: var(--banner-blue);
+  white-space: nowrap;
+  font-weight: bold;
+}
+
+#result {
+  font-size: xx-large;
+  font-weight: bolder;
+}

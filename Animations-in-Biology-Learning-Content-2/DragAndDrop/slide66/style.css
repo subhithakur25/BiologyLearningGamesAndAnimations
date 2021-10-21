@@ -1,0 +1,101 @@
+#master-container {
+  position: relative;
+  width: 100%;
+  padding-top: 50%;
+  background-color: white;
+}
+
+div.question-container {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  top: 0;
+  left: 0;
+  height: 80%;
+  width: 80%;
+  background-image: url("img/feedback2.jpg");
+  background-repeat: no-repeat;
+  background-size: 70%;
+}
+div.answer {
+  font-weight: bold;
+  text-align: center;
+}
+div.answer-container {
+  position: absolute;
+  top: 2%;
+  left: 60%;
+  width: 18%;
+  height: 55%;
+}
+
+div.word-bank {
+  position: absolute;
+  left: 0%;
+  width: 110%;
+  height: 80%;
+  border: 2px solid black;
+  /* background-color: green; */
+}
+div.submit-container {
+  position: absolute;
+  top: 78%;
+  left: 30%;
+  bottom: 0;
+  text-align: center;
+  display: table-cell;
+  padding-top: 7%;
+}
+#submit {
+  font-size: 1.5vw;
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 14px 32px;
+  text-align: center;
+  cursor: pointer;
+}
+
+/* styling of the individual answer blanks */
+.dropBox {
+  position: absolute;
+  background: lightskyblue;
+  border: 2px solid black;
+  text-align: center;
+  color: black;
+  font-weight: 700;
+}
+
+.dropBox.answer-hover {
+  background: yellow;
+}
+
+.dropBox.has-answer.answer-hover {
+  background: yellow;
+}
+
+.dropBox.has-answer {
+  background: sandybrown;
+}
+
+.answer {
+  cursor: pointer;
+  margin: 2%;
+  font-size: 1.1vw;
+}
+
+.dropBox > .answer {
+  margin: 0px;
+}
+
+#negative {
+  font-size: xxx-large;
+  font-weight: 1500;
+  color: blueviolet;
+}
+#positive {
+  font-size: xxx-large;
+  font-weight: 1500;
+  color: blueviolet;
+}

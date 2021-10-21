@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+    <!-- jquery scripts -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <!-- iframe resizer -->
+    <script type="text/javascript" src="js/iframeResizer.contentWindow.min.js"></script>
+    <!-- drag and drop animation script -->
+    <script type="text/javascript" src="js/drag_and_drop.js"></script>
+
+    <h1 style = "margin-top:5%" > Please place the correct answers in the blank below questions </h1>
+
+    <div id="master-container">
+      <div class="question-container" >
+        <h3>What is the term which means maintaining a constant internal environment despite changes in the external environment? </h3>
+        <h4>Answer:</h4>
+        <div id = "#1" class = "dropBox" style = "margin-bottom:10%"  ></div>
+      </div>
+      <div class="question-container" >
+        <h3>Which two body systems help regulate the internal environment? </h3>
+        <h4>Answer:</h4>
+        <div id = "#2" class = "dropBox" ></div>
+        <div id = "#2" class = "dropBox" style = "margin-bottom:10%" ></div>
+      </div>
+      <div class= "answer-container">
+        <div class="word-bank">
+          <div class="answer" id="5" >Balance</div>
+          <div class="answer" id="6" >Muscular system</div>
+          <div class="answer" id="1" >Homeostasis</div>
+          <div class="answer" id="2" >Endocrine system</div>
+          <div class="answer" id="4" >Stimulus</div>
+          <div class="answer" id="2" >Nervous system</div>
+          <div class="answer" id="7" >Reflex arc</div>
+          <div class="answer" id="8" >Cardiovascular system </div>
+        </div>
+        <!-- <div class="submit-container"> -->
+          <button id="submit" >Submit</button>
+        <!-- </div> -->
+        <p><div id = "result"></div></p>
+      </div>
+    </div>
+  </body>
+</html>

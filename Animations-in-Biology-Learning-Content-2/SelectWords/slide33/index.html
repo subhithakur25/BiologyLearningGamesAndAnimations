@@ -1,0 +1,56 @@
+<head>
+  <script type="text/javascript" src="./js/jquery-1.11.3.min.js"></script>
+  <script type="text/javascript" src="./js/wordSelect.js"></script>
+  <link rel="stylesheet" type="text/css" href="./css/style.css" />
+  <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css" />
+  <script
+    type="text/javascript"
+    src="./js/iframeResizer.contentWindow.min,js"
+  ></script>
+  <meta charset="utf-8" />
+</head>
+
+<body>
+  <div
+    style="width: 80%; margin: auto"
+    class="d-flex justify-content-center flex-wrap"
+  >
+    <div class="text-center pt-3">
+      <h1>Choose the correct word to finish the sentences.</h1>
+      <br />
+      <br />
+      <br />
+      <p class="text-center">
+        The
+        <label
+          id="endocrine"
+          class="font-weight-bold"
+          onclick="question(0, event)"
+          >endocrine</label
+        >
+        /
+        <label id="nervous" onclick="question(0, event)">nervous</label>
+        system regulartes body functions. It uses
+        <label id="electrical" onclick="question(1,event)">electrical</label>
+        /
+        <label id="chemical" onclick="question(1, event)">chemical</label>
+        messengers called
+        <label id="hormones" onclick="question(2,event)">hormones</label>
+        /
+        <label id="impulses" onclick="question(2, event)">impulses</label>
+        to communicate with the body. The body responds
+        <label id="quickly" onclick="question(3,event)">quickly</label>
+        /
+        <label id="slowly" onclick="question(3, event)">slowly</label>
+        to these messages.
+      </p>
+    </div>
+
+    <div class="break"></div>
+    <button onclick="submit()" id="submit" class="btn btn-primary">
+      Submit
+    </button>
+    <div class="break"></div>
+    <h3 id="result"></h3>
+  </div>
+</body>

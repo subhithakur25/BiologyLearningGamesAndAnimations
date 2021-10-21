@@ -1,0 +1,145 @@
+body {
+  background: #2ea7d7;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  color: #fff;
+  height: 100%;
+  text-align: center;
+  font-size: 18px;
+  -webkit-user-select: none;
+  -moz-user-select: -moz-none;
+  -ms-user-select: none;
+  user-select: none;
+
+}
+
+.wrappper {
+  width: 100%;
+  margin: 0 auto;
+}
+
+h1, h2, h3 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+  text-transform: uppercase;
+  margin: 5px 0;
+}
+h1 {
+  font-size: 2.6em;
+}
+h2 {
+  font-size: 1.6em;
+}
+p {
+  font-size: 1.6em;
+}
+
+.column {
+  float: left;
+  width: 50%;
+  height: fit-content;
+}
+
+.words {
+  border: #fff dashed 2px;
+  margin: 15px;
+  min-height: 200px;
+}
+
+.words li {
+  float: left;
+  margin: 5px 5px 5px 5px;
+  list-style: none;
+  width: -moz-fit-content;
+  height: fit-content;
+  padding: 5px;
+  background: #fff;
+  color: #97ac10;
+  cursor: pointer;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -khtml-border-radius: 5px;
+  border: solid 1px #fff;
+  box-sizing: content-box;
+  position: relative;
+  transition: all 200ms;
+}
+
+.words li:after {
+  cursor: pointer;
+  transition: all 200ms;
+  transition-timing-function: cubic-bezier(0.48, 0.72, 0.62, 1.5);
+  transform: translateX(120%);
+  position: absolute;
+}
+
+.words li:hover {
+  background: #c1d72e;
+  border: solid 1px #fff;
+  color: #fff;
+}
+
+.words li:hover:after {
+  transform: translate(0);
+}
+
+button {
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -khtml-border-radius: 5px;
+  background: #c1d72e;
+  color: #fff;
+  border: solid 1px #fff;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 1.2em;
+  padding: 18px 10px;
+  width: 180px;
+  margin: 10px;
+  outline: none;
+}
+
+button:hover {
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  background: #fff;
+  border: solid 1px #fff;
+  color: #c1d72e;
+}
+
+#hint {
+  position: absolute;
+  left: 10px;
+}
+
+#reset {
+  position: absolute;
+  left:50%;
+  -ms-transform: translate(-50%, 0%);
+  transform: translate(-50%, 0%);
+  visibility: hidden;
+}
+
+#answer {
+  position: absolute;
+  right: 10px;
+}
+
+#bottom {
+  height: fit-content;
+}
+
+.buttonRow {
+  height: 100px;
+}
+
+.container {
+  position: relative;
+}
+
+.swal2-modal button.styled
+{
+  width: auto !important;
+}

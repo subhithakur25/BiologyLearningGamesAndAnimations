@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>WORD SCRAMBLE</title>
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta content="true" name="HandheldFriendly">
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+    <!-- STYLESHEETS -->
+    <link href="css/style.css?v=1.0.1" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/sweetalert2.min.css" />
+    <!-- FONTS -->
+    <link rel="stylesheet" type="text/css" href="css/novaMono.css" />
+    <link rel="stylesheet" type="text/css" href="css/sueEllenFrancisco.css" />
+    <!-- SCRIPTS -->
+    <script type="text/javascript" src="js/sweetalert2.min.js"></script>
+    <script type="text/javascript" src="js/3p/iframeResizer/iframeResizer.contentWindow.min.js"></script>
+    <!-- always use this for easy resizing, paired with stepstone player handler -->
+</head>
+
+<body>
+    <div class="bg">
+        <div class="title">
+            <div style="float: left; padding-left: 10px">
+                <h2 class="wordlist">Word List</h2>
+                <ul id="list"></ul>
+            </div>
+            <div style=" float:right ; padding-right: 10px;">
+                <h2 class="score">Score</h2>
+                <span id="score">0</span>
+            </div>
+            <h1 class="word-title">WORD SCRAMBLE</h1>
+            <!-- <h4 class="word-title-2">Click any tile to start!</h4> -->
+            <button id="btn" onclick="play()" class="btn-lg button">Click Here to Start</button>
+        </div>
+
+        <div style="padding-top: 50px; margin: 0 auto; width: 50%; padding-right: 15px">
+            <table id="board">
+                <tr id="squares">
+                    <!-- <td id="1">
+                    </td>
+    
+                    <td id="2">
+                    </td>
+    
+                    <td id="3">
+                    </td> -->
+                </tr>
+            </table>
+        </div>
+        <!-- <div style="width: 100%; display: inline-flex">
+            <div style="width: 50%; display: inline-block; padding-left: 10px">
+                <h2 class="wordlist">Word List</h2>
+                <ul id="list"></ul>
+            </div>
+            <div style="width: 50%; display: inline-block; text-align: right; padding-right: 10px;">
+                <h2 class="score">Score</h2>
+                <span id="score">0</span>
+            </div>
+        </div> -->
+        <div class="buttons">
+            <button id="levels" class=" btn-lg button">LEVEL</button>
+            <button id="hint" class=" btn-lg button">HINT</button>
+            <button id="next" class=" btn-lg button">NEXT WORD</button>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="js/jquery-1.7.2.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/jquery.ui.touch-punch.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/game_data.js"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>

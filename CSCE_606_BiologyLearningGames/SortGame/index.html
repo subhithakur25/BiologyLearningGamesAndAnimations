@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=1.0.1" />
+    <link rel="stylesheet" type="text/css" href="css/sweetalert2.min.css" />
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/jquery.ui.touch-punch.min.js"></script>
+    <script type="text/javascript" src="js/game_data.js"></script>
+    <script type="text/javascript" src="js/sort.js?v=1.0.2"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/iframeResizer.contentWindow.min.js"></script>
+  <script type="text/javascript" src="js/sweetalert2.min.js"></script>
+  </head>
+  <body>
+    <div class="wrapper container">
+      <h1>This or That?</h1>
+      <p>
+        Drag the words below and put them in the right category.
+      </p>
+    </div>
+    <div class="container">
+      <div class="row">
+        <label style="text-align: left" id="lblScore"> Score: 0 </label>
+        <label style="text-align: left" id="lblLife"> Lives: 5 </label>
+        <p style="text-align: left">
+          Bag of words.
+        </p>
+        <div id="buttons">
+        </div>
+      </div>
+      <div class="row">
+        <div class="column">
+          <p id="categoryName1">
+          </p>
+          <ul class="words" id="category1">
+          </ul>
+        </div>
+        <div class="column">
+          <p id="categoryName2">
+          </p>
+          <ul class="words" id="category2">
+          </ul>
+        </div>
+      </div>
+      <div class="buttonRow">
+        <div class="col align-self-center">
+          <button id="hint">Hint</button>
+        </div>
+        <div class="col align-self-center">
+          <button id="reset">Play Again</button>
+        </div>
+        <div class="col align-self-center">
+          <button id="answer">Answer</button>
+        </div>
+      </div>
+    </div> 
+  </body>
+</html>

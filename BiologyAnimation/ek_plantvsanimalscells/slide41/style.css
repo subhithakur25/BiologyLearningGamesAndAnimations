@@ -1,0 +1,13 @@
+body {
+  padding-top: 32px;
+}
+
+.cellImage {
+  cursor: pointer;
+  width: 100%;
+  height: auto;
+}
+
+.cursorNotAllowed {
+  cursor: not-allowed;
+}

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="js/iframeResizer.contentWindow.min.js"></script>
+
+<style>
+body {
+	font-family: sans-serif, arial, helvetica;
+	height: 800px;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    height: 90vh;
+}
+
+.box, .content {
+  height: 50px;
+  background-color: #008CBA;
+  border: none;
+  color: white;
+  padding: 10px 22px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+.imageContainer {
+	margin-top: 32px;
+	width: 100%;
+	height: 75vh;
+	max-width: 840px;
+	margin: 0 auto;
+}
+
+.image {
+	width: 100%;
+}
+
+@media (max-width: 768px) {
+	.container {
+		height: 60vh;
+	}
+
+	.imageContainer {
+		margin-top: 20vh;
+		height: 50vh;
+	}
+
+	.image {
+		height: 80%;
+	}
+}
+
+</style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="imageContainer">
+      <img src="slide_14.png" class="image"></img>
+    </div>
+    <div class= "box">Click to view the Organelle Definition</div>
+  </div>
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $( ".box" ).click(function() {
+        $( ".box" ).remove();
+        $(".container").append("<div class='content'>These membrane bound structures are called organelles</div>");
+      });
+    });
+  </script>
+
+</body>

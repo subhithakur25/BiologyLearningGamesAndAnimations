@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>This or That!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            height: 800px;
+        }
+
+        #question {
+            background-color: #DCDCDC;
+            position: absolute;
+            top: 30%;
+            left: 20%;
+            right: 25%;
+            height: 50%;
+            border-radius: 10px;
+        }
+
+        #question_body {
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            padding: 1%;
+        }
+
+        #output-text {
+            z-index: 100;
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin: 5px auto;
+            font-size: 20px;
+            height: 5%;
+            text-align: justify;
+            text-align-last: center;
+        }
+
+        h1 {
+            position: relative; 
+            top: 10%;
+            width: 100%;
+            text-align: center;
+            font-family: Helvetica, Arial, sans-serif;
+            font-style: italic;
+        }
+
+	h2 {
+            padding: 2%;
+            text-align: center;
+        }
+
+        button {
+            border-radius: 8px;
+            background-color: #34A0FF;
+            font-size: 14px;
+        }
+
+	#next {
+            position: absolute;
+            background-color: #DCDCDC;
+            top: 30%;
+            right: 20%;
+            width: 5%;
+            height: 50%;
+            border-radius: 10px;
+            border: 1px solid black;
+	}
+
+        #options {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+
+        #option1, #option2 {
+            width: 150px;
+            height: 50px;
+            margin: 20px;
+            font-weight: bold;
+        }
+
+        @media only screen and (max-device-width: 480px),
+        only screen and (min-device-width: 768px)
+        and (max-device-width: 1024px) {
+            #options {
+                flex-direction: column;
+            }
+        }
+
+        @media only screen and (min-device-width: 768px)
+        and (max-device-width: 1024px) {
+            #question {
+                right: 20%;
+            }
+
+	    #next {
+                top: 80%;
+                left: 20%;
+                right: 20%;
+                height: 50px;
+                width: 60%;
+	    }
+        }
+
+        @media only screen and (max-device-width: 480px) {
+            #question {
+                left: 5%;
+                right: 5%;
+                height: 50%;
+            }
+
+	    #next {
+                top: 80%;
+                left: 5%;
+                right: 5%;
+                height: 50px;
+                width: 90%;
+	    }
+
+            h1 {
+                top: 0;
+            }
+
+            #output-text {
+                top: 15%;
+            }
+        }
+
+        /* iPhone 5 only */
+        @media only screen and (device-width: 320px)
+        and (device-height: 568px)
+        and (-webkit-min-device-pixel-ratio: 2) {
+            #options {
+                flex-direction: row;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/iframeResizer.contentWindow.min.js"></script>
+    <script type="text/javascript" src="js/thisorthat.js"></script>
+    <script type="text/javascript" src="js/contents.js"></script>
+	
+    <h1>This or That!</h1>
+    <p id="output-text"></p>
+
+    <div id="question">
+        <h2 id="question_no"></h2>
+        
+        <p id="question_body"></p>
+
+        <div id="options">
+            <button id="option1"></button>
+            <button id="option2"></button>
+        </div>
+    </div>
+    <button id="next">Next</button>
+</body>
+</html>

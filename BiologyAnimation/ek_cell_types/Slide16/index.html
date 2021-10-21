@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="js/iframeResizer.contentWindow.min.js"></script>
+    <script type="text/javascript" src="js/slide16.js"></script>
+
+    <style>
+	.header {
+            padding-top: 5%;
+            text-align: center;
+	    font-size: 30px;
+	}
+
+	.container {
+	    margin: 10px auto;
+            display: flex;
+	    justify-content: center;
+	    flex-wrap: wrap;
+	}
+
+	.column {
+            margin: 30px;
+            background-color: #808080;
+	}
+
+	.image {
+            opacity: 0;
+	}
+    </style>
+
+</head>
+
+<body>
+
+<p class="header">
+    <span class="prokaryote">Prokaryotic</span> or
+    <span class="eukaryote">Eukaryotic</span>?
+</p>
+
+<div class="container">
+  <div class="column" id="column1">
+   <img class="image" id="image1" src="slide_16.png" width="200px" height="200px">
+  </div>
+  <div class="column" id="column2">
+   <img class="image" id="image2" src="slide_16_2.png" width="200px" height="200px">
+  </div>
+  <div class="column" id="column3">
+    <img class="image" id="image3" src="slide_16_3.png" width="200px" height="200px">
+  </div>
+  <div class="column" id="column4">
+   <img class="image" id="image4" src="slide_16_4.png" width="200px" height="200px">
+  </div>
+</div>
+
+</body>
+</html>

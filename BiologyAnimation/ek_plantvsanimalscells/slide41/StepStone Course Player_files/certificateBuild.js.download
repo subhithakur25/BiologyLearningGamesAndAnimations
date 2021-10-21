@@ -1,0 +1,622 @@
+// ! --------- JS vars -------------
+
+var certificateDataStorageObject = {};
+var originalCanvas;
+var oCanvas;
+//var iWidth;
+//var iHeight; 
+var certificateCanvasOriginalW = '1966';
+var certificateCanvasOriginalH = '1524';
+var certificateCanvasReproW = parseInt(certificateCanvasOriginalW);//'1966';
+var certificateCanvasReproH = parseInt(certificateCanvasOriginalH);//'1524';
+var certificateReproduced = false;
+var generatedImage;
+var passedLearnerName;
+var passedVerboseDate;
+var fullSizeCertificate = false;
+var fullSizeCertificateResizeAllow = false;
+var certificateThumbPreparedImageCopy;
+var delayRedrawCertRedundant;
+var certBG1;
+
+// ! --------- JS inits -------------
+
+$(window).resize(function(){
+	if(!fullSizeCertificate){
+    	//resizeCertificate();
+    }else{
+    	if(fullSizeCertificateResizeAllow){
+    		resizeCertificate();
+    	}
+    }
+});
+
+// ! --------- JS buttons -------------
+
+var RACECertificateFull;
+function confirmFullSizeCertificate(){
+	//*
+    if( RACECertificateFull == null ){
+    	RACECertificateFull = window.open("certificateFullSize.html", "_blank", 'width=' + certificateCanvasOriginalW + ', height=' + certificateCanvasOriginalH);
+    }
+    if( !RACECertificateFull.confirmCertificateReady ){ // check for existence of function in load window
+        setTimeout(confirmFullSizeCertificate, 1000);
+    }else{ // if function does not yet exist, attempt to set variables again on the new window
+    	RACECertificateFull.fullSizeCertificate = 					true;
+    	RACECertificateFull.fullSizeCertificateResizeAllow = 	true;
+    	RACECertificateFull.passedLearnerName = 				learnerName;
+		RACECertificateFull.passedVerboseDate = 				courseStatusObject.courseAssessmentCompletionDateVerbose;
+		RACECertificateFull.confirmCertificateReady();
+		//RACECertificateFull.preInitCanvas();
+		//RACECertificateFull.print();
+    	//RACECertificateFull.document.close();
+    }
+   // */
+    /*
+    $("#canvasContainer").printThis({
+    //$("#preparedImageFromCanvas").printThis({
+		//debug: 				true, //show the iframe for debugging
+		//importCSS: 		true, //import page CSS
+		//printContainer: 	true, //grab outer container as well as the contents of the selector
+		//loadCSS: 			"path/to/my.css", //path to additional css file
+		//pageTitle: 			"", //add title to print page
+		removeInline: 		true, //remove all inline styles from print elements
+		printDelay: 			333, //variable print delay
+		//header: 				null //prefix to html
+		// dan additions:
+		reduceH: 			'99%' // additional height reduction 
+	});
+    /*/
+}
+
+$(document).off("click", ".launchFullCertificateButton");
+$(document).on("click", ".launchFullCertificateButton", function(event){
+	RACECertificateFull = null;
+	confirmFullSizeCertificate();
+});
+
+// perform wrapping and line breaks within box bounds
+function wrapText(context, text, x, y, line_width, line_height){
+    var textLine = '';
+    var textParagraphs = text.split('|');
+    for( var i = 0 ; i < textParagraphs.length ; i++ ){
+        var words = textParagraphs[i].split(' ');
+        for( var n = 0 ; n < words.length ; n++ ){
+            var checkLine = textLine + words[n] + ' ';
+            var metrics = context.measureText(checkLine);
+            var testWidth = metrics.width;
+            if( testWidth > line_width && n > 0 ){
+                context.fillText(textLine, x, y);
+                textLine = words[n] + ' ';
+                y += line_height;
+            }else{
+                textLine = checkLine;
+            }
+        }
+        context.fillText( textLine, x, y );
+        y += line_height;
+        textLine = '';
+    }
+}
+
+function preInitCanvas(){
+	
+	if(!certificateReproduced){
+		$('#canvasContainer').html('<canvas id="mainCanvas" width="' + certificateCanvasOriginalW + '" height="' + certificateCanvasOriginalH + '">Loading, Please wait...</canvas>');
+		//initializeCanvas('mainCanvas');
+	    originalCanvas = 		$('#mainCanvas');
+		// necessary bits for c2i
+		oCanvas = 				document.getElementById("mainCanvas");
+		//var iWidth = 				oCanvas.width;
+		//var iHeight = 				oCanvas.height;
+	    loadCertificateData();
+	}else{
+		$('#canvasContainer').html('<img id="preparedImageFromCanvas" src="' + certificateThumbPreparedImageCopy.src + '" />');
+		certificateSubtext();
+		/*
+		//make a clone to check sizing and reproduce later
+		certificateThumbPreparedImage = $('#preparedImageFromCanvas');
+		// Create new offscreen image to test
+		certificateThumbPreparedImageCopy = new Image();
+		certificateThumbPreparedImageCopy.src = certificateThumbPreparedImage.attr("src");
+		*/
+	}
+}
+
+function resizeCertificate(){
+    if(certificateReproduced){
+        var w;
+        var h;
+        var updatedReproRatio; // stores a proper ratio based on original size
+        var max_size; // applies to both w and height max size
+		var reproImage = 		$('#preparedImageFromCanvas');
+		var reproImageW = 	reproImage.width();
+		var reproImageH = 	reproImage.height();
+        if( reproImageH > reproImageW ) {
+        	if(fullSizeCertificateResizeAllow){
+	        	max_size = 		$(window).height();
+        	}else{
+	        	max_size = $('.courseCertificateContent').height(); // check this...
+        	}
+        	updatedReproRatio = (max_size / certificateCanvasReproH);
+        	w = Math.ceil( certificateCanvasReproW * updatedReproRatio);
+	        h = max_size;
+	    }else{
+	    	if(fullSizeCertificateResizeAllow){
+	        	max_size = 		$(window).width();
+        	}else{
+	        	max_size = $('.courseCertificateContent').width();
+        	}
+	        updatedReproRatio = (max_size / certificateCanvasReproW);
+	        w = max_size;
+	        h = Math.ceil( certificateCanvasReproH * updatedReproRatio);
+	    }
+	    reproImage.css({
+	    	'height': 		h,
+	    	'width': 		w//,
+	    });
+    }
+}
+/* ! --[ F - load case parameters ]--- */
+function loadCertificateData(){
+	var dummyTS = Number(new Date()); // appended to xml request, seems to help with web error (code?)
+	$.ajax({
+		type:			'POST',
+		//url: 			'xml_updates/' + loadDataFile + '.xml',
+		//url: 			CETCourseContentPath + '/xml/certificateData.xml?' + dummyTS,
+		//dataType: 	'xml',
+		url: 			CETCourseContentPath + '/json/certificateData.json?' + dummyTS,
+		dataType: 	'json',
+		data:			{}
+	}).done(function (doneResponse){
+		var subjectMatterItemArray = [];
+		//json version
+		masterJSONStorage.certificateData = 	doneResponse.certificateParams; // json fakescorm storage
+		
+		certificateDataStorageObject.learnerNameDisplayMethod = 	masterJSONStorage.certificateData.learnerNameDisplayMethod;
+		certificateDataStorageObject.courseName = 						masterJSONStorage.certificateData.courseName;
+		certificateDataStorageObject.raceApprovalNum = 				masterJSONStorage.certificateData.aceApprovalNum;
+		certificateDataStorageObject.creditsNum = 							masterJSONStorage.certificateData.creditsNum;
+		//$(response).find("subjectMatterItem").each(function(){
+			//subjectMatterItemArray.push( $(this).text() );
+		//});
+		//certificateDataStorageObject.subjectMatterItems = subjectMatterItemArray;
+		certificateDataStorageObject.subjectMatterItems = 				masterJSONStorage.certificateData.subjectMatterItems;
+		certificateDataStorageObject.completionDate = 					masterJSONStorage.certificateData.completionDate;
+		certificateDataStorageObject.deliveryMethod = 					masterJSONStorage.certificateData.deliveryMethod;
+		certificateDataStorageObject.presentedBy = 						masterJSONStorage.certificateData.presentedBy;
+		certificateDataStorageObject.raceProviderNum = 					masterJSONStorage.certificateData.raceProviderNum;
+		certificateDataStorageObject.sigPrintName = 						masterJSONStorage.certificateData.sigPrintName;
+		//xml version
+		/*
+		certificateDataStorageObject.learnerNameDisplayMethod = $(response).find('learnerName').attr('displayMethod');
+		certificateDataStorageObject.courseName = $(response).find('courseName').text();
+		certificateDataStorageObject.raceApprovalNum = $(response).find('raceApprovalNum').text();
+		certificateDataStorageObject.creditsNum = $(response).find('creditsNum').text();
+		//$(response).find("subjectMatterItem").each(function(){
+			//subjectMatterItemArray.push( $(this).text() );
+		//});
+		//certificateDataStorageObject.subjectMatterItems = subjectMatterItemArray;
+		certificateDataStorageObject.subjectMatterItems = $(response).find("subjectMatterItems").text();
+		certificateDataStorageObject.completionDate = $(response).find('completionDate').text();
+		certificateDataStorageObject.deliveryMethod = $(response).find('deliveryMethod').text();
+		certificateDataStorageObject.presentedBy = $(response).find('presentedBy').text();
+		certificateDataStorageObject.raceProviderNum = $(response).find('raceProviderNum').text();
+		certificateDataStorageObject.sigPrintName = $(response).find('sigPrintName').text();
+		*/
+		certBG1 = new Image();
+		certBG1.src = '../../../common/img/certificate/veritasCertBGBase1.png';
+		// preload the image file, then draw canvas
+		//$(certBG1).load(function(){
+		$(certBG1).on('load', function(){
+			drawCanvas('mainCanvas');
+		});
+	}).fail(function (failResponse){
+		console.log('error');
+	});
+}
+
+function convertCanvas(strType) {
+	//var generatedImage;
+	switch(strType){
+    	case "PNG":
+    		generatedImage = Canvas2Image.saveAsPNG(oCanvas, true);
+    		break;
+    	case "BMP":
+    		generatedImage = Canvas2Image.saveAsBMP(oCanvas, true);
+    		break;
+    	case "JPEG":
+    		generatedImage = Canvas2Image.saveAsJPEG(oCanvas, true);
+    		break;
+	}
+	if(!generatedImage){
+		alert("Sorry, this browser is not capable of generating " + strType + " files!");
+		return false;
+	}
+	generatedImage.id = "preparedImageFromCanvas";
+	// seem to need to place these here, isn't getting size from script...
+	//generatedImage.width = certificateCanvasReproW;
+	//generatedImage.height = certificateCanvasReproH;
+	//oImg.style.border = oCanvas.style.border;
+	//document.body.replaceChild(generatedImage, oCanvas);
+	$('#mainCanvas').remove();
+	$('#canvasContainer').prepend(generatedImage);
+	certificateReproduced = true;
+	
+	//make a clone to check sizing and reproduce later
+	certificateThumbPreparedImage = $('#preparedImageFromCanvas');
+	// Create new offscreen image to test
+	certificateThumbPreparedImageCopy = new Image();
+	certificateThumbPreparedImageCopy.id = 'certificateThumbPreparedImageCopy';
+	certificateThumbPreparedImageCopy.src = certificateThumbPreparedImage.attr("src");
+	//$('#canvasContainer img').remove();
+	//$('#canvasContainer').prepend(generatedImage);
+	/*
+	// Get accurate measurements from that.
+	var measureImgWidth = certificateThumbPreparedImageCopy.width;
+	var measureImgHeight = certificateThumbPreparedImageCopy.height;
+	var certificateImageContainerNativeWHRatio = 	measureImgWidth / measureImgHeight;
+	/*/
+	if(!fullSizeCertificate){
+		certificateSubtext();
+		resizeCertificateThumb();
+		
+		// fix for ie not resizing placed image properly
+		clearTimeout(delayRedrawCertRedundant);
+		delayRedrawCertRedundant = setTimeout(function(){
+			sideNavReset(lightBoxDialog_Level3_EngagedContentType, dashboardSideNavItemActive);
+		},10);
+		
+		//$('#canvasContainer').append('<div style="margin: 1em; margin-left: auto; margin-right: auto;"><span class="launchFullCertificateButton">Print Certificate</span></div>');
+		//$('.launchFullCertificateButton').css('background', skinPrimaryColor);
+		//resizeCertificate();
+	}else{
+		resizeCertificate();
+		performPrint();
+	}
+	//showDownloadText();
+}
+
+function certificateSubtext(){
+	if(!isMobileBrowser){ // desktop instruction
+		$('#canvasContainer').append('<div class="certificateThumbInstruction">To access your certificate, right-click the image and select "Save Image as" from the menu.</div>');
+	}else{ // mobile instruction
+		$('#canvasContainer').append('<div class="certificateThumbInstruction">To access your certificate, tap/hold on the image and select "Save Image" to save it to your device.</div>');
+	}
+	//$('.courseCertificateContent .dashboardSectionSplash').after( $('.courseCertificateContent #canvasContainer') );
+}
+
+// ! --------- JS functions -------------
+
+function roundedRect(context, x, y, w, h, r){
+    context.beginPath();
+    context.arc(x+r, y+r, r, Math.PI, 1.5*Math.PI);
+    context.arc(x+w-r, y+r, r, 1.5*Math.PI, 2*Math.PI);
+    context.arc(x+w-r, y+h-r, r, 0, 0.5*Math.PI);
+    context.arc(x+r, y+h-r, r, 0.5*Math.PI, Math.PI);
+    context.closePath();
+}
+
+function makeRect(x, y, w, h){
+    return { x: x, y: y, w: w, h: h };
+}
+
+function drawCanvas(canvasId){
+	
+	// ensure we have the stored date that assessment was completed prepared
+	prepareDateStamp();
+
+    //// General Declarations
+    var canvas = document.getElementById(canvasId);
+    var context = canvas.getContext('2d');
+
+    //// Color Declarations
+    var blackColor = 'rgba(0, 0, 0, 1)';
+    var whiteColor = 'rgba(255, 255, 255, 1)';
+    var color_GreyLight1 = 'rgba(246, 246, 247, 1)';
+    var color_Black = 'rgba(0, 0, 0, 1)';
+    var color_GreyDark1 = 'rgba(85, 85, 85, 1)';
+    var certificateInnerBoxGreen = 'rgba(84, 185, 72, 1)';
+    var certificateOuterBoxGreen = 'rgba(169, 213, 152, 1)';
+    var color_GreyMid1 = 'rgba(156, 156, 156, 1)';
+
+    //// Image Declarations
+    //var certBG1 = new Image();
+   // image2.src = '../img/certificate/veritasCertBGBase1.png';
+
+    //// Abstracted Attributes
+    var raceProviderLabelContent = 'RACE PROVIDER #:';
+    var presentedByLabelContent = 'PRESENTED BY:';
+    var methodLabelContent = 'METHOD OF DELIVERY:';
+    var dateLabelContent = 'DATE:';
+    var authorizedSignatureLabelContent = 'AUTHORIZED SIGNATURE:';
+    var subjectMatterLabelContent = 'SUBJECT MATTER:';
+    var creditsLabelContent = 'CREDITS:';
+    var raceApprovalNumberLabelContent = 'AAVSB RACE APPROVAL #:';
+    var forTheCompletionOfContent = 'FOR THE COMPLETION OF:';
+    var inTheStateOfContent = 'IN THE STATE(S) OF';
+    var licenseNumberContent = 'WITH LICENSE NUMBER(S)';
+    var nameTextContent = 'Name, Student';
+    var awardedToContent = 'AWARDED TO';
+    
+    var sigPrintNameContent = certificateDataStorageObject.sigPrintName;//'J. Michael McFarland';
+    var raceProviderValueContent = certificateDataStorageObject.raceProviderNum;//'746';
+    var presentedByValueContent = certificateDataStorageObject.presentedBy;//'Zoetis, Veritas Division, Madison, NJ';
+    var methodValueContent = certificateDataStorageObject.deliveryMethod;//'Non-interactive Online';
+    //var dateValueContent = certificateDataStorageObject.completionDate;//'Wednesday, February 19, 2014';
+    if(!fullSizeCertificate){
+    	var dateValueContent = courseStatusObject.courseAssessmentCompletionDateVerbose;//'Wednesday, February 19, 2014';
+    }else{
+	    var dateValueContent = passedVerboseDate;//'Wednesday, February 19, 2014';
+    }
+    var subjectMatterValueContent = certificateDataStorageObject.subjectMatterItems;//'Scientific / Clinical: Dentistry (75 min.)';
+    var creditsValueContent = certificateDataStorageObject.creditsNum;//'1.5';
+    var raceApprovalNumberValueContent = certificateDataStorageObject.raceApprovalNum;//'746-11900';
+    var courseNameValueContent = certificateDataStorageObject.courseName;//'Common Dental Extractions: Canine';
+    //var nameTextContent = certificateDataStorageObject.learnerName;//'Jordan Tayce';
+    if(!fullSizeCertificate){
+    	nameTextContent = sortUserName( learnerName, certificateDataStorageObject.learnerNameDisplayMethod );
+    }else{
+	    nameTextContent = passedLearnerName;
+    }
+    var smallprintContent = 'RACE: Course meets the requirements for ' + creditsValueContent + ' hour(s) of continuing education credit in jurisdictions which recognize AAVSB RACE approval; however, participants should be aware that some boards have limitations on the number of hours accepted in certain categories and/or restrictions on certain methods of delivery of continuing education.||NC: This program has been approved by the North Carolina Veterinary Medical Board for ' + creditsValueContent + ' hour(s) of continuing education credit.||NY: Approved as a New York State Sponsor of continuing education for veterinarians and veterinary technicians.';
+    
+    //// largeset
+    //// solidwhitebg Drawing
+    context.beginPath();
+    context.rect(0, 0, 1966, 1524);
+    context.fillStyle = whiteColor;
+    context.fill();
+    
+    //// rightSideText
+    //// smallprint Drawing
+    var smallprintboxParams = {};
+    smallprintboxParams.xPoz = 	1083;
+    smallprintboxParams.yPoz = 	1129;
+    smallprintboxParams.W = 		648;
+    smallprintboxParams.H = 		261;
+    smallprintboxParams.lineH = 	22;
+    var smallprintRect = 			makeRect(smallprintboxParams.xPoz, smallprintboxParams.yPoz, smallprintboxParams.W, smallprintboxParams.H);
+    context.fillStyle = 				color_GreyDark1;
+    context.font = 					'17px Vegur-Regular, Vegur, sans-serif';
+    context.textAlign = 				'left';
+    
+    //smallprintContent
+	wrapText(context, smallprintContent, smallprintboxParams.xPoz, smallprintboxParams.yPoz, smallprintboxParams.W, smallprintboxParams.lineH);
+	
+    //// race Provider Value Drawing
+    var raceProviderValueRect = makeRect(1295, 838, 297, 46);
+    context.fillStyle = color_Black;
+    context.font = '31px Vegur-Regular, Vegur, sans-serif';
+    context.textAlign = 'left';
+    context.fillText(raceProviderValueContent, raceProviderValueRect.x, raceProviderValueRect.y + 30);
+
+    //// race Provider Label Drawing
+    var raceProviderLabelRect = makeRect(1082, 841, 209, 46);
+    context.fillStyle = color_GreyDark1;
+    context.font = 'bold 25px Vegur-Bold, Vegur, sans-serif';
+    context.textAlign = 'left';
+    context.fillText(raceProviderLabelContent, raceProviderLabelRect.x + 0.12, raceProviderLabelRect.y + 24);
+
+    //// presented By Value Drawing
+    var presentedByValueRect = makeRect(1261, 790, 660, 46);
+    context.fillStyle = color_Black;
+    context.font = '31px Vegur-Regular, Vegur, sans-serif';
+    context.textAlign = 'left';
+    context.fillText(presentedByValueContent, presentedByValueRect.x + 0.15, presentedByValueRect.y + 30);
+
+    //// presented By Label Drawing
+    var presentedByLabelRect = makeRect(1083, 792, 178, 46);
+    context.fillStyle = color_GreyDark1;
+    context.font = 'bold 25px Vegur-Bold, Vegur, sans-serif';
+    context.textAlign = 'left';
+    context.fillText(presentedByLabelContent, presentedByLabelRect.x + 0.12, presentedByLabelRect.y + 24);
+
+    //// method Value Drawing
+    var methodValueRect = makeRect(1345, 739, 492, 46);
+    context.fillStyle = color_Black;
+    context.font = '31px Vegur-Regular, Vegur, sans-serif';
+    context.textAlign = 'left';
+    context.fillText(methodValueContent, methodValueRect.x + 0.15, methodValueRect.y + 30);
+
+    //// method Label Drawing
+    var methodLabelRect = makeRect(1082, 742, 263, 46);
+    context.fillStyle = color_GreyDark1;
+    context.font = 'bold 25px Vegur-Bold, Vegur, sans-serif';
+    context.textAlign = 'left';
+    context.fillText(methodLabelContent, methodLabelRect.x + 0.12, methodLabelRect.y + 24);
+
+    //// date Value Drawing
+    var dateValueRect = makeRect(1152, 690, 660, 46);
+    context.fillStyle = color_Black;
+    context.font = '31px Vegur-Regular, Vegur, sans-serif';
+    context.textAlign = 'left';
+    context.fillText(dateValueContent, dateValueRect.x + 0.15, dateValueRect.y + 30);
+
+    //// date Label Drawing
+    var dateLabelRect = makeRect(1083, 693, 69, 46);
+    context.fillStyle = color_GreyDark1;
+    context.font = 'bold 25px Vegur-Bold, Vegur, sans-serif';
+    context.textAlign = 'left';
+    context.fillText(dateLabelContent, dateLabelRect.x + 0.12, dateLabelRect.y + 24);
+
+    //// sigbox
+    //// sigline Drawing
+    context.beginPath();
+    context.rect(1082, 1024, 627, 2);
+    context.fillStyle = color_GreyMid1;
+    context.fill();
+
+    //// sig Print Name Drawing
+    var sigPrintNameRect = makeRect(1316, 1032, 249, 46);
+    context.fillStyle = color_GreyMid1;
+    context.font = '20px Vegur-Regular, Vegur, sans-serif';
+    context.textAlign = 'left';
+    context.fillText(sigPrintNameContent, sigPrintNameRect.x + 0.1, sigPrintNameRect.y + 19);
+
+    //// authorized Signature Label Drawing
+    var authorizedSignatureLabelRect = makeRect(1082, 892, 483, 46);
+    context.fillStyle = color_GreyDark1;
+    context.font = 'bold 25px Vegur-Bold, Vegur, sans-serif';
+    context.textAlign = 'left';
+    context.fillText(authorizedSignatureLabelContent, authorizedSignatureLabelRect.x + 0.12, authorizedSignatureLabelRect.y + 24);
+
+    //// lefttSideText
+    //// subject matter value Drawing
+	var subjectMatterboxParams = {};
+    subjectMatterboxParams.xPoz = 	268;
+    subjectMatterboxParams.yPoz = 	985;
+    subjectMatterboxParams.W = 	779;
+    subjectMatterboxParams.H = 		421;
+    subjectMatterboxParams.lineH = 25;
+    var subjectMatterValueRect = 	makeRect(subjectMatterboxParams.xPoz, subjectMatterboxParams.yPoz, subjectMatterboxParams.W, subjectMatterboxParams.H);
+    context.fillStyle = 					color_GreyDark1;
+    context.font = 						'27px Vegur-Regular, Vegur, sans-serif';
+    context.textAlign = 					'left';
+    
+    //smallprintContent
+	wrapText(context, subjectMatterValueContent, subjectMatterboxParams.xPoz, subjectMatterboxParams.yPoz, subjectMatterboxParams.W, subjectMatterboxParams.lineH);
+	
+    //// subject matter label Drawing
+    var subjectMatterLabelRect = makeRect(268, 918, 705, 46);
+    context.fillStyle = color_GreyDark1;
+    context.font = 'bold 25px Vegur-Bold, Vegur, sans-serif';
+    context.textAlign = 'left';
+    context.fillText(subjectMatterLabelContent, subjectMatterLabelRect.x + 0.12, subjectMatterLabelRect.y + 24);
+
+    //// credits value Drawing
+    var creditsValueRect = makeRect(375, 865, 672, 46);
+    context.fillStyle = color_Black;
+    context.font = '31px Vegur-Regular, Vegur, sans-serif';
+    context.textAlign = 'left';
+    context.fillText(creditsValueContent, creditsValueRect.x, creditsValueRect.y + 30);
+
+    //// credits label Drawing
+    var creditsLabelRect = makeRect(268, 868, 105, 46);
+    context.fillStyle = color_GreyDark1;
+    context.font = 'bold 25px Vegur-Bold, Vegur, sans-serif';
+    context.textAlign = 'left';
+    context.fillText(creditsLabelContent, creditsLabelRect.x + 0.12, creditsLabelRect.y + 24);
+
+    //// race approval number value Drawing
+    var raceApprovalNumberValueRect = makeRect(567, 814, 480, 46);
+    context.fillStyle = color_Black;
+    context.font = '31px Vegur-Regular, Vegur, sans-serif';
+    context.textAlign = 'left';
+    context.fillText(raceApprovalNumberValueContent, raceApprovalNumberValueRect.x, raceApprovalNumberValueRect.y + 30);
+
+    //// race approval number label Drawing
+    var raceApprovalNumberLabelRect = makeRect(268, 817, 299, 46);
+    context.fillStyle = color_GreyDark1;
+    context.font = 'bold 25px Vegur-Bold, Vegur, sans-serif';
+    context.textAlign = 'left';
+    context.fillText(raceApprovalNumberLabelContent, raceApprovalNumberLabelRect.x + 0.12, raceApprovalNumberLabelRect.y + 24);
+
+    //// courseNameValue Drawing
+    var courseNameValueboxParams = {};
+    courseNameValueboxParams.xPoz = 	267;
+    courseNameValueboxParams.yPoz = 	760;
+    courseNameValueboxParams.W = 		780;
+    courseNameValueboxParams.H = 		93;
+    courseNameValueboxParams.lineH = 	39;
+    var courseNameValueRect = 				makeRect(courseNameValueboxParams.xPoz, courseNameValueboxParams.yPoz, courseNameValueboxParams.W, courseNameValueboxParams.H);
+    context.fillStyle = 							color_GreyDark1;
+    context.font = 								'bold 37px Vegur-Bold, Vegur, sans-serif';
+    context.textAlign = 							'left';
+    
+    //smallprintContent
+	wrapText(context, courseNameValueContent, courseNameValueboxParams.xPoz, courseNameValueboxParams.yPoz, courseNameValueboxParams.W, courseNameValueboxParams.lineH);
+    
+    //// for the completion of Drawing
+    var forTheCompletionOfRect = makeRect(269, 693, 778, 46);
+    context.fillStyle = color_GreyDark1;
+    context.font = 'bold 25px Vegur-Bold, Vegur, sans-serif';
+    context.textAlign = 'left';
+    context.fillText(forTheCompletionOfContent, forTheCompletionOfRect.x + 0.12, forTheCompletionOfRect.y + 24);
+
+    //// namebox
+    //// nameboxBG Drawing
+    roundedRect(context, 268, 380, 1436, 283, 20);
+    context.fillStyle = color_GreyLight1;
+    context.fill();
+
+    //// namebox line2 Drawing
+    context.beginPath();
+    context.rect(1306, 623, 356, 2);
+    context.fillStyle = color_GreyDark1;
+    context.fill();
+
+    //// in the state of Drawing
+    var inTheStateOfRect = makeRect(1087, 601, 414, 46);
+    context.fillStyle = color_GreyDark1;
+    context.font = 'bold 25px Vegur-Bold, Vegur, sans-serif';
+    context.textAlign = 'left';
+    context.fillText(inTheStateOfContent, inTheStateOfRect.x + 0.12, inTheStateOfRect.y + 24);
+
+    //// namebox line1 Drawing
+    context.beginPath();
+    context.rect(600, 623, 426, 2);
+    context.fillStyle = color_GreyDark1;
+    context.fill();
+
+    //// license number Drawing
+    var licenseNumberRect = makeRect(304, 600, 414, 46);
+    context.fillStyle = color_GreyDark1;
+    context.font = 'bold 25px Vegur-Bold, Vegur, sans-serif';
+    context.textAlign = 'left';
+    context.fillText(licenseNumberContent, licenseNumberRect.x + 0.12, licenseNumberRect.y + 24);
+
+    //// name text Drawing
+    var nameTextRect = makeRect(267, 450, 1436, 101);
+    context.fillStyle = blackColor;
+    context.font = '75px Vegur-Light, Vegur, sans-serif';
+    context.textAlign = 'center';
+    context.fillText(nameTextContent, nameTextRect.x + nameTextRect.w/2, nameTextRect.y + 72);
+
+    //// awarded to Drawing
+    var awardedToRect = makeRect(267, 408, 1436, 45);
+    context.fillStyle = color_GreyDark1;
+    context.font = 'bold 27px Vegur-Bold, Vegur, sans-serif';
+    context.textAlign = 'center';
+    context.fillText(awardedToContent, awardedToRect.x + awardedToRect.w/2, awardedToRect.y + 26);
+
+    //// certificate header bar
+    //// header Line Right Drawing
+    context.beginPath();
+    context.rect(1649, 309, 50, 7);
+    context.fillStyle = certificateOuterBoxGreen;
+    context.fill();
+
+    //// header Line Left Drawing
+    context.beginPath();
+    context.rect(268, 309, 50, 7);
+    context.fillStyle = certificateOuterBoxGreen;
+    context.fill();
+
+    //// bg
+    //// bgOuterBoxLine Drawing
+    context.beginPath();
+    context.rect(41, 55, 1876, 1424);
+    context.strokeStyle = certificateOuterBoxGreen;
+    context.lineWidth = 7;
+    context.stroke();
+
+    //// bgInnerBoxLine Drawing
+    context.beginPath();
+    context.rect(93, 110, 1771, 1318);
+    context.strokeStyle = certificateInnerBoxGreen;
+    context.lineWidth = 50;
+    context.stroke();
+
+    //// bg details Drawing
+    context.beginPath();
+    context.rect(0, 0, 1966, 1524);
+    context.save();
+    context.clip();
+    context.drawImage(certBG1, 0, 0, certBG1.width, certBG1.height);
+    context.restore();
+    
+    // now make a png from the rendered canvas
+    convertCanvas("PNG");
+    
+}

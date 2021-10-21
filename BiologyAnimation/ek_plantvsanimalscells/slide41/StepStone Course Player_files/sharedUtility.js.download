@@ -1,0 +1,649 @@
+// ===============================//
+// ! --- GENERAL UTILITIES ---
+// ===============================//
+
+// ! --- VARS ---
+
+var UIButton_SuppressionTimer;
+
+// ===============================//
+
+// ! --- FUNCTIONS ---
+
+// ! F.Util.Return object with rgba values from given value string ---
+/*
+$('.hash').html("gcv hash = " + JSON.stringify(getColorRGBAObject("#ffffff"), null, 4));
+$('.hashshort').html("gcv hashshort = " + JSON.stringify(getColorRGBAObject("#fff"), null, 4));
+$('.rgb').html("gcv rgb = " + JSON.stringify(getColorRGBAObject("rgb(255,255,255)"), null, 4));
+$('.rgba').html("gcv rgba = " + JSON.stringify(getColorRGBAObject("rgba(255,255,255,0.55)"), null, 4));
+$('.hexNoHash').html("gcv hex no hash = " + JSON.stringify(getColorRGBAObject("ffffff"), null, 4));
+$('.hexNoHashShort').html("gcv hex no hash short = " + JSON.stringify(getColorRGBAObject("fff"), null, 4));
+*/
+function getColorRGBAObject( scanValue ){ // assuming string argument
+	var values = {
+    	red : 					null,
+		green : 				null,
+		blue : 					null,
+		alpha : 				1
+	};
+	scanValue = scanValue.replace(/[# ]/g,""); // purge spaces and hashtag
+	if( scanValue.indexOf('rgb') != -1 ){
+		var getColorVals = scanValue.substr( scanValue.indexOf('(') , scanValue.indexOf(')') );
+		var colorValsSplit = getColorVals.split(',');
+		values.red = 		colorValsSplit[0];
+		values.green = 		colorValsSplit[1];
+		values.blue = 		colorValsSplit[2];
+		if( colorValsSplit[3] != undefined && colorValsSplit[3] != "" ){
+			values.alpha = 	parseFloat(colorValsSplit[3]);
+		}
+	}else{ /* assuming 3- or 6-digit hex color */
+		if( scanValue.length == 3 ){
+			values.red = 	parseInt(scanValue[0] + scanValue[0], 16);
+			values.green = 	parseInt(scanValue[1] + scanValue[1], 16);
+			values.blue = 	parseInt(scanValue[2] + scanValue[2], 16);
+		}else if( scanValue.length == 6 ){
+			values.red = 	parseInt(scanValue.substr(0, 2), 16);
+			values.green = 	parseInt(scanValue.substr(2, 2), 16);
+			values.blue = 	parseInt(scanValue.substr(4, 2), 16);
+		}
+	}
+	return values;
+	/* -- alternate (original) method, also works
+	var parse = 				scanValue.indexOf(',');
+	var reparse = 				scanValue.indexOf(',', parse + 1);
+		if( scanValue.indexOf('rgb(') === 0 ){ // rgb : 3-number
+		    values.red = 		parseInt(scanValue.substr(4, parse));
+			values.green = 		parseInt(scanValue.substr(parse + 1, scanValue.indexOf(',', parse)));
+			values.blue = 		parseInt(scanValue.substr(scanValue.indexOf(',', parse + 1) + 1, scanValue.indexOf(')')));
+		}else if( scanValue.indexOf('rgba(') === 0 ){ // rgb w/ alpha : 4-number
+		    values.red = 		parseInt(scanValue.substr(5, parse));
+			values.green = 		parseInt(scanValue.substr(parse + 1, reparse));
+			values.blue = 		parseInt(scanValue.substr(scanValue.indexOf(',', parse + 1) + 1, scanValue.indexOf(',', reparse)));
+			values.alpha = 		parseFloat(scanValue.substr(scanValue.indexOf(',', reparse + 1) + 1, scanValue.indexOf(')')));
+		}else{ // assuming 3- or 6-digit hex color
+			if( scanValue.indexOf('#') === 0 ){ // omit hash if exists
+				scanValue = 		scanValue.substr(1);
+			}
+			if( scanValue.length == 3 ){
+				values.red = 	parseInt(scanValue[0] + scanValue[0], 16);
+				values.green = 	parseInt(scanValue[1] + scanValue[1], 16);
+				values.blue = 	parseInt(scanValue[2] + scanValue[2], 16);
+			}else if( scanValue.length == 6 ){
+				values.red = 	parseInt(scanValue.substr(0, 2), 16);
+				values.green = 	parseInt(scanValue.substr(2, 2), 16);
+				values.blue = 	parseInt(scanValue.substr(4, 2), 16);
+			}
+		}
+    }
+	return values;
+	/*/
+}
+
+// ! F.Util.Dummy Timestamp Cache Buster Builder  ---
+function dummyTStamp(){
+	var dummyTS = Number( new Date() );
+	var qString = "?r=" + String(dummyTS);
+	return qString;
+}
+
+// ! F.Util.Simple Error logger ---
+function handleError( passedString ){ // overriding another function? pipwerks?
+	console.log( passedString );
+}
+// ! F.Util.Check if NaN ---
+function isThisValNaN(val){
+	/*
+	peculiarities...
+	parseFloat('1.2string'); // => 1.2
+	isNaN(parseFloat('1.2string')); // => false
+	isNaN(parseFloat('.2string')); // => false
+	isNaN(parseFloat('string')); // => true
+	//////
+	Number('1.2string'); // => NaN
+	isNaN(Number('1.2string')); // => true
+	isNaN(Number('.2string')); // => true
+	isNaN(Number('string')); // => true
+	//////
+	false values (and true as a real boolean) passed into Number() return as 0! In which case... parseFloat works every time instead. So fall back to that
+	Note that this happens only when the string begins with a number. parseFloat('test1.2') will return NaN
+	*/
+    return isNaN(val && val !== true ? Number(val) : parseFloat(val));
+}
+// ! F.Util.Add leading zeros to number ---
+function addLeadingZeros(context){
+	var baseNum = 				context.baseNum; // number
+	var resultMinLen = 			context.resultMinLen; // number
+	if( resultMinLen == undefined || resultMinLen == null || resultMinLen == '' ){
+		resultMinLen = 			2; // default for elegance, most common min
+	}
+	var resultMaxLen = 		context.resultMaxLen; // optional, special use number
+	var returnAsNum = 		context.returnAsNum; // optional, boolean true if present
+	
+	var baseNumToString = 	baseNum.toString(); // set to string for processing
+	var baseNumLen = 		baseNumToString.length;
+	var resultNum = 	baseNumToString;
+	//console.log(numToString.length);
+	if( baseNumLen < resultMinLen ){ // 1 < 2
+		var zeroStringer = "";
+		for( var a = baseNumLen ; a < resultMinLen ; a++ ){
+			zeroStringer += "0";
+		}
+		//numString = parseInt('0' + numString);
+		resultNum = zeroStringer + resultNum; // still a string here
+	}
+	if( returnAsNum != undefined && returnAsNum ){
+		resultNum = Number(resultNum);
+	}
+    return resultNum;
+}
+// ! F.Clear leading zeros from number ---
+function removeLeadingZeros(numString){
+    return numString.replace(/^0+/, '');
+}
+// ! F.Util.Randomize given array element order Using Fisher-Yates shuffle algorithm. ---
+function shuffleArray(array) {
+    for ( var i = array.length - 1; i > 0 ; i-- ) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    return array;
+}
+// ! F.Util.File Extract filename ---
+function simpleFileExtensionExtract(fileName){
+	//return fileName.split('.').pop();
+	return ( fileName.indexOf('.') > 0 ) ? fileName.split('.').pop().toLowerCase() : 'undefined';
+	//var parts = filename.split('.');
+	//return (parts.length > 1) ? parts.pop() : '';
+}
+// ! F.Util.Extract boolean from string/value ---
+function extractBoolean(val){
+	var num; 
+	return val != null && (!isNaN(num = +val) ? !!num : !!String(val).toLowerCase().replace(!!0,'')); 
+} 
+// ! F.Merge 2 objects
+// blank arguments.  pass obj1 and obj2 as comma separated vars
+// obj2 will overwrite values in obj1 in matching keys (obj1 used for defaults)
+// same as using jquery extend? 
+function mergeObjectProperties() { 
+    for( var i = 1 ; i < arguments.length ; i++ ){
+        for( var key in arguments[i] ){
+            if( arguments[i].hasOwnProperty(key) ){
+                arguments[0][key] = arguments[i][key];
+            }
+        }
+    }
+    return arguments[0];
+}
+// ! F.Util.CSS.Grab attribute value ---
+function grabCSSAttributeValue(targ1, att1){
+	return parseInt($(targ1).css(att1));
+}
+// ! F.Util.CSS.Grab vertical padding ---
+function grabCSSVerticalPaddingValues(targ1, attType){
+	var attPairPart1 = parseInt($(targ1).css(attType + '-top'));
+	var attPairPart2 = parseInt($(targ1).css(attType + '-bottom'));
+	return [attPairPart1, attPairPart2];
+}
+// ! F.Util.CSS.Measure margin and/or padding of given element ---
+function measureObjectMarginPadding(mObject, mMarginSide1, mMarginSide2, mPaddingSide1, mPaddingSide2, mAxis){
+	var targetObj = $(mObject); //'.CET-Activity-Content-Main-TextBlock-Container'
+	var addUpExtraSpace = 0;
+	var axisHalf1;
+	var axisHalf2;
+	if(mAxis == "h"){
+		axisHalf1 = 'left';
+		axisHalf2 = 'right';
+	}else{
+		axisHalf1 = 'top';
+		axisHalf2 = 'bottom';
+	}
+	if(mMarginSide1){ addUpExtraSpace += 		parseInt(targetObj.css('margin-' + axisHalf1)); } 	// Left or Top
+	if(mMarginSide2){ addUpExtraSpace += 		parseInt(targetObj.css('margin-' + axisHalf2)); } 	// Right or Bottom
+	if(mPaddingSide1){ addUpExtraSpace += 		parseInt(targetObj.css('padding-' + axisHalf1)); }
+	if(mPaddingSide2){ addUpExtraSpace += 		parseInt(targetObj.css('padding-' + axisHalf2)); }
+	return addUpExtraSpace;
+}
+// ! F.Util.Debounce buttons ---
+function debounceUIButtons(){
+	UIButtons_Supressed = true;
+	//var UIButton_SuppressionTimer = setTimeout(function(){
+	// reset global timer
+	UIButton_SuppressionTimer = setTimeout(function(){
+		UIButtons_Supressed = false;
+	//},1000);
+	},250);
+}
+// ! ------------------------------------------
+// ! --- AUTHORING UTILITIES ---
+// !F.Swap Array elements ---
+function swapArrayElements( context ){
+	var swapperArray = 			context.passedArray;
+	var indexA = 						context.indexA;
+	var indexB = 						context.indexB;
+	var suspendA = 					swapperArray[indexA];
+	swapperArray[indexA] = 	swapperArray[indexB];
+    swapperArray[indexB] = 	suspendA;
+}
+// ! F.Wrap function for array storage/queueing
+// Function wrapping code.
+// fn - reference to function.
+// context - what you want "this" to be.
+// params - array of parameters to pass to function.
+//var wrapFunction = function(fn, context, params) {
+// use like this: var wrappedRowMaker = wrapFunction( makeNewFilePoolRow, this, [ mediaListGroup.categoryMembers[j] ] );
+function wrapFunction(fn, context, params){
+    return function(){
+        fn.apply(context, params);
+    };
+}
+// ! F.Sort by path name
+function sortByPathName(a, b){
+	var nameA = a.pathName.toLowerCase();
+	var nameB = b.pathName.toLowerCase();
+	if( nameA < nameB ){
+		return -1;
+	}
+	if( nameA > nameB ){
+		return 1;
+	}
+	return 0;
+}
+// ! F.Sort by activity media file name
+function sortByActivityMediaFileName(a, b){
+	var nameA = a.fileName.toLowerCase();
+	var nameB = b.fileName.toLowerCase();
+	if( nameA < nameB ){
+		return -1;
+	}
+	if( nameA > nameB ){
+		return 1;
+	}
+	return 0;
+}
+// ! F.Sort by clipboard category label
+function sortByClipboardCategoryName(a, b){
+	var nameA = a.category.toLowerCase();
+	var nameB = b.category.toLowerCase();
+	if( nameA < nameB ){
+		//console.log( nameA.category + " -- " + nameB + " -- " +' prev');
+		return -1;
+	}
+	if( nameA > nameB ){
+		//console.log( nameA + " -- " + nameB + " -- " +' next');
+		return 1;
+	}
+	//console.log( nameA + " -- " + nameB + " -- " +' none');
+	return 0;
+}
+// ! F.Sort by clipboard package caption
+function sortByClipboardElementCaption(a, b){
+	var nameA = a.caption.toLowerCase();
+	var nameB = b.caption.toLowerCase();
+	if( nameA < nameB ){
+		return -1;
+	}
+	if( nameA > nameB ){
+		return 1;
+	}
+	return 0;
+}
+// ! F.Flexible sorting of array by internal object params
+//var sortOn = function( arr, prop, reverse, numeric ){
+function sortOn( arr, prop, reverse, numeric ){
+    // Ensure there's a property
+    if (!prop || !arr) {
+        return arr
+    }
+    // Set up sort function
+    // primer can be:  parseInt, function(a){return a.toUpperCase()}, etc.
+    var sort_by = function( field, rev, primer ){
+        // Return the required a,b function
+        return function (a, b) {
+            // Reset a, b to the field
+            a = primer(a[field]), b = primer(b[field]);
+            // Do actual sorting, reverse as needed
+            return ((a < b) ? -1 : ((a > b) ? 1 : 0)) * (rev ? -1 : 1);
+        }
+    }
+    // numeric vs. string prevents 100 from coming before 10
+    if(numeric){
+        // Do sort "in place" with sort_by function
+        arr.sort(sort_by(prop, reverse, function (a) {
+            // - Force value to a string.
+            // - Replace any non numeric characters.
+            // - Parse as float to allow 0.02 values.
+            return parseFloat(String(a).replace(/[^0-9.-]+/g, ''));
+        }));
+    }else{
+        // Do sort "in place" with sort_by function
+        arr.sort(sort_by(prop, reverse, function (a) {
+            // - Force value to string.
+            return String(a).toUpperCase();
+        }));
+    }
+}
+
+
+// ! F.Traverse nested object data
+function accessCurrentObjectSpine( context ){ // previously accessCurrentNodeSpine
+	var defaults = {
+        //objectVertebrae : defaultValue1, // object hierarchy chain
+        //value : 			defaultValue2, // value being placed in update target location
+        //'objectSkull' : 		masterOBJ1.currentNodeCurrent, // top of the object chain
+        'action' : 	 		'updateValue' // type of action to peform, defaults to update value
+        						// appendArrayElement, removeObjectProp, removeArrayElement
+    };
+    var context = mergeObjectProperties(defaults, context);
+	var objectSpine = context.objectSkull;
+    // Walk the hierarchy/nest, creating new objects where needed. 
+    // Respects both object keys array reference (numbers in brackets) along the chain
+    for( var i = 0 ; i < context.objectVertebrae.length ; i++ ) {
+        objectSpine = objectSpine[ context.objectVertebrae[i] ] = objectSpine[ context.objectVertebrae[i] ] || {};
+    }
+	if( context.action == "updateValue" ){ // add/change value
+	   objectSpine[ context.updateTarget ] = context.value;
+	    return objectSpine; // is this needed?
+	}
+	if( context.action == "appendArrayElement" ){
+	   objectSpine[ context.updateTarget ].push(context.value);
+	}
+	if( context.action == "removeObjectProp" ){
+		delete objectSpine[context.killTarget];
+	}
+	if( context.action == "removeArrayElement" ){
+		objectSpine.splice(context.killTarget, 1);
+	}
+};
+// ! F.Get file parts  ---
+function getFilePart(name, part){
+	var found = name.lastIndexOf('.');
+	switch( part ){
+		case 'fileName':
+			// returns full name if no period found
+			return (parseInt(found) > 0 ? name.substring(0, found) : name);
+			//$('#imageFileName').val().split('.').pop();
+			break;
+		case 'fileExt':	
+			// returns empty if no period found
+			return (parseInt(found) > 0 ? name.substr(found + 1) : "");
+			break;
+	}
+}
+// ! F.Format file size values for display ---
+function formatFileSize(bytes) {
+    if( typeof bytes !== 'number' ){
+        return '';
+    }
+    if( bytes >= 1000000000 ){
+        return (bytes / 1000000000).toFixed(2) + ' GB';
+    }
+    if( bytes >= 1000000 ){
+        return (bytes / 1000000).toFixed(2) + ' MB';
+    }
+    return (bytes / 1000).toFixed(2) + ' KB';
+}
+// ! F.Convert rgb to hex value ---
+function rgb2hex(rgb){
+	rgb = rgb.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+))?\)$/);
+  function hex(x){
+		return ("0" + parseInt(x).toString(16)).slice(-2);
+  }
+  return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+}
+
+
+// ! F.Date stamp  ---
+function prepareDateStamp(){
+	var dateStamp_UTC;
+	if(isNaN((date = typeof(date) !== 'undefined' ? new Date(date) : new Date()).getTime())){
+	   return null;
+	}
+	var pad2 = function(n){
+	    return (n < 10 ? '0' : '') + n;
+	};
+	var tokens = [[['FullYear'], ['Month', 1], ['Date']], [['Hours'], ['Minutes'], ['Seconds']]];
+	for( var a = tokens.length, i = 0 ; i < a ; i ++ ){
+	  for( var b = tokens[i].length, j = 0 ; j < b ; j ++ ){
+		  tokens[i][j] = pad2(date['getUTC' + tokens[i][j][0]]() + (tokens[i][j][1] || 0));
+	  }
+	}
+	dateStamp_UTC = tokens[0].join('-') + 'T' + tokens[1].join(':') + 'Z'; //2014-01-13T09:34:49Z : UTC format
+	var interpretedDatestamp_Split = 	dateStamp_UTC.split('T');
+	var interpretedDatestamp_Date = 	interpretedDatestamp_Split[0].split('-');
+	var displayYear = 						removeLeadingZeros(interpretedDatestamp_Date[0]);
+	var displayMonth = 						removeLeadingZeros(interpretedDatestamp_Date[1]);
+	var displayDay = 							removeLeadingZeros(interpretedDatestamp_Date[2]);
+	dateStamp_Verbose = 					displayMonth + '/' + displayDay + '/' + displayYear;
+	return(dateStamp_Verbose);
+}
+// ! F.Check element color class ---
+function checkElementColorClass(element){
+	var stylingArray = [];
+	//--- text colors
+	colorCheckerNormal('normal', 'UICore_Text_Light');
+	colorCheckerNormal('normal', 'UICore_Text_Dark');
+	colorCheckerNormal('normal', 'UICore_Text_Ideal_Light');
+	colorCheckerNormal('normal', 'UICore_Text_Ideal_Dark');
+	colorCheckerNormal('normal', 'UICore_Text_NonIdeal_Light');
+	colorCheckerNormal('normal', 'UICore_Text_NonIdeal_Dark');
+	//--- button colors
+	colorCheckerNormal('normal', 'UICore_Button_Light');
+	colorCheckerNormal('normal', 'UICore_Button_Dark');
+	colorCheckerNormal('normal', 'UICore_Button_Ideal_Light');
+	colorCheckerNormal('normal', 'UICore_Button_Ideal_Dark');
+	colorCheckerNormal('normal', 'UICore_Button_NonIdeal_Light');
+	colorCheckerNormal('normal', 'UICore_Button_NonIdeal_Dark');
+	//-------------------------
+	function colorCheckerNormal(action, colorToCheck){
+		if( action == 'normal' ){
+			if( element.hasClass(colorToCheck) ){
+				var useStyle = colorToCheck;
+				stylingArray.push( useStyle );
+				//console.log(useStyle);
+				//return useStyle;
+			}
+		}
+	}
+	//-------------------------
+	//return useStyle;
+	return stylingArray.join(" ");
+}
+// ! F.Deterministic stringify mechanism
+// ( should help ordering line up for object comparison )
+function smarterStringify( obj ){
+	var type = Object.prototype.toString.call(obj);
+	// IE <= 8 does not have array map
+	var map = Array.prototype.map || function map(callback) {
+		var ret = [];
+		for (var i = 0; i < this.length; i++) {
+			ret.push(callback(this[i]));
+    	}
+		return ret;
+	};
+	if (type === '[object Object]') {
+    	var pairs = [];
+		for (var k in obj) {
+		if (!obj.hasOwnProperty(k)) continue;
+			pairs.push([k, smarterStringify(obj[k])]);
+    	}
+		pairs.sort(function(a, b) { return a[0] < b[0] ? -1 : 1 });
+		pairs = map.call(pairs, function(v) { return '"' + v[0] + '":' + v[1] });
+		return '{' + pairs + '}';
+	}
+	if (type === '[object Array]') {
+    	return '[' + map.call(obj, function(v) { return smarterStringify(v) }) + ']';
+	}
+	return JSON.stringify(obj);
+}
+// ! F.Perform specific type of string manipulation on given input
+function inputGrinder( passedString, action ){
+	//console.log( "grinder passedString = " + passedString );
+	var rawBeef = passedString;
+	var groundBeef = "";
+	switch( action ){
+		case 'forceLowerCase':
+			groundBeef = rawBeef.toLowerCase();
+			break;
+		case 'singularSpaces':
+			// should account for different encodings
+			groundBeef = rawBeef.replace( /\s{1,}/g, ' ' );
+			groundBeef = groundBeef.replace( /\u00A0{1,}/g, ' ' );
+			groundBeef = groundBeef.replace( /&nbsp;{1,}/g, ' ' );
+			groundBeef = groundBeef.replace( /&amp;nbsp;{1,}/g, ' ' );
+			groundBeef = groundBeef.replace( / {1,}/g, ' ' ); // final cleanup of spaces
+			break;
+		case 'spacesToUnderscores':
+			groundBeef = rawBeef.replace(/ /g,"_");
+			break;
+		case 'spacesRemoved':
+			groundBeef = rawBeef.replace(/ /g,"");
+			break;
+		case 'curlyBracesRemoved':
+			//groundBeef = rawBeef.replace(/\\{\\}/g,"");
+			groundBeef = rawBeef.replace(/\{/g,"");
+			groundBeef = groundBeef.replace(/\}/g,"");
+			break;
+		case 'squareBracesRemoved':
+			groundBeef = rawBeef.replace(/\[/g,"");
+			groundBeef = groundBeef.replace(/\]/g,"");
+			break;
+		case 'periodsToUnderscores':
+			groundBeef = rawBeef.replace(/\./g,"_");
+			break;
+		case 'alphaNumUnderscoreFilter_caseInsensitive':
+			groundBeef = rawBeef.replace(/[^\w+$]/gi,''); // .replace(/[^a-z0-9]/g,'');
+			break;
+		case 'alphaNumUnderscoreDashFilter_caseInsensitive':
+			//groundBeef = rawBeef.replace(/[^a-z0-9_-]/g,'')
+			groundBeef = rawBeef.replace(/[^a-z0-9_-]/gi,'');
+			break;
+		case 'alphaNumBasicSpecial1Filter_caseInsensitive':
+			groundBeef = rawBeef.replace(/[^a-z0-9\@\!\-\_\#]/gi,''); // @ ! - _ # 
+			break;
+		case 'alphaNumWriteInWildCardFilter_caseInsensitive': // for write-in wildcard chars in expected input fields
+			groundBeef = rawBeef.replace(/[^a-z0-9\{\}\*\~]/gi,''); //{ } * ~
+			break;
+		case 'alphaNumPassyPassFilter_caseInsensitive': // used to check the following as allowed chars
+			groundBeef = rawBeef.replace(/[^a-z0-9\@\!\-\_\#\%\(\)\'\*\.\~\`\+\=]/gi,''); // @ ! - _ # % ( ) ' * . ~ ` + =
+			break;
+		case 'clearLineBreaks':
+			groundBeef = rawBeef.replace(/[\r\n]/g, "");
+			break;
+	}
+	return groundBeef;
+}
+// ! F.Convert string to boolean ---
+function stringToBoolean(string){
+	switch(string.toLowerCase()){
+		case "true": case "yes": case "1": return true;
+		case "false": case "no": case "0": case null: return false;
+		default: return Boolean(string);
+	}
+}
+// ! F.Return count of provided element in an array ---
+function getArrayElementMatchCount( checkArray, valToFind ){
+    var numMatches = 0;
+    for( var i = 0 ; i < checkArray.length; i++ ){
+        if( checkArray[i] === valToFind ){
+            numMatches++;
+        }
+    }
+    return numMatches;
+}
+// ! F - UI - fade ui element ---
+function fadeUIElement( context ){
+	var $element = 	context.element;
+	var direction = 	context.direction;
+	var duration = 	context.duration;
+	var functions = 	context.functions;
+	var fadeFunctions = {};
+	if( functions != null && functions != undefined && functions != '' ){
+		fadeFunctions = functions;
+	}else{
+		fadeFunctions.progress = 	function(){};
+		fadeFunctions.done = 		function(){};
+	}
+	if( direction == 'In' || direction == 'in' ){
+		$element.fadeIn({
+			'duration': 		duration,
+			'easing': 		'swing',
+			'progress':	//function(){
+				fadeFunctions.progress
+			//}
+			,
+			'done':	//function(){	
+				fadeFunctions.done
+			//}
+		});
+	}else if( direction == 'Out' || direction == 'out' ){
+		$element.fadeOut({
+			'duration': 		duration,
+			'easing': 		'swing',
+			'progress':	//function(){
+				fadeFunctions.progress
+			//}
+			,
+			'done':	//function(){	
+				fadeFunctions.done
+			//}
+		});
+	}
+}
+// ! F - Utility - sumfloat ---
+function sumFloat( a , b ){
+	return a + ( parseFloat(b) || 0 );
+}
+// ! F - UI - slide ui element ---
+function slideUIElement($element, direction, functions){
+	//console.log( functions );
+	var slideFunctions = {};
+	if( functions != null && functions != undefined && functions != '' ){
+		slideFunctions = functions;
+	}else{
+		slideFunctions.progress = 	function(){};
+		slideFunctions.done = 		function(){};
+	}
+	
+	/*
+	var slideFunctions = {
+		'done': 	function(){
+        				$('.courseBuilder_EditorPanel_ContentSection_AddUser').show();
+    				} 
+	};
+	slideUIElement( $('.newUserForm'), 'up',  slideFunctions);
+	*/
+	
+	if( direction == 'Up' || direction == 'up' ){
+		$element.slideUp({
+			'duration': 	300,
+			'easing': 		'swing',
+			'progress':	//function(){
+							slideFunctions.progress,
+							//},
+			'done':		slideFunctions.done//function(){
+								//$('.newUserForm').slideUp
+								//$('.courseBuilder_EditorPanel_ContentSection_AddUser').show();
+								
+								//$('.newPathForm').slideUp({
+								//$('.courseBuilder_EditorPanel_ContentSection_AddPath').show();
+							//}
+		});
+	}else if( direction == 'Down' || direction == 'down' ){
+		$element.slideDown({
+			'duration': 	300,
+			'easing': 		'swing',
+			'progress':	//function(){
+							slideFunctions.progress,
+							//},
+			'done':		//function(){
+								//$('.newUserForm').slideUp
+								//$('.courseBuilder_EditorPanel_ContentSection_AddUser').show();
+								slideFunctions.done
+								//$('.newPathForm').slideUp({
+								//$('.courseBuilder_EditorPanel_ContentSection_AddPath').show();
+							//}
+		});
+	}
+}

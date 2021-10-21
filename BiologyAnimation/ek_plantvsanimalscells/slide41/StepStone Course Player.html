@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!-- saved from url=(0203)http://www.futuredogter.com/stepstone/playerShell.php?org=CET&sys=public.Latest&pool=TAMU-CET-1&resourceloc=www.futuredogter.com&resourceavatar=NIH-SEPA-1&resource=ek_plantvsanimalscells_c1_new&ppj=1_1_1 -->
+<html lang="en" class="gr__futuredogter_com"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<!--<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>--> <!--320-->
+<meta name="viewport" content="width=device-width, minimal-ui, initial-scale=1">
+<title>StepStone Course Player</title>
+<script src="./StepStone Course Player_files/jquery.min.js.download"></script><!-- MIT lic -->
+<script src="./StepStone Course Player_files/jquery-ui.custom.min.js.download"></script><!-- MIT lic -->
+<script>
+var systemCheck = "public_Latest";
+var resourceLocCheck = "www.futuredogter.com";
+var ppjCheck = "1_1_1";
+$(document).ready(function(){
+	if( resourceLocCheck == undefined || resourceLocCheck == "" ){ // course internal to sslearning
+		$('.coursePlayerShellFrame').attr('src', 'https://stepstonelearning.net/directPortal/playerPortal.php?org=CET&sys=public_Latest&pool=TAMU-CET-1&resource=ek_plantvsanimalscells_c1_new&ppj=1_1_1' );
+	}else{ // course external to sslearning
+		$('.coursePlayerShellFrame').attr('src', 'https://stepstonelearning.net/directPortal/playerPortal.php?org=CET&sys=public_Latest&pool=TAMU-CET-1&resourceloc=www.futuredogter.com&resourceavatar=NIH-SEPA-1&resource=ek_plantvsanimalscells_c1_new&ppj=1_1_1' );
+	}
+});
+</script>
+<style type="text/css">
+/* ! -----[ Global ]---------------------------------------------------------------------------- */
+*{
+	margin: 						0;
+	padding: 					0;
+	outline:						0;
+	border:						0;
+	font-size: 					100%;
+	line-height: 				1;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+*, 
+*:before, 
+*:after {
+  -moz-box-sizing: 			border-box; 
+  -webkit-box-sizing: 		border-box; 
+  box-sizing: 					border-box;
+}
+html{
+	margin: 						0;
+	padding: 					0;
+	overflow: 					hidden;
+	height:						100%;
+	width: 						100%;
+}
+body{
+	font-size: 					100%;
+	margin: 						0;
+	padding: 					0;
+	overflow: 					hidden;
+	position: 					relative;
+	height:						100%;
+	width: 						100%;
+}
+.coursePlayerShell{
+	background: 				white;
+	position: 					absolute;
+	top: 							0;
+	right: 						0;
+	bottom: 					0;
+	left: 							0;
+	border: 						none;
+}
+.coursePlayerShellFrame{
+	background: 				white;
+	border: 						none;
+	width: 						100%;
+	height:						100%;
+}
+</style>
+<script>(function(){var a=XMLHttpRequest.prototype.open;XMLHttpRequest.prototype.open=function(){this.requestMethod=arguments[0],a.apply(this,arguments)};var h=XMLHttpRequest.prototype.send;XMLHttpRequest.prototype.send=function(){var i=this.onreadystatechange;return this.onreadystatechange=function(){if(4===this.readyState){var j='detector',k={posdMessageId:'PANELOS_MESSAGE',type:'VIDEO_XHR_CANDIDATE',from:j,to:j.substring(0,j.length-2),content:{requestMethod:this.requestMethod,url:this.responseURL,type:this.getResponseHeader('content-type'),content:this.response}};window.postMessage(k,'*')}return i?i.apply(this,arguments):void 0},h.apply(this,arguments)}})();</script></head>
+<body data-gr-c-s-loaded="true">
+	<div class="coursePlayerShell" bis_skin_checked="1">
+		<iframe class="coursePlayerShellFrame" allowfullscreen="" mozallowfullscreen="" webkitallowfullscreen="" bis_size="{&quot;x&quot;:0,&quot;y&quot;:0,&quot;w&quot;:1536,&quot;h&quot;:673,&quot;abs_x&quot;:0,&quot;abs_y&quot;:0}" bis_id="fr_th3ad6g0sen7mizceue3ft" bis_depth="0" bis_chainid="1" src="./StepStone Course Player_files/playerPortal.html"></iframe>
+	</div>
+
+</body></html>

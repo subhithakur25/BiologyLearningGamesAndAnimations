@@ -1,0 +1,488 @@
+var langPack = {
+	"ui" : { /* ! ::UI SECTION:: */
+		"globalNav" : { /* ! global nav */
+			"continueButton" : { /* ! - continue button */
+				"begin" : 						"Begin",
+				"return" : 						"Return",
+				"continue" : 					"Continue",
+				"hide" : 						"Hide",
+				"resume" : 						"Resume",
+				"check" : 						"Check",
+				"next" : 						"Next",
+				"locked" : 						"Locked",
+				"retry" : 						"Retry"
+			},
+			"menuButton" : { /* ! - menu */
+				"menu" : 						"Menu", // "Menu"
+				"exitModule" : 					"Exit Module",
+				"help" : 						"Help", // "Help",
+				"about" : 						"About",
+				"restart" : 					"Restart",
+				"clipboard" : 					"Clipboard",
+				"dashboard" : 					"Dashboard"
+			},
+			"backButton" : { /* ! - back */
+				"back" : 						"Back",
+				"return" : 						"Return"
+			}
+		},
+		"globalElements" : { /* ! global elements */
+			"sideNav" : {
+				"dropListContents" : 			"Contents"
+			},
+			"langList" : {
+				"none" : 						"None",
+				"english" : 					"English",
+				"spanish" : 					"Spanish",
+				"french" : 						"French"
+			}
+		},
+		"stepAssessmentFeedback" : { /* ! step assessment feedback */
+			"status" : { /* ! - status */
+				"correct" : 					"Correct",
+				"incorrect" : 					"Incorrect",
+				"partialCorrect" : 				"Partially Correct",
+				"neutral" : 					"Neutral"
+			}
+		},
+		"dashboard" : { /* ! dashboard */
+			"titleBar" : { /* ! - title bar */
+				"dashboard" : 					"Dashboard"
+			},
+			"sidenav" : { /* ! - sidenav */
+				"moduleOverview" : 				"Module Overview"
+			},
+			"textContent" : { /* ! - text content */
+				"toBeginSelectContinue" : 		"To begin, select the Continue button."
+			},
+			"progressStatus" : { /* ! - progress status */
+				"status" : 						"Status",
+				"completed" : 					"Completed",
+				"locked" : 						"Locked",
+				"inProgress" : 					"In progress",
+				"notYetStarted" : 				"Not yet started",
+				"unattempted" : 				"Unattempted",
+				"incomplete" : 					"Incomplete",
+				"reviewInProgress" :			"Review In Progress",
+				"passed" : 						"Passed",
+				"failed" :						"Failed"
+			},
+			"scoringStatus" : { /* ! - scoring status */
+				"basicScoreNotice" : 			"Your score is [var1] / [var2] (Passing score = [var3]).",
+				"completedEarned" : 			"You have earned [var1] points for completing this activity.",
+				"pleaseCompletePoints" : 		"Please complete this activity to receive your points.",
+				"pleaseCompleteScore" : 		"Please complete this activity to receive your score.",
+				"gradedNotice" : 				"This is a graded activity."
+			},
+			"lockedNotice" : { /* ! - locked notice */
+				"basicLockNotice" : 			"To unlock this activity, please complete the following items"
+			},
+			"tableOfContents" : { /* ! - table of contents */
+				"toc" :							"Table of Contents"
+			}
+		},
+		"help" : { /* ! help */
+			"titleBar" : { /* ! - title bar */
+				"needHelp" :					"Need Help?"
+			},
+			"sidenav" : { /* ! - sidenav */
+				"usingStepStone" :				"Using StepStone",
+				"keyboardShortcuts" : 			"Keyboard Shortcuts",
+				"sysReqs" : 					"System Requirements"
+			},
+			"usingStepStone" : { /* ! - using stepstone */
+				"usingPlayer" :					"Using the StepStone Player",
+				"coreInterface" :				"Core Interface",
+				"dashboard" :					"Dashboard",
+				"dashboardDesc" :	 			"Description and usage of the StepStone Player Dashboard.",
+				"exerciseTypes" :				"Exercise Types",
+				"hotSpot" :						"HotSpot",
+				"hotSpotDesc" : 				"Description and usage of the HotSpot exercise type in StepStone.",
+				"multiItemGrid" :				"Multi-Item Grid",
+				"multiItemGridDesc" : 			"Description and usage of the Multi-Item Grid exercise type in StepStone.",
+				"popupTopics" :					"Popup Topics",
+				"popupTopicsDesc" :				"Description and usage of the Popup Topics exercise type in StepStone",
+				"media" : 						"Media",
+				"pdf" :							"PDF",
+				"pdfDesc" :						"Description and usage of PDF media in StepStone.",
+				"video" : 						"Video",
+				"videoDesc" :					"How to use video media in StepStone.",
+				"vimeoDesc" :					"Description of the Vimeo player interface in StepStone",
+				"mp4Desc" :						"Description of the direct (.mp4) video player interface in StepStone",
+				"assessments" :					"Assessments",
+				"matching" :					"Matching",
+				"matchingDesc" :				"Description and usage of the Matching assessment type in StepStone.",
+				"ranking" :						"Ranking",
+				"rankingDesc" :					"Description and usage of the Ranking assessment type in StepStone."
+			},
+			"kbdShortcuts" : { /* ! - keyboard shortcuts */
+				"kbdShortCuts" :				"Keyboard Shortcuts",
+				"generalNav" :					"General Navigation",
+				"keyList" :						"Key List",
+				"keyNameLeftArrow" :			"Left arrow",
+				"keyDescLeftArrow" :			"Trigger global navigation Back button [contextual action].",
+				"keyNameRightArrow" :			"Right arrow",
+				"keyDescRightArrow" :			"Trigger global navigation Continue button [contextual action].",
+				"keyNameA" :					"a",
+				"keyDescA" :					"Launch About panel.",
+				"keyNameC" :					"c",
+				"keyDescC" :					"Launch Clipboard panel.",
+				"keyNameD" :					"d",
+				"keyDescD" :					"Launch Dashboard panel.",
+				"keyNameH" :					"h",
+				"keyDescH" :					"Launch Help panel.",
+				"keyNameM" :					"m",
+				"keyDescM" :					"Open global navigation menu.",
+				"keyNameR" :					"r",
+				"keyDescR" :					"Restart current activity.",
+				"keyNameW" :					"w",
+				"keyDescW" :					"Toggle element highlight box."
+			},
+			"systemRequirements" : { /* ! - sys reqs */
+				"sysReqs" :						"System Requirements",
+				"minOpReqs" :					"Minimum Operating Requirements",
+				"experienceNotice" : 			"This system was developed using modern browser technologies. For the best experience, you will need to utilize a compatible version of one of the following browsers. If you need assistance checking or updating your browser, please contact your local IT staff.",
+				"browserSupport" :				"Browser Support",
+				"fireFox" :						"Firefox",
+				"chrome" :						"Chrome",
+				"safari" :						"Safari",
+				"ie" :							"IE",
+				"edge" :						"Edge",
+				"addlReqs" : 					"Additional Requirements",
+				"javascript" :					"Javascript",
+				"cookies" : 					"Cookies",
+				"enabled" : 					"enabled",
+				"ios" :							"iOS",
+				"android" :						"Android",
+				"mobile" : 						"mobile"
+			}
+		},
+		"about" : { /* ! about */
+			"titleBar" : { /* ! - title bar */
+				"aboutModule" : 				"About this Activity"
+			},
+			"sidenav" : { /* ! - sidenav */
+				"aboutAuthor" : 				"About the Author",
+				"aboutAuthors" : 				"About the Authors",
+				"acknowledgements" : 			"Acknowledgements"
+			},
+			"aboutAuthor" : { /* ! - about author */
+				"aboutAuthor" : 				"About the Author",
+				"aboutAuthors" : 				"About the Authors",
+				"relevantDisclosure" : 			"Relevant Disclosure",
+				"relevantDisclosures" : 		"Relevant Disclosures"
+			},
+			"acknowledgements" : { /* ! - acknowledgements */
+				"acknowledgements" : 			"Acknowledgements",
+				"stepStoneLegalNotice" : 		"StepStone is a subscription-based content authoring software owned and licensed by the Center for Educational Technologies at the Texas A&M University College of Veterinary Medicine & Biomedical Sciences. StepStone provides subscribers with a technology platform in which to develop and deliver personalized learning content. The content contained in this program was developed by the entity subscribing to the StepStone software and the subscribing entity is solely responsible for the substantive content contained therein."
+			}
+		},
+		"clipboard" : { /* ! clipboard */
+			"titleBar" : { /* ! - title bar */
+				"clipboard" : 					"Clipboard"
+			}
+		},
+		"stepBase" : { /* ! step base */
+			"stepText" : { /* ! - step text */
+				"toContinue" : 					"To continue, select Dashboard from the <strong>Menu</strong>."
+			},
+			"reviewFeedbackButton" : { /* ! - review feedback button */
+				"reviewFeedback" : 				"Review Feedback"
+			},
+			"stepAssessment" : { /* ! - step assessment */
+				"selectOption" : 				"Select an Option",
+				"selecting" : 					"Selecting..."
+			}
+		},
+		"mediaViewer" : { /* ! mediia viewer */
+			"videoAssistive" : { /* ! - video assist controls */
+				"showAssistControls" : 			"Show Assistive Controls",
+				"play" : 						"Play",
+				"pause" : 						"Pause",
+				"restart" : 					"Restart",
+				"mute" : 						"Mute",
+				"unmute" : 						"Unmute",
+				"volume" : 						"Vol", /* "Volume", *//* [preferably truncated, as in english "Vol"] */
+				"closedCaps" : 					"CC", /* "Closed Captions", *//* [preferably truncated, as in english "CC"] */
+				"fullScreen" : 					"Full Screen",
+				"on" : 							"On",
+				"off" : 						"Off",
+				"selectCaptionLang" : 			"Select Caption Language"
+			},
+			"pdf" : { /* ! - pdf */
+				"downloadPdf" : 				"Download This PDF"
+			}
+		},
+		"overlayNotice" : { /* ! overlay notice */
+			"restart" : { /* ! - restart */
+				"restartAsk" : 					"Are you sure that you want to restart the activity?",
+				"restartCancel" : 				"No, Resume Activity",
+				"restartConfirm" : 				"Yes, Restart Activity"
+			},
+			"exitModule" : { /* ! - exit module */
+				"exitModuleAsk" : 				"Are you sure that you want to exit the module?",
+				"exitModuleCancel" : 			"No, Resume Module",
+				"exitModuleConfirm" : 			"Yes, Exit Module"
+			},
+			"pdfViewer" : { /* ! - pdf viewer */
+				"unsupported" : 				"Your browser does not support pdf embedding.",
+				"viewPdfNewWindow" : 			"View PDF in new window",
+				"pleaseReturn" : 				"After viewing PDF, Please return to this window to continue the activity.",
+				"downloadPdf" : 				"Download PDF"
+			}
+		}
+	}, /* ! =================== */
+	"screenreader" : { /* ! ::SCREENREADER SECTION:: */
+		"global" : {
+			"externalContentADADisclaimerDefault" : " : Disclaimer : Our web site has links to many NPPO agencies, and in a few cases we link to private organizations. You are subject to that site's privacy policy when you leave our site. We are not responsible for Section 508 compliance (accessibility) on other federal or private Web sites.  Reference in this web site to any specific commercial products, process, service, manufacturer, or company does not constitute its endorsement or recommendation by the U.S. Government or HHS. HHS is not responsible for the contents of any \"off-site\" web page referenced from this server."	
+		},
+		"ariaLiveNotice" : { /* ! aria-live notice */
+			"dashboardInit" : 					"Welcome to Stepstone.  You are currently on the StepStone Dashboard.  To navigate with your keyboard, use the Tab key to cycle screen elements.  Use Shift-Tab keys to cycle in reverse order.  You will be notified of elements that require space or return to activate, or up or down arrow keys to cycle sub-elements.  You may also exit contextual panels using the escape key.",
+			"dashboardReturn" : 				"You are currently on the StepStone Dashboard.",
+			"choiceSelectedSAMC" : 				"Choice Selected : [var1]",
+			"choiceSelectedMAMC" : 				"Choice Selected : [var1]",
+			"choiceUnselectedMAMC" : 			"Choice De-Selected : [var1]",
+			"stepAssessmentFeedbackLaunch" : 	"You have launched the Assessment Feedback Panel. Status : [var1]",
+			"subSeqLaunch" : 					"You have launched a Popup Topic from the current step. Popup Topic Page Title : ",
+			"mediaLaunchVideo" : 				"You have launched a Video player. Use space or return to access the assistive controls, then use the up or down arrow keys to cycle the controls, and use space or return to trigger the selected control.  Assistive keyboard-navigable controls are available for video playback including play/pause toggle, restart, mute toggle, volume controls, closed-caption selection, and full screen toggle.  Use escape key to exit the video player.",
+			"mediaLaunchPdf" : 					"You have launched a PDF document. Use space or return to download the pdf file to your device. Use escape key to exit the video player.",
+			"videoLanguageSelect" : 			"Please select a closed-caption option. Currently selected : [var1]",
+			"helpLaunch" : 						"You have launched the StepStone Help Panel.",
+			"aboutLaunch" : 					"You have launched the About This Activity Panel.",
+			"clipboardLaunch" : 				"You have launched the Activity Clipboard Panel.",
+			"clipboardNewItems" : 				"Clipboard Notice: New items added to clipboard."
+		},
+		"bottomNav" : { /* ! bottom nav */
+			"lowerRightButton" : { /* ! - lower right button */
+				"globalNav" : 					"Global Navigation : ",
+				"begin" : 						" : Use space or return to begin the current activity.",
+				"continueReturn" : 				" : Use space or return to return to the StepStone Dashboard.",
+				"continueModuleOverview" : 		" : Use space or return to continue to the activities.",
+				"continueActivityOverview" : 	" : Use space or return to continue this activity.",
+				"continueActivity" : 			" : Use space or return to continue this activity.",
+				"hideStepAssessmentFeedback" : 	" : Use space or return to exit the step assessment feedback and resume the current activity.",
+				"hideAbout" : 					" : Use space or return to exit the About panel and resume the current activity.",
+				"hideHelp" : 					" : Use space or return to exit the Help panel and resume the current activity.",
+				"hideClipboard" : 				" : Use space or return to exit the Clipboard panel and return to the StepStone Dashboard.",
+				"subSeqResume" : 				" : Use space or return to exit the popup topic panel and resume the current activity.",
+				"stepAssessmentCheck" : 		" : Use space or return to check the results of your step assessment selections and receive feedback.",
+				"stepNextActivity" : 			" : Use space or return to continue on to the next activity.",
+				"continueButtonLocked" : 		" : This navigation control is currently disabled.",
+				"stepAssessmentRetry" : 		" : Use space or return to exit the step assessment feedback and retry the step assessment."
+			},
+			"menuButton" : { /* ! - menu item */
+				"globalNav" : 					"Global Navigation : ",
+				"menuNoCBItems" : 				" : Use space or return to open the module menu, then use the up or down arrow keys to cycle menu items, and space or return to engage the selected menu item.",
+				"menuSingleCBItem" : 			" : There is 1 unviewed clipboard item : Use space or return to open the module menu, then use the up or down arrow keys to cycle menu items, and space or return to engage the selected menu item.",
+				"menuMultiCBItems" : 			" : There are [var1] unviewed clipboard items : Use space or return to open the module menu, then use the up or down arrow keys to cycle menu items, and space or return to engage the selected menu item.",
+				"menuItem" : 					"Menu Item : ",
+				"exitModule" : 					" : Use space or return to exit the module.",
+				"help" : 						" : Use space or return to launch StepStone Player Help.",
+				"about" : 						" : Use space or return to learn more about this activity.",
+				"restart" : 					" : Use space or return to restart this activity.",
+				"clipboardNoCBItems" : 			" : Use space or return to launch the Clipboard for this activity.",
+				"clipboardSingleCBItem" : 		" : There is 1 unviewed clipboard item : Use space or return to launch the Clipboard for this activity.",
+				"clipboardMultiCBItems" : 		" : There are [var1] unviewed clipboard items : Use space or return to launch the Clipboard for this activity.",		
+				"dashboard" : 					" : Use space or return to launch the StepStone Dashboard."
+			},
+			"backButton" : { /* ! - back button */
+				"globalNav" : 					"Global Navigation : ",
+				"back" : 						" : Use space or return to step backward.",
+				"backReturn" : 					" : Use space or return to return to the StepStone Dashboard."
+			}
+		},
+		"dashboard" : { /* ! dashboard */
+			"title" : 							"StepStone Dashboard",
+			"sideNav" : 						"StepStone Dashboard: Module Navigation : Use space or return to enter the activity stack.  Then use the up or down arrow keys to cycle activities, and use space or return to launch the selected activity.",
+			"sideNavModuleOverviewLaunch" : 	" : Use space or return to launch the module overview.",
+			"sideNavPathOverview" : 			"Activity Overview : ",
+			"sideNavPathOverviewLaunch" : 		" : Use space or return to launch the overview for this activity.",
+			"moduleTitle" : 					"Module Overview Title : ",
+			"pathTitle" : 						"Activity Title : ",
+			"pathProgress" : 					"Activity Progress : ",
+			"pathProgressCompleted" : 			"Completed",
+			"pathProgressLocked" : 				"Locked",
+			"pathProgressInProgress" : 			"In progress",
+			"pathProgressUnstarted" : 			"Not yet started",
+			"pathProgressUnattempted" : 		"Unattempted",
+			"pathProgressIncomplete" : 			"Incomplete",
+			"pathScoringStatus" : 				"Activity Scoring Status : ",
+			"pathLocked" : 						"Activity Locked : To unlock this activity, please complete the required items listed here. Use space or return to enter the stack of required items, then use up or down arrow keys to cycle items and use space or return to launch the selected item.",
+			"pathPreReqItem" : 					"Required Item : ",
+			"pathPreReqItemLaunch" : 			" : Use space or return to jump to the overview for this required item.",
+			"moduleOverviewText" : 				"Module Overview Text : ",
+			"pathOverviewText" : 				"Activity Overview Text : ",
+			"pathTOC" : 						"Activity Table of Contents : Use space or return to enter Table of Contents, then use the up or down arrow keys to cycle the list of steps, and space or return to launch the selected step.",
+			"pathTOCItem" : 					"Table of Contents item : ",
+			"pathTOCItemLaunch" : 				" : Use space or return to launch this activity step."
+		},
+		"stepBase" : { /* ! step base */
+			"stepTitle" : 						"Step Title: ",
+			"stepType" : 						"Step Type : ",
+			"stepTypeBasic" : 					"Basic",
+			"stepTypeIntro" : 					"Introduction",
+			"stepTypePatientHistory" : 			"Patient History",
+			"stepTypePhysicalExam" : 			"Physical Examination",
+			"stepTypeLabResults" : 				"Lab Results",
+			"stepTypeVideoLecture" : 			"Video Lecture",
+			"stepTypeConclusion" : 				"Conclusion",
+			"stepTypeAssessment" : 				"Assessment",
+			"stepTypeAssessmentSkip" : 			" : Use space or return to skip to the Assessment",
+			"stepText" : 						"Step Text Content : ",
+			"stepMediaNonLaunch" : 				"Display Media: ",
+			"stepMediaNonLaunchCaption" : 		"Image Caption : ",
+			"stepMediaNonLaunchDesc" : 			"Image Description : ",
+			"stepMediaLaunchImage" : 			"Image Launcher Media: Use space or return to launch media.",
+			"stepMediaLaunchSubSeq" : 			"Popup Topic Launcher Media: Use space or return to launch media.",
+			"stepMediaLaunchVideo" : 			"Video Launcher Media: Use space or return to launch media.",
+			"stepMediaLaunchPdf" : 				"PDF Launcher Media: Use space or return to launch media.",
+			"stepMediaLaunchCaption" : 			"Image Caption : ",
+			"stepMediaLaunchDesc" : 			"Image Description : ",
+			"stepMediaGrid" : 					"Media Grid : Use space or return to enter grid, then use up or down arrow keys to cycle grid items and space or return to launch the selected grid item.",
+			"stepMediaGridItemCommonStart" : 	"Media Grid Item : ",
+			"stepMediaGridItemImage" : 			"Image Launcher : ",
+			"stepMediaGridItemSubSequence" : 	"Popup Topic Launcher : ",
+			"stepMediaGridItemVideo" : 			"Video Launcher : ",
+			"stepMediaGridItemPdf" : 			"PDF Launcher : ",
+			"stepMediaGridItemCaption" : 		"Image Caption : ",
+			"stepMediaGridItemDesc" : 			"Image Description : ",
+			"stepMediaGridItemCommonEnd" : 		" : Use space or return to launch the selected grid item.",
+			"gridItemLaunch" : 					" : Use space or return to launch the selected grid item.",
+			"stepAssessmentInstructTextPre" : 	"Step Assessment : ",
+			"stepAssessmentInstructTextPost" : 	" : Use space or return to interact with the assessment, then use the up or down arrow keys to cycle the assessment elements and make your selections.  After you are satisfied with your assessment selections, check the results by navigating to the Check button by using tab key.",
+			"stepAssessmentInstructGridPre" : 	"Step Assessment : ",
+			"stepAssessmentInstructGridPost" : 	" : Use space or return to interact with the assessment, then use the up or down arrow keys to cycle the assessment elements and make your selections.  After you are satisfied with your assessment selections, check the results by navigating to the Check button by using tab key.",
+			"stepAssessmentChoiceSelected" : 	"Selected : ",
+			"stepAssessmentSAMCTextUnselected1" : "Choice Label : ",
+			"stepAssessmentSAMCTextUnselected2" : " : Use space or return to select this option",
+			"stepAssessmentSAMCTextSelected1" : "Choice Label : ",
+			"stepAssessmentSAMCTextSelected2" : " : This is the selected option.",
+			"stepAssessmentMAMCTextUnselected1" : "Choice Label : ",
+			"stepAssessmentMAMCTextUnselected2" : " : This option is not selected.  Use space or return to select this option.",
+			"stepAssessmentMAMCTextSelected1" : "Choice Label : ",
+			"stepAssessmentMAMCTextSelected2" : " : This option is selected.  Use space or return to de-select this option.",
+			"stepAssessmentMatchSlot1" : 		"Matching Slot ", //"Matching Slot [var1] : [var2] : Use space or return to open the list of items to rank",
+			"stepAssessmentMatchSlot2" : 		" : Use space or return to open the list of possible matching options.",
+			"stepAssessmentMatchSlotOption1" : 	"Matching Slot [var1] : Option [var2] of [var3] : ", // "Matching Slot [var1] : Option [var2] of [var3] : Use space or return to place this option in matching slot [var1]",
+			"stepAssessmentMatchSlotOption2" : 	" : Use space or return to place this option in matching slot ",
+			"stepAssessmentRankSlot1" : 		"Ranking Slot ", //"Ranking Slot [var1] : [var2] : Use space or return to open the list of items to rank",
+			"stepAssessmentRankSlot2" : 		" : Use space or return to open the list of items to rank",
+			"stepAssessmentRankSlotOption1" : 	"Ranking Slot [var1] : Option [var2] of [var3] : ", // "Ranking Slot [var1] : Option [var2] of [var3] : Use space or return to place this option in ranking slot [var4]",
+			"stepAssessmentRankSlotOption2" : 	" : Use space or return to place this option in ranking slot ",
+			"stepAssessmentWriteInFieldListSlot1" : "Write-In Field List slot [var1] of [var2]. Current field value is : ",
+			"stepAssessmentWriteInFieldListSlot2" : " : Use space or return to focus this input field for keyboard interaction, then use escape key to exit the input field entry and return to the list of input field slots for further entries.  Use tab key to jump to the Check button from within an input field."
+		},
+		"stepAssessmentFeedback" : { /* ! step assessment feedback */
+			"feedbackStatus" : 					"Feedback Status : ",
+			"feedbackStatusCorrect" : 			"Correct",
+			"feedbackStatusPartialCorrect" : 	"Partially Correct",
+			"feedbackStatusIncorrect" : 		"Incorrect",
+			"feedbackStatusNeutral" : 			"Neutral",
+			"feedbackMainText" : 				"Feedback Main Text : "
+		},
+		"subSequence" : { /* ! subseq */
+			"subSeq" : 							"Popup Topic ",
+			"subSeqPageTitle" : 				"Popup Topic Page Title : ",
+			"subSeqPageText" : 					"Popup Topic Page Text : ",
+			"subSeqPageMediaNonLaunch" : 		"Popup Topic Display Media: ",
+			"subSeqPageMediaNonLaunchCaption" : "Image Caption : ",
+			"subSeqPageMediaNonLaunchDesc" : 	"Image Description : ",
+			"subSeqPageMediaLaunchImage" : 		"Image Launcher Media: Use space or return to launch media.",
+			"subSeqPageMediaLaunchVideo" : 		"Video Launcher Media: Use space or return to launch media.",
+			"subSeqPageMediaLaunchPdf" : 		"PDF Launcher Media: Use space or return to launch media.",
+			"subSeqPageMediaLaunchCaption" : 	"Image Caption : ",
+			"subSeqPageMediaLaunchDesc" : 		" : Image Description : ",
+			"subSeqPageMediaGrid" : 				"Media Grid : Use space or return to enter grid, then use up or down arrow keys to cycle grid items and space or return to launch the selected grid item.",
+			"subSeqPageMediaGridItemCommonStart" : 	"Media Grid Item : ",
+			"subSeqPageMediaGridItemImage" : 		"Image Launcher : ",
+			"subSeqPageMediaGridItemVideo" : 		"Video Launcher : ",
+			"subSeqPageMediaGridItemPdf" : 			"PDF Launcher : ",
+			"subSeqPageMediaGridItemCaption" : 		"Image Caption : ",
+			"subSeqPageMediaGridItemDesc" : 		"Image Description : ",
+			"subSeqPageMediaGridItemCommonEnd" : 	" : Use space or return to launch the selected grid item.",
+			"subSeqPageNavCurrentPage" : 		"Popup Topic Navigation : Current Popup Topic Page Indication: Page ",
+			"subSeqPageNavCurrentPageSplit" : 	" of ",
+			"subSeqPageNavStepFwdLastPage" : 	"Popup Topic Navigation : Next Popup Topic Page : Currently on last page of this Popup Topic, so this control is currently disabled.",
+			"subSeqPageNavStepFwd" : 			"Popup Topic Navigation : Next Popup Topic Page : Use space/return to step forward in Popup Topic.",
+			"subSeqPageNavStepBackFirstPage" : 	"Popup Topic Navigation : Previous Popup Topic Page : Currently on first page of this Popup Topic, so this control is currently disabled.",
+			"subSeqPageNavStepBack" : 			"Popup Topic Navigation : Previous Popup Topic Page : Use space/return to step backward in the Popup Topic."
+		},
+		"mediaViewer" : { /* ! media viewer */
+			"videoControl" : 					"Video Control : ",
+			"videoControlTrigger" : 			" : Use space or return to trigger.",
+			"videoCCTrigger" : 					" : Use space or return open the closed-caption selection box, then use the up or down arrow keys cycle the available closed captioning options and use to select a closed-captioning option. Use escape key to exit the closed-caption selection box without making a selection.",
+			"videoPlay" : 						"Play",
+			"videoPause" : 						"Pause",
+			"videoRestart" : 					"Restart",
+			"videoMute" : 						"Mute",
+			"videoUnMute" : 					"Unmute",
+			"videoVolumeLess" : 				"Reduce Volume",
+			"videoVolumeMore" : 				"Increase Volume",
+			"videoCCOff" : 						"CC (off)",
+			"videoCCOn" : 						"CC (on)",
+			"videoFullScreen" : 				"Full Screen"
+		},
+		"help" : { /* ! help */
+			"titlePre" : 						"Help Panel : ",
+			"sideNav" : 						"StepStone Help: Navigation : Use space or return to enter the help topic stack.  Then use the up or down arrow keys to cycle topics, and use space or return to launch the selected topic.",
+			"sideNavItemPre" : 					"Help Topic : ",
+			"sideNavUsingStepStone" : 			" : Use space or return to learn about using StepStone.",
+			"sideNavKeyboard" : 				" : Use space or return to learn about StepStone keyboard shortcuts.",
+			"sideNavSysReqs" : 					" : Use space or return to learn about system requirements.",
+			"usingStepStoneTitle" : 			"Help Topic Title : ",
+			"usageCoreInterface" : 				"Usage Topic : Core Interface : Use space or return to access elements in this usage topic, then use up or down arrow keys to cycle elements within the topic and space or return to launch the selected element.",
+			"usageSectionPrefix_CoreUI" : 		"Core Interface : ",
+			"usageCoreInterfaceDashboard" : 	"Dashboard : Description and usage of the StepStone Player Dashboard.",
+			"usageExercises" : 					"Usage Topic : Exercises : Use space or return to access elements in this usage topic, then use up or down arrow keys to cycle elements within the topic and space or return to launch the selected element.",
+			"usageSectionPrefix_Exercises" : 	"Exercises : ",
+			"usageExercisesHotSpot" : 			"HotSpot : Description and usage of the HotSpot activity type in StepStone.",
+			"usageExercisesGrid" : 				"Multi-Item Grid : Description and usage of the Multi-Item Grid activity type in StepStone.",
+			"usageExercisesSubSeq" : 			"Popup Topic : Description and usage of the Popup Topic activity type in StepStone.",
+			"usageMedia" : 						"Usage Topic : Media : Use space or return to access elements in this usage topic, then use up or down arrow keys to cycle elements within the topic and space or return to launch the selected element.",
+			"usageSectionPrefix_Media" : 		"Media : ",
+			"usageMediaPdf" : 					"PDF : Description and usage of PDF media in StepStone.",
+			"usageMediaVideo" : 				"Video : How to use video media in StepStone. Assistive keyboard-navigable controls are available for video playback including play/pause toggle, restart, mute toggle, volume controls, closed-caption selection, and full screen toggle.",
+			"usageAssessments" : 				"Usage Topic : Assessments : Use space or return to access elements in this usage topic, then use up or down arrow keys to cycle elements within the topic and space or return to launch the selected element.",
+			"usageSectionPrefix_Assessments" : 	"Assessments : ",
+			"usageAssessmentsMatching" : 		"Matching : Description and usage of the Matching assessment type in StepStone.",
+			"usageAssessmentsRanking" : 		"Ranking : Description and usage of the Ranking assessment type in StepStone.",
+			"keyboardTitle" : 					"Help Topic Title : Keyboard Shortcuts",
+			"keyboardShortcutsPrefix" : 		"Keyboard Shortcuts Topic : ", 
+			"keyboardGeneralNav" : 				"General Navigation : Key List : Left arrow :Trigger global navigation Back button [var1]. Right arrow :Trigger global navigation Continue button [var2]. a : Launch About panel. c : Launch Clipboard panel. d : Launch Dashboard panel. h : Launch Help panel. m : Open global navigation menu. r : Restart current activity. w : Toggle element highlight box.",
+			"sysReqsTitle" : 					"Help Topic Title : System Requirements",
+			"sysReqsPrefix" : 					"System Requirements Topic : ", 
+			"sysReqsMinOps" : 					"Minimum Operating Requirements : This system was developed using modern browser technologies. For the best experience, you will need to utilize a compatible version of one of the following browsers.  If you need assistance checking or updating your browser, please contact your local IT staff. Browser Support. Firefox: 44+. Chrome: 49+. Safari: 9+. IE: 10+. Edge: 31+. Additional Requirements : Javascript: enabled. Cookies: enabled."
+		},
+		"about" : { /* ! about */
+			"title" : 							"About This Activity",
+			"titlePre" : 						"About Panel : ",
+			"sideNav" : 						"About This Activity: Navigation : Use space or return to enter the about topic stack.  Then use the up or down arrow keys to cycle topics, and use space or return to launch the selected topic.",
+			"sideNavPrefix" : 					"About Topic : ",
+			"sideNavAboutAuthorSingle" : 		" : Use space or return to learn about the author of this activity.",
+			"sideNavAboutAuthorMulti" : 		" : Use space or return to learn about the authors of this activity.",
+			"sideNavAcknowledgements" : 		" : Use space or return to read about the acknowledgements for this activity.",
+			"topicTitlePrefix" : 				"About Topic Title : ",
+			"aboutAuthorSingle" : 				"About the Author",
+			"aboutAuthorMulti" : 				"About the Authors",
+			"authorCardTitle" : 				"Author Information Card : ",
+			"acknowledgementsTitle" : 			"Acknowledgements",
+			"acknowledgementsBlock" : 			"Acknowledgements Section : ",
+			"acknowledgementsLast_OrgCET" : 	"Organization : The Center for Educational Technologies",
+			"acknowledgementsLast_OrgTamuCVM" : "Organization : The School of Veterinary Medicine and Biomedical Sciences at Texas A and M University",
+			"acknowledgementsLast_Disclaimer1" : "StepStone Disclaimer : "
+		},
+		"clipboard" : { /* ! clipboard */
+			"titlePre" : 						"Clipboard Panel : ",
+			"gridGroupLabel" : 					"Clipboard Item Group Label : ",
+			"gridGroup" : 						" : Media Grid : Use space or return to enter grid, then use up or down arrow keys to cycle grid items and space or return to launch the selected grid item.",
+			"gridItemCommonStart" : 			"Clipboard Grid Item : ",
+			"gridItemImageLaunch" : 			"Image Launcher : ",
+			"gridItemVideoLaunch" : 			"Video Launcher : ",
+			"gridItemPdfLaunch" : 				"PDF Launcher : ",
+			"gridItemCaption" : 				"Media Caption : ",
+			"gridItemDesc" : 					"Media Description : ",
+			"gridItemCommonEnd" : 				" : Use space or return to launch the selected grid item.",
+			"gridItemLaunch" : 					" : Use space or return to launch the selected grid item."
+		}
+	}
+};

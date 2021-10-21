@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<style>
+html, body {
+    height: 800px;
+    width: 96%;
+    margin: 10px auto;
+    background-color: white;
+}
+
+.parent {
+  position: relative;
+  border: 2px solid #DFA612;
+  color: black;
+  display: flex;
+  font-family: sans-serif;
+  font-weight: bold;
+  height: auto;
+}
+
+.origin {
+  flex-basis: 100%;
+  flex-grow: 1;
+  padding: 5px;
+}
+
+.draggable {
+  background-color: #4AAE9B;
+  font-weight: normal;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  padding: 10px;
+}
+
+.dropzone {
+  background-color: #6DB65B;
+  flex-basis: 100%;
+  flex-grow: 1;
+  padding: 3px;
+}
+</style>
+
+<head>
+    <title>Drag and drop definitions!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<script src="http://code.jquery.com/jquery.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.8.17/jquery-ui.min.js"></script>
+	
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.5.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/jquery-ui.js"></script>
+	
+	<script src="js/jquery.ui.touch-punch.js"></script>
+	<script src="js/jquery.ui.touch-punch.min.js"></script>
+	
+    <script type="text/javascript" src="js/iframeResizer.min.js"></script>
+    <script type="text/javascript" src="js/iframeResizer.contentWindow.min.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+</head>
+
+<body>
+  <h1> Drag and drop words onto their matching definitions! </h1>
+    <script src="script.js"> </script>
+    <div class="parent" draggable="false">
+      <div class="origin">
+        <div id="d6" class="draggable">
+          Golgi Apparatus
+        </div>
+        <div id="d7" class="draggable">
+          Nucleus
+        </div>
+        <div id="d8" class="draggable">
+          Vesicles
+        </div>
+        <div id="d9" class="draggable">
+          Plasma Membrane
+        </div>
+        <div id="d10" class="draggable">
+          Rough Endoplasmic Reticulum
+        </div>
+        <div id="d11" class="draggable">
+        Ribosome
+        </div>
+      </div>
+    <div class="origin">
+      <div id="d11a" class="dropzone">
+        Makes proteins
+      </div>
+      <div id="d7a" class="dropzone">
+        Contains the genetic material in a cell
+      </div>
+      <div id="d6a" class="dropzone">
+        Processes and modifies proteins, then packages them into vesicles for transport
+      </div>
+      <div id="d9a" class="dropzone">
+        Contains the cytoplams and regulates interaction with the environment
+      </div>
+      <div id="d8a" class="dropzone">
+        A sac-like structure for transporting materials within the cell or out of the cell
+      </div>
+      <div id="d10a" class="dropzone">
+        Attached ribosomes, located next to the nucleus, packages proteins and sends them to other locations.
+      </div>
+    </div> 
+</body>
+
+</html>

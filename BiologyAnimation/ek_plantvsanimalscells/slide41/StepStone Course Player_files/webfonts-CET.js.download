@@ -1,0 +1,161 @@
+var webFontAssignmentObject = {};
+
+// add font element assignments to container object for placement
+function fontAssignBuild(elementID, fontID) {
+	webFontAssignmentObject[elementID] = '&#x' + fontID + ';';
+}
+
+// AUTHORING TOOL STUFF
+
+// ======[ ARROWS ]======
+fontAssignBuild('authoring_arrow1_up', 'e653');
+fontAssignBuild('authoring_arrow1_down', 'e654');
+fontAssignBuild('authoring_arrow2_up', 'e655');
+fontAssignBuild('authoring_arrow2_down', 'e656');
+fontAssignBuild('authoring_arrow3_left', 'e657');
+fontAssignBuild('authoring_arrow3_right', 'e658');
+
+// ======[ EDITOR PANE BADGES ]====== 
+fontAssignBuild('authoring_badge_pageinfo', 'e650'); //
+fontAssignBuild('authoring_badge_pageprogress', 'e651'); //
+
+fontAssignBuild('authoring_badge_step_info_default', 'e650');
+fontAssignBuild('authoring_badge_step_progress_intro', 'e65d');
+fontAssignBuild('authoring_badge_step_progress_stepthrough', 'e651');
+//fontAssignBuild('authoring_ui_tripath', 'e652');
+fontAssignBuild('authoring_badge_step_progress_decision', 'e652');
+fontAssignBuild('authoring_badge_step_progress_redirect', 'e65e');
+fontAssignBuild('authoring_badge_step_progress_conclusion', 'e65f');
+
+// ======[ MEDIA TYPE BADGES ]====== 
+fontAssignBuild('authoring_mediaBadge_image', 'e65c');
+fontAssignBuild('authoring_mediaBadge_audio', 'e644');
+fontAssignBuild('authoring_mediaBadge_document', 'e643');
+fontAssignBuild('authoring_mediaBadge_video', 'e645');
+
+
+// ======[ NAV ICONS ]====== 
+fontAssignBuild('authoring_topNav_tools', 'e641');
+fontAssignBuild('authoring_topNav_save', 'e642');
+
+// ======[ GENERAL UI ]====== 
+fontAssignBuild('authoring_ui_logo_CET', 'e640');
+fontAssignBuild('authoring_ui_clear', 'e647');
+fontAssignBuild('authoring_ui_delete', 'e648');
+fontAssignBuild('authoring_ui_duplicateActivity', 'e646');
+fontAssignBuild('authoring_ui_key', 'e64b');
+fontAssignBuild('authoring_ui_map', 'e649');
+fontAssignBuild('authoring_ui_password', 'e64f');
+fontAssignBuild('authoring_ui_preview', 'e64a');
+fontAssignBuild('authoring_ui_shovel', 'e64d');
+fontAssignBuild('authoring_ui_tip', 'e64c');
+fontAssignBuild('authoring_ui_tripath', 'e652'); //
+fontAssignBuild('authoring_ui_user', 'e64e');
+fontAssignBuild('authoring_ui_coursepackage', 'e900');
+fontAssignBuild('authoring_ui_door', 'e64e'); //
+fontAssignBuild('authoring_ui_generate_image_reduction', 'e65b');
+
+fontAssignBuild('authoring_ui_wordballoon', 'e63c');
+
+// ======[ MAP ]======
+fontAssignBuild('map_indicator_redirect_sender', 'e65a');
+fontAssignBuild('map_indicator_redirect_receiver', 'e659');
+
+// =================================
+// =================================
+// =================================
+
+// dev
+//fontAssignBuild('nav_save', 'e619');
+//fontAssignBuild('nav_tools', 'e623');
+fontAssignBuild('star1_solid', 'e61f');
+//fontAssignBuild('nav_toolkit', 'e623');
+
+// ======[ ARROWS ]======
+fontAssignBuild('arrow1_up', 'e61c');
+fontAssignBuild('arrow1_right', 'e600');
+fontAssignBuild('arrow1_down', 'e61e');
+fontAssignBuild('arrow1_left', 'e61d');
+fontAssignBuild('arrow2_up', 'e635');
+fontAssignBuild('arrow2_right', 'e636');
+fontAssignBuild('arrow2_down', 'e638');
+fontAssignBuild('arrow2_left', 'e637');
+fontAssignBuild('double_arrow1_left', 'e902');
+fontAssignBuild('double_arrow1_right', 'e903');
+
+// ======[ MAIN PAGE BADGES ]====== 
+fontAssignBuild('badge_start', 'e621');
+fontAssignBuild('badge_end', 'e625');
+fontAssignBuild('badge_infoonly', 'e622');
+fontAssignBuild('badge_assessment', 'e601');
+fontAssignBuild('badge_exam', 'e619'); //temp hidden for early dev, ok to use
+fontAssignBuild('badge_history', 'e623'); //temp hidden for early dev, ok to use
+fontAssignBuild('badge_labresults', 'e620'); //temp hidden for early dev, ok to use
+fontAssignBuild('badge_minilecture', 'e618');
+fontAssignBuild('badge_courseassessment', 'e606');
+fontAssignBuild('badge_coursesurvey', 'e607');
+
+// ======[ DASHBOARD STATUS BADGES ]====== 
+fontAssignBuild('dashboardbadge_courseassessment', 'e63b');
+fontAssignBuild('dashboardbadge_courseassessmentlocked', 'e608');
+fontAssignBuild('dashboardbadge_courseassessmentcompleted', 'e609');
+fontAssignBuild('dashboardbadge_coursesurvey', 'e63c');
+fontAssignBuild('dashboardbadge_coursesurveylocked', 'e60a');
+fontAssignBuild('dashboardbadge_coursesurveycompleted', 'e60b');
+fontAssignBuild('dashboardbadge_coursecertificate', 'e63d');
+fontAssignBuild('dashboardbadge_coursecertificatelocked', 'e60c');
+fontAssignBuild('dashboardbadge_coursecertificateavailable', 'e60e');
+fontAssignBuild('dashboardbadge_reminder', 'e901');
+
+// ======[ SIDENAV STATUS BADGES ]====== 
+fontAssignBuild('sidenav_courseoverview', 'e62c');
+fontAssignBuild('sidenav_activityunattempted', 'e62d');
+fontAssignBuild('sidenav_activityincomplete', 'e62e');
+fontAssignBuild('sidenav_activitycompleted', 'e62f');
+fontAssignBuild('sidenav_activitylocked', 'e630');
+fontAssignBuild('sidenav_activityfailed', 'e631');
+
+// ======[ LAUNCHERS ]====== 
+fontAssignBuild('launcher_basic', 'e603');
+fontAssignBuild('launcher_document', 'e61a');
+fontAssignBuild('launcher_video', 'e612');
+fontAssignBuild('launcher_audio', 'e616');
+fontAssignBuild('launcher_feedback', 'e633');
+fontAssignBuild('launcher_subsequence', 'e63e');
+fontAssignBuild('launcher_subsequenceend', 'e63f');
+fontAssignBuild('launcher_zoomsequence', 'e62b');
+
+// ======[ NAV ]====== 
+fontAssignBuild('nav_about', 'e617');
+fontAssignBuild('nav_clipboard', 'e627');
+fontAssignBuild('nav_credits', 'e624');
+fontAssignBuild('nav_help', 'e615');
+fontAssignBuild('nav_notebook', 'e62a');
+fontAssignBuild('nav_resources', 'e628');
+fontAssignBuild('nav_restart', 'e626');
+//fontAssignBuild('nav_toolkit', 'e629');
+fontAssignBuild('nav_dashboard', 'e613');
+fontAssignBuild('nav_menu', 'e614');
+fontAssignBuild('nav_exit', 'e639');
+fontAssignBuild('nav_finish', 'e63a');
+
+// ======[ STATUS ]====== 
+fontAssignBuild('status_alert1', 'e60f');
+fontAssignBuild('status_correct1', 'e611');
+fontAssignBuild('status_hint', 'e632');
+fontAssignBuild('status_incorrect', 'e610');
+
+// ======[ GENERAL UI ]====== 
+fontAssignBuild('ui_smalli', 'e604');
+fontAssignBuild('ui_uparrow', 'e61b');
+fontAssignBuild('ui_x1', 'e605');
+
+// ======[ FORM/ASESSMENT UI ELEMENTS ]====== 
+fontAssignBuild('form_cb1', 'e60d');
+fontAssignBuild('form_rb1', 'e634');
+
+// ======[ PLACEHOLDERS ]====== 
+fontAssignBuild('placeholder_solidblock', 'e602');
+
+// ======[ SMALL BADGES ]====== 
+//fontAssignBuild('smallbadge_newitem', 'e61f'); // dev temp, ok to use

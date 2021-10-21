@@ -1,0 +1,234 @@
+html, body {
+    height: 800px;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background: #EEF2F7;
+}
+
+#puzzle-header {
+    text-align: center;
+    color: blue;
+}
+
+#venn {
+    width: 1000px;
+    height: 400px;
+    margin: 10px auto;
+    position: relative;
+}
+
+.venn-header {
+    font-size: 20px;
+}
+
+.circle {
+    border: 1px solid black;
+    border-radius: 50%;
+    width: 450px;
+    height: 400px;
+    text-align: center;
+    position: absolute;
+    font-weight: bold;
+}
+
+#c1 {
+    top: 0;
+    left: 0px;
+}
+
+#c2 {
+    top: 0;
+    left: 250px;
+}
+
+#both {
+    top: 0;
+    left: 250px;
+    width: 200px;
+    height: 400px;
+    position: absolute;
+}
+
+.answer-container {
+    top: 0;
+    position: relative;
+    border: 3px solid black;
+}
+
+.word-bank {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.answer {
+    text-align: center;
+    border: 3px solid gray;
+    margin: 8px;
+    background: white;
+    box-shadow: 1px 1px rgba(0, 0, 0, 0.12);
+    border-radius: 5px;
+    display: block;
+}
+
+#submit {
+    width: 100px;
+    margin-top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    position: relative;
+    box-sizing: content-box;
+}
+
+#game-actions {
+    margin: 30px auto;
+    margin-top: 20px;
+    width: 900px;
+    left: 100px;
+    position: relative;
+}
+
+#reset {
+    width: 100px;
+    height: 20px;
+}
+
+#moves-div {
+    top: 0;
+    left: 300px;
+    height: 20px;
+    position: absolute;
+}
+
+#moves-text {
+    color: white;
+    height: 10px;
+    padding: 5px;
+    font-weight: bold;
+}
+
+#moves[readonly] {
+    width: 70px;
+    height: 16px;
+    text-align: center;
+    border-radius: 5px;
+    border: 2px solid;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.submission {
+    left: 850px;
+    height: auto;
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+}
+
+@media screen and (max-width: 480px) {
+    #venn {
+        width: 400px;
+    }
+
+    #game-actions {
+        width: 400px;
+        left: 0;
+    }
+
+    #moves-div {
+        left: 150px;
+    }
+
+    .circle {
+        width: 400px;
+        height: 300px;
+    }
+
+    #c2 {
+        top: 150px;
+        left: 0;
+    }
+
+    #c2 .venn-header {
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        position: absolute;
+    }
+
+    #both {
+        top: 150px;
+        left: 0;
+        width: 400px;
+        height: 150px;
+    }
+
+    .submission {
+        top: 500px;
+        left: 15px;
+        right: 15px;
+        width: auto;
+        position: absolute;
+        box-sizing: border-box;
+    }
+
+    .answer-container {
+        position: relative;
+        border: 3px solid black;
+    }
+
+    .word-bank {
+        height: 0;
+    }
+
+    .answer {
+        width: 100px;
+        display: inline-block;
+        box-sizing: border-box;
+    }
+}
+
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) {
+    html, body {
+        height: 1000px;
+    }
+
+    #venn {
+        width: 700px;
+    }
+
+    #game-actions {
+        width: 550px;
+	left: 0;
+    }
+
+    .submission {
+        top: 450px;
+        left: 0;
+        margin: 10px auto;
+        width: 700px;
+        position: absolute;
+        box-sizing: border-box;
+    }
+
+    .answer-container {
+        position: relative;
+        border: 3px solid black;
+    }
+
+    .answer {
+        width: 150px;
+        display: inline-block;
+	box-sizing: border-box;
+    }
+}

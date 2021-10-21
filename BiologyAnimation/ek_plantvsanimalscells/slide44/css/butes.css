@@ -1,0 +1,775 @@
+*{
+	/*margin: 						0;
+	padding: 					0;
+	outline:						0;
+	border:						0;*/
+	font-size: 					100%;
+	line-height: 				1;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+*, 
+*:before, 
+*:after {
+  -moz-box-sizing: 			border-box; 
+  -webkit-box-sizing: 		border-box; 
+  box-sizing: 					border-box;
+}
+html{
+	/*min-height:					100%;*/
+	/*margin: 						0;
+	padding: 					0;
+	overflow: 					hidden;*/
+}
+body{
+	/*min-height:					100%;*/
+	/*min-width: 					900px;*/
+	font-size: 					100%;
+	/*margin: 						0;
+	padding: 					0;
+	overflow: 					hidden;
+	font-family: 				'Asap', "Lucida Grande", sans-serif;*/
+	font-size: 					1em;
+	overflow-x: 				hidden; /* intended for use when in sized iframe */
+	position: 					relative;
+	/*text-align: 					center;*/
+	/*margin-left: 				auto;
+	margin-right: 				auto;*/
+	margin: 						0 auto 0 auto;
+	/*max-width: 				900px;*/
+	width: 						100%;
+}
+#viewPortNarrowThreshold{
+	position: 		absolute;
+	top: 				-99999px;
+	left: 				-99999px;
+	width: 			0;
+	height: 			0;
+}
+.masterContainer{
+	/*min-width: 			900px;*/
+	font-family: 			sans-serif;
+	font-size: 				1em;
+	/*width: 					100%;*/
+	/*border-top: 					1px solid black;
+	border-right: 					1px solid black;
+	border-bottom: 					2px solid black;
+	border-left: 					1px solid black;*/
+	position: 				relative;
+}
+.textSizeSmall{
+	font-size: 			0.8em;
+}
+.textSizeLarge{
+	font-size: 	2em;
+}
+.textBold{
+	font-weight: bold;
+}
+.textCenter{
+	text-align: center;
+}
+.textItalic{
+	font-style: italic;
+}
+
+/* ======================================================== */
+
+#emrsSimulation{
+	
+	position: 				relative;
+}
+
+#popupNotice{
+	position: 				absolute;
+	top: 						0;
+	right: 					0;
+	bottom: 				0;
+	left: 						0;
+	display: 					none;
+}
+.popupNoticeOverlayBlocker{
+	position: 				absolute;
+	top: 						0;
+	right: 					0;
+	bottom: 				0;
+	left: 						0;
+	background: 			rgba(0,0,0,0.7);
+}
+.popupNoticeContent{
+	box-shadow: 						0 0 7px rgba(0,0,0,0.7);
+	border-radius: 					0.25em;
+	width: 								16em;
+	min-height: 						6em;
+	text-align: 							center;
+	margin-left: 						auto;
+	margin-right: 						auto;
+	padding: 							1em;
+	position: 							relative;
+	top:									50%;
+	margin-top: 						-3em;
+	background: 						white;
+}
+.popupNoticeContentHeader{
+	font-size: 							1.1em;
+	line-height: 						1.2em;
+}
+.popupNoticeContentContent{
+	font-size: 							0.85em;
+	margin-top: 						1em;
+}
+.popupNoticeLinkText{
+	cursor: 								pointer;
+	color: 								#4152ae;
+	padding-bottom: 				0.6em;
+}
+.popupNoticeLinkText:last-child{
+	padding-bottom: 				0;
+}
+
+#activityLayerTabs{
+	vertical-align: 					middle;
+}
+
+.activityLayerTabRow{
+	/*background: 						#232c5c;*/	/* match lowest tab for full color fill */
+	max-width: 						600px;
+	vertical-align: 					middle;
+}
+
+.activityLayerTab{
+	color: 								white;
+	display: 								inline-block;
+	margin-left: 						auto;
+	margin-right: 						auto;
+	text-align: 							center;
+	/*padding: 							0.8em 3em 0 3em;*/
+	padding: 							0.8em;
+	/*padding: 							0.4em;*/
+	cursor: 								pointer;
+	width: 								33.33%;
+	vertical-align: 					middle;
+	line-height: 						1.2em;
+}
+[data-activityTabOrder="1"]{
+	background: 						 #4152ae;
+}
+[data-activityTabOrder="2"]{
+	background: 						#303d80;
+	color: 								#8e9ceb;
+}
+[data-activityTabOrder="3"]{
+	background: 						#232c5c;	
+	color: 								#8e9ceb;
+}
+
+.briefcaseSlot{
+	background: 						white;
+	padding: 							0.5em;
+	box-shadow: 						0 0 4px rgba(0,0,0,0.6);
+	border-radius: 					0.3em;
+	display: 								none;
+}
+.briefcaseSlotHeader{
+	font-size: 							1em;
+	font-weight: 						bold;
+	padding-bottom: 				0.3em;
+}
+.briefcaseSlotDataGlimpse{
+	font-size: 							0.7em;
+	line-height: 						1.2em;
+}
+.briefcaseSlotButtonStrip{
+	padding-top: 						0.6em;
+}
+.briefcaseSlotButton{
+	display: 								inline-block;
+	color: 						 		#4152ae;
+	margin-left: 						0.8em;
+	cursor: 								pointer;
+}
+.briefcaseSlotButton:first-child{
+	margin-left: 						0;
+}
+.briefcaseSlotButtonIcon{
+	/*
+	position: 								absolute;
+	left: 										0.7em;
+	top: 										0;
+	*/
+	width: 									16px;
+	height: 									16px;
+	-webkit-background-size: 		contain;
+    -moz-background-size: 			contain;
+    -o-background-size: 				contain;
+    background-size: 					contain;
+    background-position: 				center center;
+    background-repeat: 				no-repeat;
+    display: 									inline-block;
+}
+[data-buttonAction="Edit"] .briefcaseSlotButtonIcon{
+	 background: 							url('../img/svg/icon-pencil-blue.svg') no-repeat center center;
+}
+[data-buttonAction="Forms"] .briefcaseSlotButtonIcon{
+	 background: 							url('../img/svg/icon-adobe-blue.svg') no-repeat center center;
+}
+[data-buttonAction="Attachments"] .briefcaseSlotButtonIcon{
+	 background: 							url('../img/svg/icon-paperclip-blue.svg') no-repeat center center;
+}
+.briefcaseSlotButtonLabel{
+	display: 									inline-block;
+	font-size: 								0.7em;
+	vertical-align: 						top;
+	position: 								relative;
+	top: 										0.3em;
+}
+
+
+#activityLayerTabsNarrowDropper{
+	
+}
+
+#activityLayersHeader{
+	height: 								3em;
+	background: 						#4152ae;
+	color: 								white;
+	position: 							relative;
+	text-align: 							center;
+}
+
+.activityLayersHeaderButton{
+	position: 								absolute;
+	left: 										0.7em;
+	top: 										0;
+	width: 									1.6em;
+	height: 									1.6em;
+	-webkit-background-size: 		contain;
+    -moz-background-size: 			contain;
+    -o-background-size: 				contain;
+    background-size: 					contain;
+    background-position: 				center center;
+    background-repeat: 				no-repeat;
+    height: 									100%;
+    cursor: 									pointer;
+}
+.activityLayersHeaderButton[data-buttonAction="activityLayersHeaderMenu"]{
+    background: 							url('../img/svg/icon-menuburger-white.svg') no-repeat center center;
+}
+.activityLayersHeaderButton[data-buttonAction="activityLayersHeaderPrev"]{
+    background: 							url('../img/svg/icon-backArrow-white.svg') no-repeat center center;
+}
+
+.activityLayersHeaderLabel{
+	display: 								inline-block;
+	margin-left: 						auto;
+	margin-right: 						auto;
+	text-align: 							center;
+	padding-top: 						1em;
+}
+
+#activityLayers{
+	background: 			white;
+}
+
+.activityLayer{
+	padding: 				1em;
+	height: 					600px;
+	max-height: 			600px;
+	overflow: 				auto;
+	display: 					none;
+}
+.activityLayer[data-activityLabel="Completed 10-4"]{
+	padding: 				0;
+}
+
+[data-activityLabel="Briefcase"]{
+/*[data-activityLabel="Report Form"]{*/
+	display: 					block;
+}
+
+.activityLayerLowerButton{
+	border-radius: 			50%;
+	background-color: 		 #4152ae;
+	font-size: 					1.4em;
+	line-height: 				40px;
+	color: 						white;
+	width:						40px;
+	height: 						40px;
+	text-align: 					center;
+	vertical-align: 			middle;
+	position: 					absolute;
+	bottom: 					1em;
+	right: 						1em;
+	cursor: 						pointer;
+}
+.activityLayerLowerButton.imgSourced.saveReportButtonIcon{
+	background-color: 					#4152ae !important;
+	background-image: 				url('../img/svg/icon-save-white.svg') !important;
+	-webkit-background-size: 		20px 20px;
+    -moz-background-size: 			20px 20px;
+    -o-background-size: 				20px 20px;
+    background-size: 					20px 20px;
+     background-position: 			center center;
+    background-repeat: 				no-repeat;
+}
+
+.formSection{
+	margin-top: 				4em;
+}
+.formSection:first-child{
+	margin-top: 				0;
+}
+.formSection:last-child{
+	margin-bottom: 			5em;
+}
+
+.formSectionLabel{
+	font-size: 					2em;
+	margin-bottom: 			0.65em;
+}
+
+.formSectionContent{
+	
+}
+
+.formElement{
+	margin-bottom: 			2em;
+	padding-bottom: 		0.5em;
+	border-bottom: 			2px solid rgba(0,0,0,0.4);
+	position: 					relative;
+}
+#emrsSimulation[data-currentActivity="PracticeReport"] .formElement[data-formElementType="DropList"],
+#emrsSimulation[data-currentActivity="PracticeReport"] .formElement[data-formElementType="DatePicker"]{
+	cursor: 						pointer;
+}
+
+.formElementRequired{
+	
+}
+
+[data-formElementType="FillLine"] .fillLineEntry{
+    /*background: 				#bababa;*/
+    outline: 						none;
+    line-height: 				1.2em;
+    cursor: 						text;
+}
+[data-formElementType="FillLine"][data-fillStatus="Default"] .fillLineEntry{
+    color: 						rgba(0,0,0,0.5);
+}
+[data-formElementType="FillLine"][data-fillStatus="Default"] .formElementLabel{
+    display: 						none;
+}
+[data-formElementType="FillLine"][data-fillStatus="Filled"] .formElementLabel{
+    display: 						block;
+}
+[data-formElementType="FillLine"][data-fillStatus="Default"].formElementFocused .fillLineEntry,
+[data-formElementType="FillLine"][data-fillStatus="Filled"].formElementFocused .formElementLabel{
+    color: 						#4152ae;
+}
+.formElementFocused{
+	border-bottom-color: 		#4152ae;
+}
+
+[data-formElementType="Radio"]{
+	border: 							1px solid #4152ae;
+}
+[data-formElementType="Radio"][data-fillStatus="Unselected"]{
+	
+}
+[data-formElementType="Radio"][data-fillStatus="Selected"]{
+	
+}
+[data-formElementType="Radio"] .formElementLabel{
+	background: 					#4152ae;
+	color: 							white;
+	padding: 						1em;
+	font-size: 						1.1em;
+}
+[data-formElementType="Radio"] .radioItem{
+	position: 						relative;
+	padding: 						0.7em;
+}
+[data-formElementType="Radio"] .radioButton{
+	position: 						absolute;
+	left: 								0.7em;
+	top: 								0.6em;
+	border-radius: 				50%;
+	width: 							1em;
+	height: 							1em;
+	color: 							#4152ae;
+	box-shadow: 					0 0 0 3px #4152ae, inset 0 0 0 3px white;
+}
+[data-formElementType="Radio"] .radioButton:not(.disabled){
+	cursor: 							pointer;
+}
+[data-formElementType="Radio"] .selectedRadioItem .radioButton{
+	background: 					#4152ae;
+}
+[data-formElementType="Radio"] .radioValue{
+	margin-left: 					1.7em;
+}
+
+.vizDependentTarget{
+	
+}
+.vizDependentTargetOff{
+	display: 							none;
+}
+
+/*
+<div class="formElement" data-formElementType="Radio" data-radioStatus="Unselected" data-formElementID="SusceptibleSpeciesRadio">
+							<div class="formElementLabel">Susceptible species for the incident selected found on the premises?</div>
+							<div class="formElementContent">
+								<div class="radioItem bestChoice">
+									<div class="radioButton"></div>
+									<div class="radioValue">Yes</div>
+								</div>
+								<div class="radioItem">
+									<div class="radioButton"></div>
+									<div class="radioValue">No</div>
+								</div>
+							</div>
+						</div>
+						*/
+/*
+[data-formElementType="FillLine"] .fillLineEntry input[type=text]{
+    width: 					100%;
+    padding: 				0px;
+    border: 					none;
+}
+
+[data-formElementType="FillLine"][data-fillStatus="Default"] .formElementLabel{
+    display: 					none;
+}
+
+[data-formElementType="FillLine"] .fillLineEntry,
+[data-formElementType="FillLine"] .fillLineEntry input[type=text],
+[data-formElementType="FillLine"] .fillLineEntry input[type=text]::placeholder,
+[data-formElementType="FillLine"] .fillLineEntry input[type=text]::-moz-placeholder{
+    font-family: 			sans-serif;
+	font-size: 				0.5em;
+}
+
+[data-formElementType="FillLine"] .fillLineEntry input[type=text]::placeholder,
+[data-formElementType="FillLine"] .fillLineEntry input[type=text]::-moz-placeholder{
+    color: 					 green;
+}
+
+[data-formElementType="FillLine"][data-fillStatus="Default"] .fillLineEntry input[type=text]::placeholder::active,
+[data-formElementType="FillLine"][data-fillStatus="Default"] .fillLineEntry input[type=text]::placeholder::focus,
+[data-formElementType="FillLine"][data-fillStatus="Default"] .fillLineEntry input[type=text]::-moz-placeholder::active,
+[data-formElementType="FillLine"][data-fillStatus="Default"] .fillLineEntry input[type=text]::-moz-placeholder::focus{
+    color: 					 #4152ae;
+    opacity: 				 1;
+}
+*/
+
+[data-formElementType="FillLine"]{
+	
+}
+
+[data-formElementType="DropList"]{
+	
+}
+
+[data-formElementType="DatePicker"]{
+	
+}
+
+[data-dropStatus="Closed"]{
+	
+}
+
+.formElementLabel{
+	font-size: 					0.85em;
+	color: 						rgba(0,0,0,0.5);
+	margin-bottom: 			0.6em;
+}
+
+[data-dropStatus="Open"] .formElementContent{
+	
+}
+
+[data-formElementType="DropList"][data-dropStatus="Open"] .formElementContent{
+	box-shadow: 				0 0 4px rgba(0,0,0,0.4);
+	/*padding: 					0.5em;*/
+	background: 				white;
+	border-radius: 			0.25em;
+	max-height: 				14em;
+	overflow: 					auto;
+}
+
+.formElementContent{
+	
+}
+
+.dropListItem{
+	
+}
+
+[data-dropStatus="Open"] .dropListItem{
+	padding: 					0.6em;
+	cursor: 						pointer;
+}
+
+[data-dropStatus="Open"] .dropListItem.selectedDropListItem{
+	background: 				rgba(0,0,0,0.08);
+}
+[data-dropStatus="Open"] .dropListItem:hover{
+	background:  				rgba(0,0,0,0.15);
+}
+
+
+/*
+[data-dropStatus="Open"] .dropListItem:first-child{
+	padding-top: 				0;
+}
+[data-dropStatus="Open"] .dropListItem:last-child{
+	padding-bottom: 		0;
+}
+*/
+
+.dropListArrow{
+	position: 					absolute;
+	right: 						0;
+	top: 							1.2em;
+	color: 						rgba(0,0,0,0.5);
+	font-size: 					1.2em;
+}
+
+.calendarIcon{
+	position: 								absolute;
+	right: 									0;
+	top: 										0.5em;
+	width: 									16px;
+	height: 									16px;
+	opacity: 								0.5;
+	-webkit-background-size: 		contain;
+    -moz-background-size: 			contain;
+    -o-background-size: 				contain;
+    background-size: 					contain;
+    background-position: 				center center;
+    background-repeat: 				no-repeat;
+    height: 									100%;
+    background: 							url('../img/svg/icon-calendar-black.svg') no-repeat center center;
+}
+
+[data-dropStatus="Open"] .dropListArrow{
+	display: 						none;
+}
+.formElement[data-dropStatus="Open"]{
+	border-bottom: 			none;
+	cursor: 						default;
+}
+
+[data-dropStatus="Closed"] .dropListItem:not(.selectedDropListItem){
+	display: 						none;
+}
+
+.dropListPrompt{
+	
+}
+
+.selectedDropListItem{
+	
+}
+
+.bestChoice{
+	
+}
+
+.datePickerPrompt{
+	
+}
+
+.datePicker{
+	/*width: 						14em;*/
+	/*height: 						14em;*/
+	box-shadow: 					0 0 4px rgba(0,0,0,0.4);
+	display: 							inline-block;
+	border-radius: 				0.25em;
+	overflow: 						hidden;
+}
+
+[data-dropStatus="Closed"] .datePicker{
+	display: 						none;
+}
+
+[data-formElementType="DatePicker"][data-dropStatus="Open"] .datePickerPrompt ,
+[data-formElementType="DatePicker"][data-dropStatus="Open"] .calendarIcon{
+	display: 						none;
+}
+
+.datePickerHeader{
+	background: 				#4152ae;
+	padding: 					0.6em;
+	color: 						white;
+}
+
+.datePickerHeaderYear{
+	font-size: 					0.7em;
+	padding-bottom: 		0.3em;
+}
+
+.datePickerHeaderDay{
+	font-size: 					1.2em;
+}
+
+.datePickerHeaderDayName{
+	
+}
+
+.datePickerHeaderDayNum{
+	
+}
+
+.datePickerCalendar{
+	padding: 					0.6em;
+}
+
+.datePickerCalendarMonth{
+	position: 					relative;
+	font-size: 					0.6em;
+	padding-bottom: 		0.8em;
+}
+.datePickerCalendarMonthButton{
+	position: 					absolute;
+	top: 							0;
+}
+.datePickerCalendarMonthButtonPrev{
+	left: 							0.5em;
+}
+.datePickerCalendarMonthButtonNext{
+	right: 						0.5em;
+}
+.datePickerCalendarMonthLabel{
+	text-align: 					center;
+}
+
+.datePickerCalendarSelector{
+	-webkit-touch-callout: 					none;
+	-webkit-user-select: 						none;
+	-khtml-user-select: 						none;
+	-moz-user-select: 							none;
+	-ms-user-select: 							none;
+	user-select: 									none;
+}
+
+.datePickerCalendarRow{
+	
+}
+
+.datePickerCalendarRowDays{
+	
+}
+
+.datePickerCalendarRowNums{
+	
+}
+
+.datePickerCalendarCell{
+	display: 						inline-block;
+	text-align: 					center;
+	width: 						25px;
+	height: 						25px;
+	border-radius:			50%;
+	vertical-align: 			middle;
+	line-height: 				25px;
+}
+.datePickerCalendarCell span{
+	line-height: 				25px;
+}
+.datePickerCalendarRowDays .datePickerCalendarCell{
+	font-size: 					0.4em;
+	color: 						rgba(0,0,0,0.6);
+}
+.datePickerCalendarRowNums .datePickerCalendarCell{
+	font-size: 					0.6em;
+}
+.datePickerCalendarRowNums .datePickerCalendarCell:not(.blankCell){
+	cursor: 						pointer;
+}
+.datePickerCalendarRowNums .selectedCalendarItem{
+	background: 				rgba(64, 81, 174, 0.2);
+}
+.datePickerCalendarRowNums .datePickerCalendarCell:not(.blankCell):hover{
+	background: 				rgba(64, 81, 174, 0.6);
+}
+
+
+.dependentChoice.dropListItem:not(.dependencyAllowed){
+	display: 						none;
+}
+
+
+/* ======================================================== */
+
+@media only screen and (max-width : 310px) {
+	.activityLayerTab{
+		padding: 							0.8em 0.4em 0.8em 0.4em;
+	}
+}
+@media only screen and (max-width : 465px) {
+	.activityLayerTab{
+		height: 					4em;
+	}
+}
+@media only screen and (min-width : 466px) {
+ 	.activityLayerTab{
+		height: 					2.5em;
+	}
+}
+
+
+/* ======================================================== */
+
+@media only screen and (max-width : 360px) {
+	#viewPortNarrowThreshold{
+		color: 		#000;
+	}
+}
+@media only screen and (min-width : 361px) {
+ 	#viewPortNarrowThreshold{
+		color: 		#111;
+	}
+}
+
+/* ======================================================== */
+
+.pdfBox-IOS-Notify-Text{
+	text-align: 						center;
+	margin: 							1em 0 0.5em 0;
+	line-height: 					1.3em;
+	/*color:							white;*/
+}
+.pdfBox-IOS-Launcher-Box{
+	/*background: 					white;
+	border-radius: 					1em;*/
+	padding: 						0 0.3em 0.3em 0.3em;
+	text-align: 						center;
+	position: 						relative;
+	display: 							block;				
+}
+/*.pdfBox-IOS-Launcher-Image{
+	font-family: 					'CET-StepStoneIcons1';
+    font-size: 						2em;
+	text-align: 						center;
+	margin: 							0 0.2em 0 0;
+	position: 						relative;
+	top: 								0.25em;
+}
+.pdfBox-IOS-Launcher-Image:before{
+  content: 							attr(data-StepStoneIcon);
+}*/
+.pdfBox-IOS-Launcher-Text{
+	text-align: 						center;
+	margin: 							0 0 1em 0;
+}
+
+/* ======================================================== */
+
+.disabled{
+	cursor: 			default;
+}
+.ghosted{
+	opacity: 		0.3;
+}

@@ -1,0 +1,217 @@
+//var CETBuildVersion;
+//var CETActivityVersion;
+var CETAuthoringToolPool = "";
+var authoringMode = "None";
+var persistentMode = "None";
+// set up the target author pool
+var CETAP = URLQueryStringVarCheck('CETAP');
+if( CETAP == '' || CETAP == null || CETAP == undefined ){ 
+	//CETAP = ""; // default to isoPool for scorm
+	CETAP = "scormPool"; // default to isoPool for scorm, when this isn't set; 
+	persistentMode = "SCORM";
+}
+// set up the course id and build version, if loading from archive
+var CETCourseID = URLQueryStringVarCheck('CETCID');
+if( CETCourseID == '' || CETCourseID == null || CETCourseID == undefined ){
+	//CETCourseID = '';
+	CETCourseID = 'scormCourse'; // default for scorm
+	persistentMode = "SCORM";
+}
+/*
+CETBuildVersion = URLQueryStringVarCheck('CETV');
+if( CETBuildVersion == '' || CETBuildVersion == null || CETBuildVersion == undefined ){
+	CETBuildVersion = '';
+}
+*/
+var langSetPrimary = 					"en";
+var langSetSecondary = 					"us";
+switch( caller ){
+	case 'playerPortalMain' : // from player portal.html common index
+		
+		//if( CETBuildVersion != ''  ){
+			//CETActivityVersion = '/v' + CETBuildVersion;
+		//}else{
+			//CETActivityVersion = CETBuildVersion;
+		//}
+		
+		var externalResourceData = {};
+		// set up the course id and build version, if loading from archive
+		var checkExternalResourceLoc = URLQueryStringVarCheck('resourceloc');
+		if( checkExternalResourceLoc != '' && checkExternalResourceLoc != null && checkExternalResourceLoc != undefined ){
+			externalResourceData.resourceLoc = checkExternalResourceLoc;
+		}
+		// set up the course id and build version, if loading from archive
+		var checkExternalResourceAvatar = URLQueryStringVarCheck('resourceavatar');
+		if( checkExternalResourceAvatar != '' && checkExternalResourceAvatar != null && checkExternalResourceAvatar != undefined ){
+			externalResourceData.resourceAvatar = checkExternalResourceAvatar;
+		}
+		
+		var langSet = URLQueryStringVarCheck('targLang');
+		if( langSet == '' || langSet == null || langSet == undefined ){
+			
+		}else{
+			var langSetSplit = 					langSet.split("_"); /* check for underscore */
+			langSetPrimary = 					langSetSplit[0];
+			if( langSetSplit.length > 1 ){
+				langSetSecondary = 				langSetSplit[1];
+			}else{
+				langSetSplit = 					langSet.split("-"); /* check for dash */
+				langSetPrimary = 				langSetSplit[0];
+				if( langSetSplit.length > 1 ){
+					langSetSecondary = 			langSetSplit[1];
+				}
+			}
+		}
+		
+		//var previewPageJump = URLQueryStringVarCheck('pagejump'); // 'disabled' 'pageinfo' 'remax'
+		var previewPageJump = URLQueryStringVarCheck('ppj'); // 'disabled' 'pageinfo' 'remax' "1_1_1"
+		if( previewPageJump == '' || previewPageJump == null || previewPageJump == undefined ){
+			previewPageJump = 'disabled';
+		}else{
+			var previewPageJumpSplit = 			previewPageJump.split("_");
+			var previewPageJumpGroup = 			parseInt(previewPageJumpSplit[0]);
+			var previewPageJumpActivity = 		parseInt(previewPageJumpSplit[1]);
+			var previewPageJumpPageTarg = 	parseInt(previewPageJumpSplit[2]);
+		}
+		
+		//*
+		var debugga1Status = URLQueryStringVarCheck('debugga'); // 'disabled' 'pageinfo' 'remax'
+		if( debugga1Status == '' || debugga1Status == null || debugga1Status == undefined ){
+			//debugga1Status = 'disabled';
+			debugga1Status = 'Default';
+		}
+		//*/
+		var checkHotSpotMarkerInfoPanel = URLQueryStringVarCheck('HSMI');
+		if( checkHotSpotMarkerInfoPanel == '' || checkHotSpotMarkerInfoPanel == null || checkHotSpotMarkerInfoPanel == undefined ){
+			allowHotSpotMarkersInfoPanel = "no";
+		}else{
+			allowHotSpotMarkersInfoPanel = "yes";
+		}
+		
+		var CETAuthorUserID = URLQueryStringVarCheck('CO'); // course only toggle, for no assessment/survey/certificate
+		if( CETAuthorUserID == '1' ){
+			CETCourseOnlyToggle = true;
+		}
+		
+	//break;
+	//case 'authoringToolMain' : // from player common index
+	
+		var CETAuthorUserID = URLQueryStringVarCheck('CETUID'); // user id - for authoring tool usage
+		if( CETAuthorUserID == '' || CETAuthorUserID == null || CETAuthorUserID == undefined ){
+			CETAuthorUserID = '';
+		}
+		
+		var CETAuthoringActivityID = URLQueryStringVarCheck('CETAID'); // activity id -- for authoring tool usage
+		if( CETAuthoringActivityID == '' || CETAuthoringActivityID == null || CETAuthoringActivityID == undefined ){
+			CETAuthoringActivityID = '';
+		}
+		var CETAuthoringToolPool = URLQueryStringVarCheck('CETATP'); //authoring tool pool, within stepstone master stepstone tools directory -- for authoring tool usage
+		if( CETAuthoringToolPool == '' || CETAuthoringToolPool == null || CETAuthoringToolPool == undefined ){
+			CETAuthoringToolPool = '';
+		}
+	break;
+	
+	case 'PathBuilder' : // from author tool common index
+		// used for the author tool previewer url author initial parse
+		//var CETAuthoringToolPool =  URLAuthorInitials();
+		var CETAuthoringToolPool =  URLAuthorToolPool();
+		authoringMode = "PathBuilder";
+	break;
+	case 'CoursePackager' : // from author tool common index
+		// used for the author tool previewer url author initial parse
+		//var CETAuthoringToolPool =  URLAuthorInitials();
+		//var CETAuthoringToolPool =  URLAuthorToolPool();
+		authoringMode = "CoursePackager";
+	break;
+	/*
+	// navigate to proper common portal, with qstrings if accessing CET master
+	case 'topIndex' : // from top player index
+		if( CETCourseID != '' && CETBuildVersion != '' ){
+			window.location = 'common/v' + CETBuildVersion + '/html/index.html?CETCID=' + CETCourseID + '&CETV=' + CETBuildVersion;
+		}else{// scorm or bundle
+			window.location = 'common/html/index.html';
+		}
+	break;
+	*/
+	/*
+	case 'playerCommonIndex' : // from player common index
+		locVal = 'portal.html?CETCID=' + CETCourseID + '&CETV=' + CETBuildVersion;
+		if( CETCourseID != '' && CETBuildVersion != '' ){
+			locVal = 'portal.html?CETCID=' + CETCourseID + '&CETV=' + CETBuildVersion;
+		}else{// scorm or bundle
+			locVal = 'portal.html';
+		}
+	break;
+	*/
+	/*
+	case 'scormEnvironmentCommonDataIndex' : // relative to 
+		//window.location = 'common/data/html/index.html';
+		//if( CETCourseID != '' && CETBuildVersion != '' ){
+			// must be supplied, or fail
+			//persistentMode = "SCORM";
+		//}else{// scorm or bundle
+			window.location = 'components/StepStone_CoursePlayer/html/index.html';
+		//}
+	break;
+	*/
+}
+
+/*
+var CETAuthoringActivitySuperUserID = "";
+switch( caller ){
+	case 'playerPortalMain' : // from player common index
+		var CETAuthoringActivitySuperUserID = URLQueryStringVarCheck('CETSUID'); // super user id -- for authoring tool usage
+		if( CETAuthoringActivitySuperUserID == '' || CETAuthoringActivitySuperUserID == null || CETAuthoringActivitySuperUserID == undefined ){
+			CETAuthoringActivitySuperUserID = '';
+		}
+	break;
+	case 'authoringToolMain' : // from author tool common index
+		// used for the author tool previewer url author initial parse
+		var CETAuthoringActivitySuperUserID =  URLAuthorInitials();
+	break;
+}
+*/
+
+// improve this later, currently grabs the author intials in url if present,
+// not using the query string method at this time
+function URLAuthorToolPool(){
+	var result = "";
+	try{
+        var q = location.href.substring(0);
+        var v = q.split("/");
+        //var v = q.split("%20");
+        for( var i = 0 ; i < v.length ; i++ ){
+            //var p = v[i].split("-");
+            if( v[i] == "tools" ){
+	            var p = v[i + 1].split("-");
+	            if( p[0] == "authoringtool" && p.length > 1){
+		            result = "-" + decodeURIComponent(p[1]); //p[1];
+		            return result;
+		        }
+		    }
+        }
+        return result;
+    }
+    catch (e){
+        //console.log(e);
+    }
+}
+function URLQueryStringVarCheck(queryStringParam){
+    try{
+        var q = location.search.substring(1);
+        var v = q.split("&");
+        for( var i = 0 ; i < v.length ; i++ ){
+            var p = v[i].split("=");
+            if( p[0] == queryStringParam ){
+                if( p[1].indexOf('%20') != -1 ){
+                    return decodeURIComponent(p[1]);
+                }else{
+                    return p[1];
+                }
+            }
+        }
+    }
+    catch (e){
+        //console.log(e);
+    }
+}

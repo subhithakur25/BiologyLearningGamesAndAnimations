@@ -1,0 +1,217 @@
+/* Main settings */
+*{
+	margin:0px ;
+	padding:0px ;
+}
+
+.blue{
+	color:#0095db !important;
+}
+
+.boldDark{
+	color:#444444 !important;
+	font-weight:bold !important;
+}
+
+.boldWhite{
+	color:#FFFFFF !important;
+}
+
+a.link:link {color:#FFFFFF ;}   
+a.link:visited {color:#FFFFFF ;}
+a.link:hover {color:#d50b00 ;}
+a.link:active {color:#FFFFFF ;}
+
+/* Main info window */
+.infoDiv{
+	font-family:Arial !important;
+	font-size:12px !important;
+	background-color:#393939 !important;
+	background-color:rgba(57, 57, 57, .96) !important;
+	padding:14px !important;
+	padding-top:8px !important;
+	padding-bottom:8px !important;
+	line-height:18px !important;
+	text-align:justify !important;
+	color:#a4a1a1 !important;
+}
+
+.largeLabel{
+	font-size:14px !important;
+	color:#d50b00 !important;
+	margin-top:5px !important;
+	margin-bottom:5px !important;
+}
+
+.leftImage{
+	float:left !important;
+	margin-right:10px !important;
+	margin-top:4px !important;
+}
+
+.separator{
+	clear:both !important;
+	height:1px !important;
+	background-color:#6c6c6c !important;
+	margin-top:15px !important;
+	margin-bottom:15px !important;
+}
+
+.columns p{
+	float:left !important;
+	margin:0 !important;
+	padding:0 !important;
+	width:30% !important;
+	margin-bottom:15px !important;
+}
+
+div  .columnsFirstParagraph{
+	margin-right:5% !important;
+}
+
+div .columnsLastParagraph{
+	float:right !important;
+}
+
+.columnsSeparator{
+	clear:both !important;
+	height:1px !important;
+	background-color:#6c6c6c !important;
+	margin-top:15px !important;
+	margin-bottom:15px !important;
+}
+
+.rightImage{
+	float:right !important;
+	margin-left:10px !important;
+	margin-top:4px !important;
+}
+
+.youtubeVideo{
+	float:left !important;
+	width:60% !important;
+	height:306px !important;
+	margin-right:10px !important;
+	margin-top:5px !important;
+	border-style:solid !important;
+	border-width:1px !important;
+	border-color:#6c6c6c !important;
+}
+
+.lastParagraph{
+	margin-bottom:5px !important;
+}
+
+/* Marker tool tip windows*/
+.toolTip{
+	width:217px;
+	font-family:Arial !important;
+	font-size:12px !important;
+	text-align:justify !important;
+	background-color:#393939 !important;
+	padding:8px !important;
+	line-height:18px !important;
+	border-style:solid !important;
+	border-width:1px !important;
+	border-color:#6c6c6c !important;
+	color:#a4a1a1 !important;
+}
+
+.image{
+	margin-bottom:-4px !important;
+}
+
+.toolTip2{
+	width:231px !important;
+	font-family:Arial !important;
+	font-size:12px !important;
+	text-align:justify !important;
+	background-color:#393939 !important;
+	padding:8px !important;
+	line-height:18px !important;
+	border-style:solid !important;
+	border-width:1px !important;
+	border-color:#6c6c6c !important;
+	color:#a4a1a1 !important;
+}
+
+.toolTip3{
+	width:205px !important;
+	font-family:Arial !important;
+	font-size:12px !important;
+	text-align:justify !important;
+	background-color:#393939 !important;
+	padding:8px !important;
+	line-height:18px !important;
+	border-style:solid !important;
+	border-width:1px !important;
+	border-color:#6c6c6c !important;
+	color:#a4a1a1 !important;
+}
+
+.toolTip4{
+	width:225px !important;
+	height:233px !important;
+	font-family:Arial !important;
+	font-size:12px !important;
+	text-align:justify !important;
+	background-color:#393939 !important;
+	padding:8px !important;
+	line-height:18px !important;
+	border-style:solid !important;
+	border-width:1px !important;
+	border-color:#6c6c6c !important;
+	color:#a4a1a1 !important;
+}
+
+.image4{
+	margin:0px !important;
+	padding:0px !important;
+	margin-right:10px !important;
+	float:left;
+}
+
+.paragraph1{
+	margin-top:4px !important;
+	padding-left:2px !important;
+	padding-right:5px !important;
+}
+
+.paragraph2{
+	margin-bottom:10px !important;
+	margin-top:-2px !important;
+	padding-left:2px !important;
+	padding-right:5px !important;
+}
+
+.paragraph3{
+	margin-bottom:8px !important;
+	margin-top:-2px !important;
+	padding-left:2px !important;
+	padding-right:5px !important;
+}
+
+.paragraph4{
+	margin-bottom:10px !important;
+	padding-left:2px !important;
+	padding-right:3px !important;
+}
+
+/* Media Queries */
+@media screen and (max-width: 480px) {
+
+	.youtubeVideo{
+		width:100%;
+		clear:both;
+	}
+	
+	.lastParagraph{
+		clear:both;
+		margin-bottom:10px;
+		padding-top:10px;
+	}
+	
+	.columns, .columnsSeparator{
+		display:none;
+	}
+}

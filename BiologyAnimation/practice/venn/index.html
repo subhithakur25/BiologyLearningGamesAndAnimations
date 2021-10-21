@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Venn Diagram</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/iframeResizer.contentWindow.min.js"></script>
+
+    <!-- Include touch punch -->
+    <script type="text/javascript" src="js/jquery.ui.touch-punch.js"></script>
+    <script type="text/jaascript" sc="js/jquery.ui.touch-punch.min.js"></script>
+
+    <script type="text/javascript" src="js/venn.js"></script>
+
+    <h1 id="puzzle-header">Drag and drop items to this Venn diagram!</h1>
+
+    <div id="game-actions">
+        <button id="reset">Reset</button>
+        <div id="moves-div">
+            <span id="movestext">Attempts Remaining:</span>
+            <input type="text" id="moves" value=3 readonly unselectable="on">
+        </div>
+    </div>
+
+    <div id="venn">
+        <div id="c1" class="circle">
+            <p class="venn-header">Eukaryotic Cell</p>
+        </div>
+        <div id="c2" class="circle">
+            <p class="venn-header">Prokaryotic Cell</p>
+        </div>
+        <div id="both" class="common">
+        </div>
+	<div class="submission">
+            <div class="answer-container">
+                <p class="word-bank">Word Bank</p>
+                <div class="answer" id="1">Flagella</div>
+                <div class="answer" id="2">Cytoplasm</div>
+                <div class="answer" id="3">Nucleus</div>
+                <div class="answer" id="4">Organelle</div>
+                <div class="answer" id="5">Mitochondria</div>
+                <div class="answer" id="6">Ribosome</div>
+                <div class="answer" id="7">Golgi Apparatus</div>
+                <div class="answer" id="8">Pili</div>
+                <div class="answer" id="9">Plasma membrane</div>
+                <div class="answer" id="10">Endoplasmic Reticulum</div>
+            </div>
+            <button id="submit">Submit</button>
+	</div>
+    </div>
+</body>
+</html>

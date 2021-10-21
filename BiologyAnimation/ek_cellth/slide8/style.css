@@ -1,0 +1,134 @@
+body{
+    font-size: 1.5vw;
+    background-color: white;
+	height: 800px;
+}
+
+#master-container{
+    position: relative;
+    width: 100%;
+    padding-top: 45%;
+}
+
+div.question-container {
+    position: absolute;
+    text-align: center;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 70%;
+    background-image: url("celltheory.JPG");
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+div.answer-container{
+    position: absolute;
+    top: 0%;
+    left: 70%;
+    width: 30%; 
+    height: 100%;
+    opacity: 1.0;
+    background-color: white;
+}
+
+div.word-bank{
+    position: absolute;
+    left: 5%;
+    right: 5%;
+    top: 2%;
+    bottom: 20%;
+    padding: 3%;
+    border: 2px solid black;
+}
+
+div.submit-container{
+    position: absolute;
+    top: 80%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+    display: table-cell;
+    padding-top: 7%;
+}
+
+#submit{
+    font-size: 1.5vw;
+    width: 30%;
+}
+
+.question{
+    position: absolute;
+    border: 1px solid black;
+    background: cyan;	
+    text-align: center;
+}
+
+.question.answer-hover{
+    background: orange;
+}
+
+.question.has-answer.answer-hover{
+    background: orange;
+}
+
+.question.has-answer{
+    background: lightgray;
+}
+
+.answer{
+    cursor: pointer;
+    margin: 2%;
+}
+
+.question > .answer{
+    margin: 0px;
+}
+
+div.hint{
+    position: absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    opacity: 0.9;
+    background-color: white;
+    visibility: hidden;
+}
+
+div.hint-content{
+    position: absolute;
+    width: 100%;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    text-align: center;
+    height: 30%;
+    margin:auto;
+}
+
+@media screen and (max-width: 920px) {
+	div.answer-container{
+        position: absolute;
+        top: 60%;
+        left: 40%;
+        width: 30%; 
+        height: 50%;
+        opacity: 1.0;
+        background-color: white;
+    }
+
+    div.question-container {
+        position: absolute;
+        text-align: center;
+        top: 0;
+        left: 20%;
+        height: 100%;
+        width: 70%;
+        background-image: url("celltheory.JPG");
+        background-repeat: no-repeat;
+        background-size: 100%;
+    }
+}

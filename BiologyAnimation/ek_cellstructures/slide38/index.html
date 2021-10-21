@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Drag and Drop</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+  </head>
+  <body>
+    <!-- jquery scripts -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <!-- iframe resizer -->
+    <script type="text/javascript" src="js/iframeResizer.min.js"></script>
+    <script type="text/javascript" src="js/iframeResizer.contentWindow.min.js"></script>
+
+    <!-- Include touch punch -->
+    <script type="text/javascript" src="js/jquery.ui.touch-punch.js"></script>
+    <script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script>
+
+    <!-- drag and drop animation script -->
+    <script type="text/javascript" src="js/slide38.js"></script>
+
+    <div id="master-container">
+      <div class="question-container" >
+        <div id = "#1" class = "dropBox" style = "top: 30.2%;left: 13%;width: 17%; height: 4%">#1</div>
+        <div id = "#2" class = "dropBox" style = "top: 25.2%;left: 15%;width: 17%; height: 4%">#2</div>
+        <div id = "#3" class = "dropBox" style = "top: 20.8%;left: 24%;width: 17%; height: 4%">#3</div>
+        <div id = "#4" class = "dropBox" style = "top: 13%;left: 27%;width: 17%; height: 4%">#4</div>
+        <div id = "#5" class = "dropBox" style = "top: 10.4%;left: 44.3%;width: 17%; height: 4%">#5</div>
+        <div id = "#6" class = "dropBox" style = "top: 13%;left: 62%;width: 17%; height: 4%">#6</div>
+        <div id = "#7" class = "dropBox" style = "top: 18%;left: 65.3%;width: 17%; height: 4%">#7</div>
+        <div id = "#8" class = "dropBox" style = "top: 44.5%;left: 67%;width: 17%; height: 4%">#8</div>
+        <div id = "#9" class = "dropBox" style = "top: 60%;left: 62%;width: 17%; height: 4%">#9</div>
+        <div id = "#10" class = "dropBox" style = "top: 66%;left: 53.3%;width: 17%; height: 4%">#10</div>
+        <div id = "#11" class = "dropBox" style = "top: 57%;left: 10.5%;width: 17%; height: 4%">#11</div>
+      </div>
+      <div class= "answer-container">
+        <div class="word-bank">
+	  <div class="answer" id="4">Mitochondria</div>
+          <div class="answer" id="3">Cytosol</div>
+	  <div class="answer" id="2">Cytoskeleton</div>
+          <div class="answer" id="1">Lysosome</div>
+          <div class="answer" id="11">Smooth endoplasmic reticulum</div>
+          <div class="answer" id="10">Golgi apparatus</div>
+          <div class="answer" id="9">Nucleus</div>
+          <div class="answer" id="8">Vesicles</div>
+          <div class="answer" id="7">Plasma membrane</div>
+          <div class="answer" id="6">Rough endoplasmic reticulum</div>
+          <div class="answer" id="5">Ribosome</div>
+        </div>
+        <div class="submit-container">
+          <button id="submit" >Submit</button>
+        </div>
+        <div id = "result"></div>
+      </div>
+      </div>
+    </div>
+  </body>
+</html>

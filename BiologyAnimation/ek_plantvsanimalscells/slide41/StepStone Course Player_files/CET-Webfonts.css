@@ -1,0 +1,361 @@
+
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+/*
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+*/
+
+/* =============================== */
+
+.redText{
+	color:#e42a2a;
+}
+
+.blueText{
+	color: #5e83de;
+}
+
+.label{
+	font-size: 2em;
+}
+
+/* =============================== */
+
+/* ---[ Bulletproof method ]=== */
+
+/* =============================== */
+
+/* StepStone icon font set -- MOVED TO COMMON JS BUILDER */
+/*
+@font-face {
+    font-family: 	'CET-StepStoneIcons1';
+    src: 				url('../webfonts/iconfonts/CET-main/CET-iconfontset2016v1.eot?') format('eot');
+    src: 				url('../webfonts/iconfonts/CET-main/CET-iconfontset2016v1.woff') format('woff'), 
+    					url('../webfonts/iconfonts/CET-main/CET-iconfontset2016v1.ttf') format('truetype');						
+    font-weight: 	normal;
+    font-style: 	normal;
+}
+.StepStone-Icon-Font{
+	font-family: 					'CET-StepStoneIcons1';
+}
+.StepStone-Icon-Font:before{
+  content: 							attr(data-StepStoneIcon);
+}
+*/
+/* =============================== */
+
+/* Grand Hotel set */
+
+@font-face{
+  font-family: 'Grand Hotel';
+  src: url('../webfonts/fontsquirrel/grand_hotel/grandhotel-regular-webfont.eot?') format('eot'), url('../webfonts/fontsquirrel/grand_hotel/grandhotel-regular-webfont.woff') format('woff'), url('../webfonts/fontsquirrel/grand_hotel/grandhotel-regular-webfont.ttf') format('truetype');
+}
+
+.Grand-Hotel-Font{
+	font-family: 					'Grand Hotel';
+}
+
+/* =============================== */
+
+/* Asap set */
+
+/* Asap - regular */
+@font-face{
+  font-family: 	'Asap';
+  src: 				url('../webfonts/google/Asap/asap-regular-webfont.eot?') format('eot'), url('../webfonts/google/Asap/asap-regular-webfont.woff') format('woff'), url('../webfonts/google/Asap/asap-regular-webfont.ttf') format('truetype');
+  font-weight: 	normal;
+  font-style: 	normal;
+}
+
+/* Asap - bold */
+@font-face{
+  font-family: 	'Asap';
+  src: 				url('../webfonts/google/Asap/asap-bold-webfont.eot?') format('eot'), url('../webfonts/google/Asap/asap-bold-webfont.woff') format('woff'), url('../webfonts/google/Asap/asap-bold-webfont.ttf') format('truetype');
+  /*font-weight: 	bold;*/
+  font-weight:	700;
+  font-style: 	normal;
+}
+
+/* Asap - italic */
+@font-face{
+  font-family: 	'Asap';
+  src: 				url('../webfonts/google/Asap/asap-italic-webfont.eot?') format('eot'), url('../webfonts/google/Asap/asap-italic-webfont.woff') format('woff'), url('../webfonts/google/Asap/asap-italic-webfont.ttf') format('truetype');
+  font-weight: 	normal;
+  font-style: 	italic;
+}
+
+/* Asap - bolditalic */
+@font-face{
+  font-family: 	'Asap';
+  src: 				url('../webfonts/google/Asap/asap-bolditalic-webfont.eot?') format('eot'), url('../webfonts/google/Asap/asap-bolditalic-webfont.woff') format('woff'), url('../webfonts/google/Asap/asap-bolditalic-webfont.ttf') format('truetype');
+  font-weight: 	bold;
+  font-style: 	italic;
+}
+
+.Asap-Font{
+	font-family: 					'Asap';
+}
+
+/* =============================== */
+
+/* Lato base set */
+
+/* Lato - regular */
+@font-face{
+  font-family: 	'Lato';
+  src: 				url('../webfonts/google/Lato/lato-regular-webfont.eot?') format('eot'), url('../webfonts/google/Lato/lato-regular-webfont.woff') format('woff'), url('../webfonts/google/Lato/lato-regular-webfont.ttf') format('truetype');
+  font-weight: 	normal;
+  font-style: 	normal;
+}
+
+/* Lato - bold */
+@font-face{
+  font-family: 'Lato';
+  src: url('../webfonts/google/Lato/lato-bold-webfont.eot?') format('eot'), url('../webfonts/google/Lato/lato-bold-webfont.woff') format('woff'), url('../webfonts/google/Lato/lato-boldwebfont.ttf') format('truetype');
+  font-weight: 	bold;
+  font-style: 	normal;
+}
+
+/* Lato - italic */
+@font-face{
+  font-family: 'Lato';
+  src: url('../webfonts/google/Lato/lato-italic-webfont.eot?') format('eot'), url('../webfonts/google/Lato/lato-italic-webfont.woff') format('woff'), url('../webfonts/google/Lato/lato-italic-webfont.ttf') format('truetype');
+  font-weight: 	normal;
+  font-style: 	italic;
+}
+
+/* Lato - bolditalic */
+@font-face{
+  font-family: 'Lato';
+  src: url('../webfonts/google/Lato/lato-bolditalic-webfont.eot?') format('eot'), url('../webfonts/google/Lato/lato-bolditalic-webfont.woff') format('woff'), url('../webfonts/google/Lato/lato-bolditalic-webfont.ttf') format('truetype');
+  font-weight: 	bold;
+  font-style: 	italic;
+}
+
+.Lato-Font{
+	font-family: 					'Lato';
+}
+
+/* Lato black set */
+
+/* Lato - black */
+@font-face{
+  font-family: 'Lato Black';
+  src: url('../webfonts/google/Lato/lato-black-webfont.eot?') format('eot'), url('../webfonts/google/Lato/lato-black-webfont.woff') format('woff'), url('../webfonts/google/Lato/lato-black-webfont.ttf') format('truetype');
+  font-weight: 	normal;
+  font-style: 	normal;
+}
+
+/* Lato - blackitalic */
+@font-face{
+  font-family: 'Lato Black';
+  src: url('../webfonts/google/Lato/lato-blackitalic-webfont.eot?') format('eot'), url('../webfonts/google/Lato/lato-blackitalic-webfont.woff') format('woff'), url('../webfonts/google/Lato/lato-blackitalic-webfont.ttf') format('truetype');
+  font-weight: 	normal;
+  font-style: 	italic;
+}
+
+.Lato-Black-Font{
+	font-family: 					'Lato Black';
+}
+
+/* Lato light set */
+
+/* Lato - light */
+@font-face{
+  font-family: 'Lato Light';
+  src: url('../webfonts/google/Lato/lato-light-webfont.eot?') format('eot'), url('../webfonts/google/Lato/lato-light-webfont.woff') format('woff'), url('../webfonts/google/Lato/lato-light-webfont.ttf') format('truetype');
+  font-weight: 	normal;
+  font-style: 	normal;
+}
+
+/* Lato - lightitalic */
+@font-face{
+  font-family: 'Lato Light';
+  src: url('../webfonts/google/Lato/lato-lightitalic-webfont.eot?') format('eot'), url('../webfonts/google/Lato/lato-lightitalic-webfont.woff') format('woff'), url('../webfonts/google/Lato/lato-lightitalic-webfont.ttf') format('truetype');
+  font-weight: 	normal;
+  font-style: 	italic;
+}
+
+.Lato-Light-Font{
+	font-family: 					'Lato Light';
+}
+
+/* Lato hairline set */
+
+/* Lato - hairline */
+@font-face{
+  font-family: 'Lato Hairline';
+  src: url('../webfonts/google/Lato/lato-hairline-webfont.eot?') format('eot'), url('../webfonts/google/Lato/lato-hairline-webfont.woff') format('woff'), url('../webfonts/google/Lato/lato-hairline-webfont.ttf') format('truetype');
+  font-weight: 	normal;
+  font-style: 	normal;
+}
+
+/* Lato - hairlineitalic */
+@font-face{
+  font-family: 'Lato Hairline';
+  src: url('../webfonts/google/Lato/lato-hairlineitalic-webfont.eot?') format('eot'), url('../webfonts/google/Lato/lato-hairlineitalic-webfont.woff') format('woff'), url('../webfonts/google/Lato/lato-hairlineitalic-webfont.ttf') format('truetype');
+  font-weight: 	normal;
+  font-style: 	italic;
+}
+
+.Lato-Hairline-Font{
+	font-family: 					'Lato Hairline';
+}
+
+/* =============================== */
+
+/* Montserrat set */
+
+/* Montserrat - regular */
+@font-face{
+  font-family: 'Montserrat';
+  src: url('../webfonts/google/Montserrat/montserrat-regular-webfont.eot?') format('eot'), url('../webfonts/google/Montserrat/montserrat-regular-webfont.woff') format('woff'), url('.../webfonts/google/Montserrat/montserrat-regular-webfont.ttf') format('truetype');
+  font-weight: 	normal;
+  font-style: 	normal;
+}
+
+.Montserrat-Font{
+	font-family: 					'Montserrat';
+}
+
+/* =============================== */
+
+/* Vegur - regular */
+@font-face{
+  font-family: 	'Vegur-Reg';
+  src: 				url('../webfonts/Vegur/vegur-regular-webfont.eot?') format('eot'), url('../webfonts/Vegur/vegur-regular-webfont.woff') format('woff'), url('../webfonts/Vegur/vegur-regular-webfont.ttf') format('truetype');
+  font-weight: 	normal;
+  font-style: 	normal;
+}
+
+.Vegur-Regular-Font{
+	font-family: 					'Vegur-Reg';
+}
+
+/* Vegur - regular */
+@font-face{
+  font-family: 	'Vegur-Reg-Italic';
+  src: 				url('../webfonts/Vegur/vegur-regular-webfont.eot?') format('eot'), url('../webfonts/Vegur/vegur-regular-webfont.woff') format('woff'), url('../webfonts/Vegur/vegur-regular-webfont.ttf') format('truetype');
+  font-weight: 	normal;
+  font-style: 	italic;
+}
+
+.Vegur-Regular-Italic-Font{
+	font-family: 					'Vegur-Reg-Italic';
+}
+
+/* Vegur - bold */
+@font-face{
+  font-family: 		'Vegur-Bold';
+  src: 					url('../webfonts/Vegur/vegur-bold-webfont.eot?') format('eot'), url('../webfonts/Vegur/vegur-bold-webfont.woff') format('woff'), url('../webfonts/Vegur/vegur-bold-webfont.ttf') format('truetype');
+  font-weight: 		bold;
+  font-style: 		normal;
+}
+
+.Vegur-Bold-Font{
+	font-family: 					'Vegur-Bold';
+}
+
+/* Vegur - light */
+@font-face{
+  font-family: 		'Vegur-Light';
+  src: 					url('../webfonts/Vegur/vegur-light-webfont.eot?') format('eot'), url('../webfonts/Vegur/vegur-light-webfont.woff') format('woff'), url('../webfonts/Vegur/vegur-light-webfont.ttf') format('truetype');
+  font-weight: 		normal;
+  font-style: 		normal;
+}
+
+.Vegur-Light-Font{
+	font-family: 					'Vegur-Light';
+}
+
+/*
+@font-face {
+    font-family: 	'CET-icons1';
+    src: 				url('../webfonts/iconfonts/CET-main/cet-icons1.eot?') format('eot'), url('../webfonts/iconfonts/CET-main/cet-icons1.woff') format('woff'), url('.../webfonts/iconfonts/CET-main/cet-icons1.ttf') format('truetype');
+    font-weight: 	normal;
+    font-style: 		normal;
+}
+*/
+
+/* =============================== */
+/* =============================== */
+/* =============================== */
+
+/* ---[ Bulletproof variant ]=== */
+/* if IE or .eot compatible, use that,else All other browsers */
+/*
+@font-face{
+  font-family:'Grand Hotel';
+  src: url('../webfonts/fontsquirrel/grand_hotel/grandhotel-regular-webfont.eot'); 
+}
+@font-face{
+  font-family:'Grand Hotel';
+  src: url(//:) format ('no404'), url('../webfonts/fontsquirrel/grand_hotel/grandhotel-regular-webfont.otf') format('opentype');
+}
+*/
+/* =============================== */
+/* =============================== */
+/* =============================== */
+
+/* ---[ css-tricks method ]=== */
+
+/* eot = IE9 Compat Modes */
+/* eot?#iefix = IE6-IE8 */
+/* woff = Modern Browsers */
+/* ttf = Safari, Android, iOS */
+/* svg#svgFontName = Legacy iOS */
+
+/*
+@font-face {
+	font-family: 'MyWebFont';
+	src: url('webfont.eot');
+	src: url('webfont.eot?#iefix') format('embedded-opentype'),
+	     url('webfont.woff') format('woff'),
+	     url('webfont.ttf')  format('truetype'),
+	     url('webfont.svg#svgFontName') format('svg');
+}
+*/

@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>JavaScript Hangman game</title>
+<script src="js/index.js"></script>
+<script type="text/javascript" src="js/3p/jquery/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="js/3p/iframeResizer/iframeResizer.contentWindow.min.js"></script><!-- always use this for easy resizing, paired with stepstone player handler -->
+<!--//------------[ pdf browser embed method ]---------------------------- -->
+<script type="text/javascript" src="js/3p/pipwerks/pdfobject.min.js"></script> <!-- [ MIT license ] -->
+<!--//------------[ browser detection 1 ]-------------------------------------------- -->
+<script type="text/javascript" src="js/3p/jquery/extensions/jquery.detectmobilebrowser.js"></script> <!-- [ open src ] -->
+<script type="text/javascript" src="js/main.js"></script>
+<link rel="stylesheet" href="css/butes.css" />
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="masterContainer" class="masterContainer" data-viewportNarrow="false">
+	<div class="wrapper">
+		<h1>Plant Hangman</h1>
+		<h2>What process takes place in the chloroplasts of a plant cell?</h2>
+		<p>Use the alphabet below to guess the word, or click hint to get a clue. </p>
+	</div>
+	<div class="wrapper">
+		<div id="buttons">
+		</div>
+		<p id="catagoryName"></p>
+		<div id="hold">
+		</div>
+		<p id="mylives"></p>
+		<p id="clue">Clue: -</p>
+
+		<div class="container">
+		  <button id="hint">Hint</button>
+		  <button id="reset">Play again</button>
+		</div>
+	</div>
+	<img id="image" src="layer1.png">
+</div>
+<div id="viewPortNarrowThreshold"></div>
+</body>
+</html>

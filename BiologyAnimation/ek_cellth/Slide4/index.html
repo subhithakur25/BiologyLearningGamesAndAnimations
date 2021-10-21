@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="js/iframeResizer.contentWindow.min.js"></script>
+
+<style>
+	.container {
+		max-width: 880px;
+		max-height: 800px;
+		margin: auto;
+		width: 100%;
+	}
+	
+	#a {
+		position: relative;
+		width: 300px;
+		margin: auto;
+		top: -76px;
+		padding: 16px;
+		background: #92d14f;
+		font-family:"Lucida Console";
+		text-align: center;
+		border-radius: 4px;
+		border: none;
+		color: black;
+		font-size: 19px;
+		cursor: pointer;
+	}
+	
+	@media(max-width: 768px) {
+		#a {
+			width: 240px;
+			top: -62px;
+			padding: 12px;
+			font-size: 14px;
+		}
+	}
+	
+	@media(max-width: 520px) {
+		#a {
+			width: 130px;
+			top: -40px;
+			padding: 8px;
+			font-size: 8px;
+		}
+	}
+
+  </style>
+</head>
+<body>
+
+<div id="masterContainer" class="masterContainer" data-viewportNarrow="false">
+     <div class="container">
+       <img src="Slide4.png" width="100%">
+	<div class= "box" id="a" >Click to reveal the answer</div>
+    </div>
+</div>
+<div id="viewPortNarrowThreshold"></div >
+
+    <script type="text/javascript">
+  		$("#a").click(function() {
+  		$("#a").remove();})
+       
+		$(document).ready(function(){
+		  $("button").click(function(){
+		     $("p").hide();
+		  });
+		});
+    </script>
+</body>

@@ -1,0 +1,1373 @@
+//! ===================================================================
+// ! FUNCTIONS :
+//! ===================================================================
+// ! F.Setup Persistence Environment ---
+function setupPersistenceEnvironment(){
+	//console.log('attempt persist enviro setup');
+	switch( persistentData.dataModel ){
+		case 'SCORM1.2' : 
+			window.onbeforeunload = 							scormUnloadHandler;
+			window.onunload = 									scormUnloadHandler; // dismissed if onbeforeunload is engaged
+			persistentData.scorm = 								pipwerks.SCORM;  //Shortcut
+			persistentData.scorm.version = 					"1.2"; // need this here? if removed, should be set manually by lms
+			persistentData.unloaded = 							false;
+			persistentData.isLoadedProgress = 				false;
+			persistentData.lmsConnected = 					false;
+			persistentData.toggleSessionTimeAccrue = 	true;
+			persistentData.allowSuspend = 					true;
+			//persistentData.scormStartTime;
+			initSCORM();
+		break;
+		case 'SCORM2004.4' : 
+			window.onbeforeunload = 							scormUnloadHandler;
+			window.onunload = 									scormUnloadHandler; // dismissed if onbeforeunload is engaged
+			persistentData.scorm = 								pipwerks.SCORM;  //Shortcut
+			persistentData.scorm.version = 					"2004"; // need this here? if removed, should be set manually by lms
+			persistentData.unloaded = 							false;
+			persistentData.isLoadedProgress = 				false;
+			persistentData.lmsConnected = 					false;
+			persistentData.toggleSessionTimeAccrue = 	true;
+			persistentData.allowSuspend = 					true;
+			//persistentData.scormStartTime;
+			initSCORM();
+		break;
+	}
+}
+// ! F.Init Scorm ---
+function initSCORM(){
+	//console.log('attempt scorm init');
+   //scorm.init returns a boolean
+   persistentData.lmsConnected = persistentData.scorm.init(); // 1.2 and 2004 - returns boolean
+   switch( persistentData.dataModel ){
+		case 'SCORM1.2' :
+		case 'SCORM2004.4' :
+			//If the scorm.init function succeeded...
+			if( persistentData.lmsConnected ){
+				prepSCORMDataElements();
+			}else{
+				//... let's alert the user then close the window.
+				handleError("Error: Course could not connect with the LMS for init process");
+			}
+			//initProgressRecall('SCORM1.2');
+		break;
+	}
+}
+// ! F.Prep Scorm Data Elements from LMS ---
+function prepSCORMDataElements(){
+	//console.log('attempt scorm data prep');
+	// ======================
+	// get the completion status to see if the course has already been completed
+	//console.log('start completion status check');
+	var completionStatus;
+	var successStatus;
+	switch( persistentData.dataModel ){
+		case 'SCORM1.2' : 
+			completionStatus = LMSPersistData_Get({ 
+				'dataElement' : 	"cmi.core.lesson_status"
+				// possible status: passed, completed, incomplate, not attempted
+			});
+			if( completionStatus == "passed" ){
+					
+			}
+		break;
+		case 'SCORM2004.4' : 
+			completionStatus = LMSPersistData_Get({ 
+				'dataElement' : 	"cmi.completion_status"
+				// possible status: completed, incomplate, not attempted
+			});
+			successStatus = LMSPersistData_Get({ 
+				'dataElement' : 	"cmi.success_status"
+				// possible status: passed, unknown?
+			});
+		break;
+	}
+	//console.log('end completion status check');
+	// ======================
+	// get the username from the LMS
+	//console.log('start student name check');
+	var grabLearnerName;
+	switch( persistentData.dataModel ){
+		case 'SCORM1.2' : 
+			grabLearnerName = LMSPersistData_Get({
+				'dataElement' : 	"cmi.core.student_name"
+			});
+		break;
+		case 'SCORM2004.4' : 
+			grabLearnerName = LMSPersistData_Get({ 
+				'dataElement' : 	"cmi.learner_name"
+			});
+		break;
+	}
+	if( grabLearnerName ){
+		learnerName = grabLearnerName;
+	}else{
+		learnerName = "Unidentified Learner";
+		//console.log("missing learnername...");
+	}
+	//console.log('end student name check');
+	// ======================
+	//console.log('start mastery score check');
+	// if no mastery score provided from scorm/lms, use the threshold score set in the course params
+	// currently we are ONLY using internal threshold for passing, not seeking LMS passing threshold
+	/*
+	var grabCourseMasteryScore
+	switch( persistentData.dataModel ){
+		case 'SCORM1.2' : 
+			grabCourseMasteryScore = LMSPersistData_Get({
+				'dataElement' : 	"cmi.student_data.mastery_score"
+			});
+		break;
+		case 'SCORM2004.4' : 
+			grabCourseMasteryScore = LMSPersistData_Get({ 
+				'dataElement' : 	"cmi.scaled_passing_score"
+			});
+		break;
+	}
+	*/
+	//if( grabCourseMasteryScore != undefined && grabCourseMasteryScore != null && grabCourseMasteryScore != '' ){
+		//useMasteryScore = parseInt( grabCourseMasteryScore ); // set via lms/manifest
+	//}else{
+    	//useMasteryScore = persistentData.score_PassingThreshold; // set via course params
+    	useMasteryScore = persistentData.score_PassingScore;
+    //}
+    //console.log('end mastery score check');
+    // ======================
+    //console.log('start suspend data check');
+    //Extract our custom course progress data from suspend_data, if available.
+    var stored_suspend_data = "";
+    switch( persistentData.dataModel ){
+		case 'SCORM1.2' : 
+		case 'SCORM2004.4' : 
+			stored_suspend_data = LMSPersistData_Get({ 
+				'dataElement' : 	"cmi.suspend_data"
+			});
+		break;
+	}
+	//console.log("stored_suspend_data = " + stored_suspend_data);
+	// persistentDataLoaded should be set from main player script at this point
+	//if( persistentData.persistentDataLoaded != undefined && persistentData.persistentDataLoaded != null && persistentData.persistentDataLoaded != '' ){
+	if( stored_suspend_data != undefined && stored_suspend_data != null && stored_suspend_data != '' ){
+		
+	}else{
+		stored_suspend_data = "Generate";
+	}
+	processSuspendData({ 
+		'pDataModel' : 			persistentData.dataModel , 
+		'pData_Suspend' : 		stored_suspend_data // persistentData.persistentDataLoaded 
+	});
+	//console.log('end suspend data check');
+}
+
+// ! F.Process progress suspend data NEW --- 
+function processSuspendData( context ){
+	//console.log('attempt suspend data processing');
+	var pDataModel = 			context.pDataModel; // "Internal" , "SCORM1.2" , "SCORM2004.4"
+	var pData_Suspend = 	context.pData_Suspend; // code string or "Generate"
+	masterJSONStorage.courseProgressLoadStorage.courseProgress = {
+		'pathChain' : [] // always need a path chain
+	};
+	var launchSourceNote = "Scorm_Init";
+	if( pData_Suspend == "Generate" ){ // will be Generate if no lms suspend data found/supplied
+		pData_Suspend = 		buildSuspendData({ 'generateNewDataSet' : true });
+		launchSourceNote = 	"Internal_Init";
+	}
+	//console.log('launchSourceNote = ' + launchSourceNote);
+	//Extract our custom course progress data from suspend_data, if available.
+	// data will either be internally generated (above) or will be loaded from lms suspend data and passed into this function
+	if( pData_Suspend != undefined && pData_Suspend != '' && pData_Suspend != null && pData_Suspend.length > 0 ){
+		persistentData.isLoadedProgress = 												true;
+		masterJSONStorage.courseProgressLoadStorage.suspendData = 	pData_Suspend;
+		
+		// do an initial process of looking for write-in field list input strings, storing them in a reference array, and then removing this data from the suspend string
+		// this should help avoid conflicts with learner inputs
+		masterJSONStorage.courseProgressLoadStorage.writeInFieldListSets = 	[];
+		//var suspendData = "[Met]v)1.0.0[Prg]p)1>3:wifl%{a1},{b1},{c1}>4:wifl%{a2},{b2},{c2}>@5#00&d)2018-11-12T17:23:53Z";
+		
+		//---[ get the path chain
+
+		var pathChainIsolated = 		pData_Suspend.split("[Prg]p)"); // p) should always follow the progress indicator.  this is very unlikely to show up in learner inputs. 
+		
+		var updated_pData_Suspend = 	pathChainIsolated[0] + "[Prg]p)"; // doesnt this just recreate original pathChainIsolated ?
+		
+		var pathChain = 				pathChainIsolated[1];
+		var lastDIndex = 			-1;
+		var dateVal = 				""
+		
+		//---[ look for date deliminer
+
+		if( pathChain.indexOf("&d)") != -1 ){
+		  // to get around unwanted possible matches in learner text
+		  // still a problem if this match exists in learner text but NOT the suspend string.  unlikely...
+		  lastDIndex = 	pathChain.lastIndexOf("&d)"); 
+		  pathChain = 	pathChain.substring( 0 , lastDIndex );
+		  dateVal = 		"&d)" + pathChain.substring( (lastDIndex+2) , pathChain.length-1 );
+		}
+		//var textInputsHolder = [];
+
+		//---[ split into path groups
+
+		var pathChainSplit_Groups = pathChain.split("_");
+		
+		//---[ cycle path groups	
+		
+		var newPathGroupChain = "";
+		
+		var updatedPathChainSplit_Groups = [];
+		
+		for( var a = 0 ; a < pathChainSplit_Groups.length ; a++ ){
+		
+			//---[ split into group iteration's paths			
+		
+			var pathChainSplit_GroupPaths = pathChainSplit_Groups[a].split("-");
+		  
+			//---[ cycle group iteration's paths		
+		 	
+		 	var newGroupPathChain = "";
+		 	
+			var updatedPathChainSplit_GroupPaths = [];
+		 	
+			for( var b = 0 ; b < pathChainSplit_GroupPaths.length ; b++ ){
+		    		var pathOnly = pathChainSplit_GroupPaths[b];
+
+				//---[ look for group path step progress chain, ending at delimiter		    
+		   
+		    	if( pathChainIsolated[1].indexOf("#") != -1 ){
+					var lastHashIndex = pathChainSplit_GroupPaths[b].lastIndexOf("#");
+					pathOnly = pathChainSplit_GroupPaths[b].substring(0,lastHashIndex);
+		    	}
+		    
+				//---[ split into path's steps
+				
+				var newPathStepChain = "";
+				
+		    	var pathChainSplit_GroupPathSteps = pathOnly.split(">");
+		    	
+				for( var c = 0 ; c < pathChainSplit_GroupPathSteps.length ; c++ ){
+					if( c > 0 ){
+						//updated_pData_Suspend += ">";
+						newPathStepChain += ">";
+			  		}
+
+			  		//---[ split step data step id from step assessment selections
+			  
+		      		var checkStepIDSplit = pathChainSplit_GroupPathSteps[c].split(":");
+			  		var checkStepID = Number(checkStepIDSplit[0]);
+			  		//var lastVisitedStepIndicator = "";
+			  		//if( checkStepIDSplit[1].charAt(0) == "@" ){
+			  			//lastVisitedStepIndicator = "@";
+			  		//}
+		      
+			  		//---[ check if step asssessment record is a write-in-field-list.  these records are kept in a "special" memory location for checking later.
+		      
+		      		var findTextFieldInputStacks = pathChainSplit_GroupPathSteps[c].match("wifl%{(.*)}");
+			  		if( findTextFieldInputStacks != null ){
+			  			var cleanData =	 		findTextFieldInputStacks[1].substring(0,findTextFieldInputStacks[1].length);
+			  			var splitCleanData = 		cleanData.split("},{");
+			  			var textInputHolderData = {
+			  				'group_path_step' : 	(a+1) + "_" + (b+1) + "_" + checkStepID , 
+			  				'data' : 				splitCleanData
+		        			};
+						masterJSONStorage.courseProgressLoadStorage.writeInFieldListSets.push( textInputHolderData );
+						pathChainSplit_GroupPathSteps[c] = 	checkStepIDSplit[0] + ":" + "wifl%";
+						////updated_pData_Suspend += 				pathChainSplit_GroupPathSteps[c];
+					}else{
+						////updated_pData_Suspend += 				pathChainSplit_GroupPathSteps[c];
+					}
+					//updated_pData_Suspend += 				pathChainSplit_GroupPathSteps[c];
+					newPathStepChain += pathChainSplit_GroupPathSteps[c];
+					//updatedPathChainSplit_GroupPaths.push( stepChain );
+		    	}
+		    	if( newPathStepChain == "" ){
+			    	newPathStepChain = "x";
+		    	}
+		    	updatedPathChainSplit_GroupPaths.push( newPathStepChain );
+		  	}
+		  	
+		  	//newGroupPathChain = updatedPathChainSplit_GroupPaths.join("-");
+		  	updatedPathChainSplit_Groups.push( updatedPathChainSplit_GroupPaths.join("-") );
+		}
+		
+		newPathGroupChain = updatedPathChainSplit_Groups.join("_");
+		updated_pData_Suspend += newPathGroupChain;
+		
+		// need to recombine the "updated" data using the original delimiters
+		
+		//console.log( "pathChain = " + pathChain );
+		//console.log( "textInputsHolder = " + JSON.stringify( textInputsHolder , null , 4 ) );
+		
+		//---[ now rebuild the suspend data w/ any alterations/updates and the write-in fields from learner input removed
+
+		var pData_Suspend = updated_pData_Suspend + dateVal;
+		
+		//masterJSONStorage.courseProgressLoadStorage.writeInFieldListSets = 	pData_Suspend;
+		
+		var suspendData_Processing = 														pData_Suspend.split('['); // split at [
+		for( var a = 0 ; a < suspendData_Processing.length ; a++ ){
+			var suspendData_ExtractSubsets = 												suspendData_Processing[a].split(']'); // each element of initial array, split at ]
+			switch( suspendData_ExtractSubsets[0] ){ // extract the inside of the bracket(can be more than single litter if necessary)
+				case 'Met' : // course metadata - version
+					var splitMetaCompartments = 											suspendData_ExtractSubsets[1].split('&'); // split to metadata compartments 
+					for( var b = 0 ; b < splitMetaCompartments.length ; b++ ){
+						var splitCompartmentData = 										splitMetaCompartments[b].split( ")" );
+						switch( splitCompartmentData[0] ){
+							case "v" :
+								var sysVersion = 										splitCompartmentData[1];
+							break;
+						}
+					}
+				break;
+				case 'Prg' : // path chain, clipboard view status -- c.1>2#010,0-c.1>3:1+2+4>2#011,00_x#0,00000
+					// new system combines the learner progress chain and the clipboard view status all within the P section
+					// need to split apart and reformat to comply with existing handling
+					// no longer using the c / i indicator at beginning of path chain
+					var splitMetaCompartments = 											suspendData_ExtractSubsets[1].split('&'); // split to metadata compartments -- LEGACY(?)
+					for( var b = 0 ; b < splitMetaCompartments.length ; b++ ){
+						//	console.log( "splitMetaCompartments[" + b + "] = " + splitMetaCompartments[b] );
+						var splitCompartmentData = 										splitMetaCompartments[b].split( ")" ); // split to get compartment dataset identifier
+						switch( splitCompartmentData[0] ){
+							case "p" :
+								var splitPathGroups = 									splitCompartmentData[1].split('_'); // split to groups
+								for( var c = 0 ; c < splitPathGroups.length ; c++ ){
+									//console.log( "splitPathGroups[" + c + "] = " + splitPathGroups[b] );
+									var splitGroupPaths = 								splitPathGroups[c].split('-'); // split groups into paths
+									for( var d = 0 ; d < splitGroupPaths.length ; d++ ){
+										//console.log( "splitGroupPaths[" + d + "] = " + splitGroupPaths[d] );
+										//var setupNewPath = {};
+										// PATH STATUS
+										// instead of seeking the letter indicator, need to look at the userpath in the suspension data
+										// if x, path is unattempted
+										// otherwise, need to check the path type, and then compare against rules of path type to determine status
+										var loadedSuspendData_UserPath = ['x']; // use the x if no path progress
+										if( splitGroupPaths[d].charAt(0) == "x"  ){ // if unattempted x, use zero index
+											//parseSeqCBString = splitPath_Status_from_Seq_CB[0]; // without the x
+											courseStatusObject.courseModuleGroupStack[c][d].moduleProgressStatus = 'Unattempted';
+										}else{
+											var checkPathType = masterJSONStorage.pathParamsSet[c][d].meta.pathType;
+											if( checkPathType == undefined || checkPathType == "" || checkPathType == null ){
+												checkPathType = "Case Study"; // legacy handling in case no case study is stored
+											}
+											switch( checkPathType ){
+												case 'Case Study' :
+													// check if conclusion step has been reached
+													// split at # to get chain separated from clipboard viewstack
+													var splitPathFromCB = 				splitGroupPaths[d].split("#");
+													// split at > to break up steps
+													var splitPathIntoSteps = 				splitPathFromCB[0].split(">");
+													// cycle path steps to find step with @ indicator
+													cyclePathSteps:
+													for( var p = 0 ; p < splitPathIntoSteps.length ; p++ ){
+														if( splitPathIntoSteps[p].charAt(0) == "@" ){
+															splitPathIntoSteps[p] = 			splitPathIntoSteps[p].substring(1); // extract step w/o @
+															var splitStepFromChoices = 		splitPathIntoSteps[p].split(":"); // split to get step id
+															courseStatusObject.courseModuleGroupStack[c][d].lastViewedStep = splitStepFromChoices[0];
+															break cyclePathSteps;
+														}
+													}
+													
+													// get last step id
+													//var lastLearnerStep = 						splitPathIntoSteps[splitPathIntoSteps.length - 1];
+													// split at : to break away from choices, use 0 index
+													//var splitStepFromChoices = 				lastLearnerStep.split(":");
+													// split at @ to break away from current step indicator , use 1 index if length > 1
+													//var splitStepFromCurrentIndicator = 	splitStepFromChoices[0].split("@");
+													//var checkForCurrentIndicator = 			splitStepFromChoices[0].indexOf("@");
+													//var checkProcessedID = 						1;
+													//splitStepFromChoices[0].replace( "@" , "" );
+													//if( checkForCurrentIndicator != -1 ){
+														//checkProcessedID = 						Number(splitStepFromChoices[0]);
+														//courseStatusObject.courseModuleGroupStack[c][d].lastViewedStep = splitStepFromChoices[0];
+													//}
+													// last step is conclusion, completed, otherwise not
+													//if( Number(checkProcessedID) == 2 ){
+													if( courseStatusObject.courseModuleGroupStack[c][d].lastViewedStep != undefined && Number(courseStatusObject.courseModuleGroupStack[c][d].lastViewedStep) == 2 ){
+														courseStatusObject.courseModuleGroupStack[c][d].moduleProgressStatus = 'Completed';
+													}else{
+														courseStatusObject.courseModuleGroupStack[c][d].moduleProgressStatus = 'Incomplete';
+													}
+													//parseSeqCBString = splitPath_Status_from_Seq_CB[1]; // if attempted, use 1 index as we have period-split it
+												break;
+												case 'Procedural' : 
+													// check if all steps have been viewed -- just check matching length, not alignment of ids in sequence (for now)
+													// split at hash to get chain separated from clipboard viewstack
+													var splitPathFromCB = 						splitGroupPaths[d].split("#");
+													// split at > to break up steps
+													var splitPathIntoSteps = 						splitPathFromCB[0].split(">");
+													// cycle path steps to find step with @ indicator
+													cyclePathSteps:
+													for( var p = 0 ; p < splitPathIntoSteps.length ; p++ ){
+														if( splitPathIntoSteps[p].charAt(0) == "@" ){
+															splitPathIntoSteps[p] = 			splitPathIntoSteps[p].substring(1); // extract step w/o @
+															var splitStepFromChoices = 		splitPathIntoSteps[p].split(":"); // split to get step id
+															courseStatusObject.courseModuleGroupStack[c][d].lastViewedStep = splitStepFromChoices[0];
+															break cyclePathSteps;
+														}
+													}
+													/*
+													for( var p = 0 ; p < splitPathIntoSteps.length ; p++ ){
+														var splitStepFromChoices = 			splitPathIntoSteps[p].split(":");
+														if( splitStepFromChoices[0].charAt(0) == "@" ){
+															splitPathIntoSteps[p] = 			splitPathIntoSteps[p].substring(1); // extract step w/o @
+															var splitStepFromChoices = 		splitPathIntoSteps[p].split(":"); // split to get step id
+															courseStatusObject.courseModuleGroupStack[c][d].lastViewedStep = splitStepFromChoices[0];
+															break cyclePathSteps;
+														}
+													}
+													*/
+													// get last step id
+													//var lastLearnerStep = 						splitPathIntoSteps[splitPathIntoSteps.length - 1];
+													// split at : to break away from choices, use 0 index
+													//var splitStepFromChoices = 				lastLearnerStep.split(":");
+													// split at @ to break away from current step indicator , use 1 index if length > 1
+													//var splitStepFromCurrentIndicator = 	splitStepFromChoices[0].split("@");
+													//var checkForCurrentIndicator = 			splitStepFromChoices[0].indexOf("@");
+													//splitStepFromChoices[0].replace( "@" , "" );
+													//if( checkForCurrentIndicator != -1 ){
+														//courseStatusObject.courseModuleGroupStack[c][d].lastViewedStep = splitStepFromChoices[0];
+													//}
+													if( splitPathIntoSteps.length == masterJSONStorage.pathStructureSet[c][d].nodeMapUnits.length ){
+														courseStatusObject.courseModuleGroupStack[c][d].moduleProgressStatus = 'Completed';
+													}else{
+														courseStatusObject.courseModuleGroupStack[c][d].moduleProgressStatus = 'Incomplete';
+													}
+													// similar to above, break down into a list of step ids, and then compare this to path's structure (break this into an id list too?  simplest comparison method...)
+													//cycle units as r
+													//for( var r = 0 ; r < masterJSONStorage.pathStructureSet[j][k].nodeMapUnits.length ; r++ ){
+														//var checkMapUnitID = masterJSONStorage.pathStructureSet[j][k].nodeMapUnits[r].nodeID;
+													//}
+												break;
+											}
+											// do final processing before usage?  clear any @ or :+ stuff?
+											loadedSuspendData_UserPath = 				splitPathIntoSteps;
+											
+											// reconstitute stored write-in input values after processing
+											//masterJSONStorage.courseProgressLoadStorage.writeInFieldListSets[0].group_path_step = 1_1_3
+											//masterJSONStorage.courseProgressLoadStorage.writeInFieldListSets[0].data = [“a”,“1”,”z”]
+											
+											for( var pathStepChainIterate = 0 ; pathStepChainIterate < loadedSuspendData_UserPath.length ; pathStepChainIterate++ ){
+												var splitIteration = loadedSuspendData_UserPath[pathStepChainIterate].split( ":" );
+												//if( loadedSuspendData_UserPath[pathStepIterate].indexOf(":wifl%") != -1 ){
+												if( splitIteration[1] == "wifl%" ){
+													cycleWIFLData:
+													for( var tempWriteInStorageIterate = 0 ; tempWriteInStorageIterate < masterJSONStorage.courseProgressLoadStorage.writeInFieldListSets.length ; tempWriteInStorageIterate++ ){
+														var stepIDOnly = splitIteration[0].replace(/[^0-9]/gi,'');
+														if( masterJSONStorage.courseProgressLoadStorage.writeInFieldListSets[tempWriteInStorageIterate].group_path_step == (c+1) + "_" + (d+1) + "_" + stepIDOnly ){
+															var buildListString = "";
+															for( var stepInputsListIterate = 0 ; stepInputsListIterate < masterJSONStorage.courseProgressLoadStorage.writeInFieldListSets[tempWriteInStorageIterate].data.length ; stepInputsListIterate++ ){
+																buildListString += "{" + masterJSONStorage.courseProgressLoadStorage.writeInFieldListSets[tempWriteInStorageIterate].data[stepInputsListIterate] + "}";
+																if( stepInputsListIterate < masterJSONStorage.courseProgressLoadStorage.writeInFieldListSets[tempWriteInStorageIterate].data.length - 1 ){
+																	buildListString += ",";
+																}
+															}
+															break cycleWIFLData;
+														}	
+													}
+													loadedSuspendData_UserPath[pathStepChainIterate] = splitIteration[0] + ":" + buildListString;
+												}
+											}
+											
+											///
+											
+											courseStatusObject.courseModuleGroupStack[c][d].userPath = loadedSuspendData_UserPath;
+											
+											// clipboard view status setup
+											var pathCBViewStatusString = 				'x';
+											if( splitPathFromCB.length > 1 ){ // if split via hash
+												pathCBViewStatusString = 					splitPathFromCB[1]; // 00,100,0 -- commas delimit categories
+												if( splitPathFromCB[1] == "x" ){
+													courseStatusObject.courseModuleGroupStack[c][d].clipboardElementViewStatus[0][0] = 	'x';
+												}else{
+													var pathCBViewList = [];
+													var pathCBViewList_CatGroups = 		pathCBViewStatusString.split(","); 
+													for ( var e = 0 ; e < pathCBViewList_CatGroups.length ; e++ ){
+														var splitCBItems = 							pathCBViewList_CatGroups[e].split("");
+														var makeNums = 							splitCBItems.map(function (x) { 
+														    return parseInt(x); 
+														});
+														pathCBViewList_CatGroups[e] = 	makeNums;
+														pathCBViewList.push( pathCBViewList_CatGroups[e] );
+													}
+													courseStatusObject.courseModuleGroupStack[c][d].clipboardElementViewStatus = 			pathCBViewList;
+												}
+											}else{
+												courseStatusObject.courseModuleGroupStack[c][d].clipboardElementViewStatus[0][0] = 	'x';
+											}
+										}
+									}
+									courseUserPathStoragePrepared = true;
+								}
+							break;
+							case "d" :  // course completion date stamp
+								// handle completion data
+								//if( splitProgressCompartments ){
+									dateStamp_CourseModules_UTC = 									splitCompartmentData[1]; // use formatted date code as the completion date
+								//}
+								//var courseCompletionData = splitProgressCompartments[1];
+							break;
+						}
+					}
+				break;
+				/*
+				case 'Asm' : // assessment score and passing date (x if no date?) --  -1&2014-01-13T09:34:49Z
+					var courseAssessmentData_Split = 	suspendData_ExtractSubsets[1].split('&');
+					var courseAssessment_Score = 		courseAssessmentData_Split[0];
+					masterJSONStorage.courseProgressLoadStorage.courseAssessment =	{
+						'courseAssessment_Score' : 			courseAssessment_Score
+					};
+					courseStatusObject.courseAssessmentScore = parseInt( masterJSONStorage.courseProgressLoadStorage.courseAssessment.courseAssessment_Score );
+					if( courseAssessmentData_Split.length > 1 ){ // if date exists (&date)
+						var courseAssessment_PassDate = 	courseAssessmentData_Split[1];
+						masterJSONStorage.courseProgressLoadStorage.courseAssessment.courseAssessment_PassDate = courseAssessment_PassDate;
+						courseStatusObject.courseAssessmentCompletionDate = masterJSONStorage.courseProgressLoadStorage.courseAssessment.courseAssessment_PassDate;
+						if(courseStatusObject.courseAssessmentCompletionDate != 'x'){
+							
+						}else{
+							courseStatusObject.courseAssessmentCompletionDate = 'x';
+						}
+					}
+				break;
+				*/
+				/*
+				case 'Srv' : // survey completion status -- 0/1
+					masterJSONStorage.courseProgressLoadStorage.surveyCompletionStatus =	suspendData_ExtractSubsets[1];
+					courseStatusObject.courseSurveyStatus = parseInt( masterJSONStorage.courseProgressLoadStorage.surveyCompletionStatus );
+				break;
+				*/
+				/*
+				case 'Scr' : // Score value for LMS/Reporting -- 0-100? / Separate from assessment score?
+					masterJSONStorage.courseProgressLoadStorage.reportedCourseScore =	suspendData_ExtractSubsets[1];
+					courseStatusObject.reportedCourseScore = parseInt( masterJSONStorage.courseProgressLoadStorage.reportedCourseScore );
+				break;
+				*/
+			}
+		}
+	}else{
+		// if not loading a stored suspend data session string
+		//allowProgressIncrement = true;
+	}
+	dashboardLauncher({ 'launchSource' : launchSourceNote }); // launchsource used?
+	startLMSTimer(); // begin counting session timer to add to total accumulation.  not actually counting, just a stamp at launch to compare to a stamp at end timer action
+  //setSuspendData();
+  //If the course couldn't connect to the LMS for some reason...
+	//dashboardLauncher({ 'launchSource' : 'FakeScormInit' }); // launchsource used?
+}
+
+// ! F.Build Suspend Data ---
+function buildSuspendData( context ){
+	var createSuspendString = 			false;
+	if( context.generateNewDataSet ){ // If generating a new data set for unattempted course
+		createSuspendString = 			true;
+	}
+	if( persistentData.lmsConnected ){ // If the lmsConnection is active..
+		createSuspendString = 			true;
+	}
+	var suspendScore = 					context.suspendScore;
+	var pData_Suspend = 				"";
+	if( createSuspendString ){
+		// prepare user path storage
+		var moduleStackData = 			courseStatusObject.courseModuleGroupStack;
+		//! - course persistence metadata
+		//=========[ metadata - system version ]==========================
+		var sysV = "0.2.3"; // use as baseline?  or set elsewhere?
+		if( masterJSONStorage.courseMetaParams.core != undefined && masterJSONStorage.courseMetaParams.core != "" ){
+			if( masterJSONStorage.courseMetaParams.core.sysVersion != undefined && masterJSONStorage.courseMetaParams.core.sysVersion != "" ){
+				sysV = masterJSONStorage.courseMetaParams.core.sysVersion;
+			}
+		}
+		pData_Suspend += 				"[Met]v)" + sysV;
+		//=========[ progress - user path chain | clipboard view status ]==========================
+		pData_Suspend += 				"[Prg]p)";
+		for( var a = 0 ; a < moduleStackData.length ; a++ ){ // cycle groups
+			if( a > 0 ){ // path group separator if beyond single module group iteration
+				pData_Suspend += 		"_";
+			}
+			for( var b = 0 ; b < moduleStackData[a].length ; b++ ){ // cycle paths per group
+				var buildPathChunk = 		"";
+				if( b > 0 ){ // path separator if beyond single module iteration within group
+					buildPathChunk += 	"-";
+				}
+				var pathStatus = 			moduleStackData[a][b].moduleProgressStatus;
+				/*
+				var pathStatusShort = 	"";
+				switch(pathStatus){
+					case "Completed":
+						//preparePersistentDateStamp({ "purpose" : "Course Completion" });
+					break;
+					case "Incomplete":
+						
+					break;
+					case "Unattempted":
+					case "Locked":
+						pathStatusShort = "x";
+					break;
+				}
+				*/
+				//buildPathChunk += 		pathStatusShort;
+				
+				// masterJSONStorage.pathStructureSet[0][0].nodeMapUnits[3].writeInFieldListExpectedInputs
+				// courseStatusObject.courseModuleGroupStack[0][0].userPath
+				
+				if( pathStatus != "Unattempted" && pathStatus != "Locked" ){
+					var activityPath = 				'';
+					var userPathTemp = 			moduleStackData[a][b].userPath;
+					if( userPathTemp != undefined && userPathTemp != null && userPathTemp != '' ){
+						var activityPathLength = 	userPathTemp.length;
+						if( activityPathLength > 0 && userPathTemp[0] != 'x' ){
+							cyclePathSteps:
+							for(var c = 0 ; c < activityPathLength ; c++){
+								//console.log( "BUILD SUSPEND DATA -- userPathStep data = " + userPathTemp[c] );
+								var splitChainLinkIDFromChoices = userPathTemp[c].split(":");
+								if( c > 0 ){ // path step separator if beyond single step iteration
+									activityPath += 	'>'; // separate the individual activity path string
+								}
+								if( moduleStackData[a][b].lastViewedStep != undefined && moduleStackData[a][b].lastViewedStep != "" ){
+									if( Number( splitChainLinkIDFromChoices[0] ) == Number( moduleStackData[a][b].lastViewedStep ) ){
+										activityPath += 	"@";
+									}
+								}
+								// if write in field list assessment step, add identifier
+								cycleNodeMapUnits:
+								for(var d = 0 ; d < masterJSONStorage.pathStructureSet[a][b].nodeMapUnits.length ; d++){
+									if( Number(masterJSONStorage.pathStructureSet[a][b].nodeMapUnits[d].nodeID) == Number(splitChainLinkIDFromChoices[0]) ){
+										var nodeIndex = d;
+										break cycleNodeMapUnits;
+									}
+								}
+								//console.log( "BUILD SUSPEND DATA -- userPathStep node id = " + masterJSONStorage.pathStructureSet[a][b].nodeMapUnits[nodeIndex].nodeID );
+								if( masterJSONStorage.pathStructureSet[a][b].nodeMapUnits[nodeIndex].writeInFieldListExpectedInputs != undefined ){
+									activityPath += 		splitChainLinkIDFromChoices[0] + ":" + "wifl%" + splitChainLinkIDFromChoices[1];
+								}else{
+									activityPath += 		userPathTemp[c]; // array element already has colon splitter separating choices from step id
+								}
+							}
+						}
+					}
+					buildPathChunk += 			activityPath;
+				}else{
+					buildPathChunk += 			"x";
+				}
+				//if( courseStatusObject.courseModuleGroupStack[a][b].clipboardElementViewStatus.length > 0 ){ // cycle stored cb list groups
+				// check if first cb view status inner group has length
+				var cbViewStatusPath = courseStatusObject.courseModuleGroupStack[a][b].clipboardElementViewStatus;
+				if( cbViewStatusPath[0].length > 0 ){ // cycle stored cb list groups
+					// if loaded cb list has elements, set up and start building the string portion
+					var pathCBStringArray = 	[]; 
+					buildPathChunk += 			"#";
+					for( var c = 0 ; c < cbViewStatusPath.length ; c++ ){ // cycle category sets	
+						var zeroString = "";
+						for( var d = 0 ; d < cbViewStatusPath[c].length ; d++ ){ // cycle cat members
+							zeroString += 			cbViewStatusPath[c][d];
+						}
+						// push the zero string to the path's string array
+						pathCBStringArray.push(zeroString);
+					}
+					// after assembling arrayed string of zeros, join it together with commas
+					buildPathChunk += 			pathCBStringArray.join(',');
+				}
+				pData_Suspend += 				buildPathChunk;
+			}
+		}
+	}
+	
+	// need to calculate if all paths are completed.  if so, add a datestamp for course completion
+	// this datestamp can be used for future purposes like certificate with no score or assessment, etc.
+	if( activitiesCompleteCount >= sideNavLearningModuleTotalCount ){ // all activities / modules completed
+		preparePersistentDateStamp({ "purpose" : "Course Completion" });
+		pData_Suspend += 				"&d)" + dateStamp_CourseModules_UTC;
+	//if( courseStatusObject.courseAssessmentScore >= useMasteryScore ){ // passed
+		//courseStatusObject.courseAssessmentScore = 100;
+		//if( !courseSurvey_Present ){
+			//setCourseProgressLMS('passed');
+		//}else{
+			//setCourseProgressLMS('completed'); // also sets suspend data
+		//}
+		//prepareDateStamp(); // for preparing date record in suspend data.  should be first time initializing datestamp, as isn't stored until assessment is submitted
+	    //if( persistentData.toggleSessionTimeAccrue ){
+			//setSessionTime();
+			//persistentData.toggleSessionTimeAccrue = false; // after we've achieved the first passing score, shouldn't have to accrue any more session timeStamp
+		//}
+		//setScore(); // also sets suspend data
+		//setSuspendData();
+	}
+	/*
+	switch(pathStatus){
+		case "Completed":
+			//pathStatusShort = "c)";
+			preparePersistentDateStamp({ "purpose" : "Course Completion" });
+			pData_Suspend += "&" + buildPathChunk;
+		break;
+		case "Incomplete":
+			//pathStatusShort = "i)";
+		break;
+		case "Unattempted":
+		case "Locked":
+			//pathStatusShort = "x";
+		break;
+	}
+	*/
+	
+	//! - user path + clipboard view status
+	//=========[ score ]==========================
+	
+	// status now seprated with ), not .
+	
+	// Step : ChoiceID +/- Decimal Score
+	// [Prg]c)1>3:1+1.0 --- 
+	// [Prg]c)1>3:1+1.0,2+0.3 --- MAMC choices separated by ,
+	
+	// [Prg]  c)1>3>5:3>6:1>2#010,0  -  c)1> 3: 1=1.0 + 2=0.3 + 4=-0.3 >2#011,00  _x
+	
+	// [Prg]  c)1>3>5:3>6:1>2&2014-01-13T09:34:49Z#010,0 -- timestamp on completion 1 -> 2 , before cb hash #
+	/*
+	if( suspendScore != undefined && suspendScore != null && suspendScore != '' ){
+		pData_Suspend += "[Scr]";
+		
+		// Prc:1.0#0.0>1.0 --- Prc interpreted as decimal converted to 100% based perc value, range hard-set for now
+		
+		// Pnt:5.0#0.0>7.0 --- Pnt interpreted as points, range should always be supplied
+		
+		// separated min and max with >, allows for future neg values -2>5 , 5>--1, etc.
+		// allow an option to have score and range be inverted, so higher score is bad, zero is best, etc.
+	}
+	*/
+	//=========[ return final suspend string ]==========================
+	return pData_Suspend;
+}
+
+// ! F.Set Score ---
+function setScore(){
+	//console.log('attempt set score');
+	//setSuspendData({ 'method' : 'suspendStringTest' });
+	
+	// 0.2.3 :
+	// - reported score is logically controlled by packager settings stored in the courseParams
+	// - course modules score is calculated alone, or if course assessment is present...
+	// ...weighted against the c.m. score.  Then, the score reporting method filters...
+	// ...the resulting score through the rule set by the packager settings:
+	// -- scaled - default is 0-100% (0.0 -1.0 range needed by scorm/lms?)
+	// -- summed - the sum result of score tally
+	// -- passed - integer representing items that must be passed for course passing. ...  
+	// ...assessment weighting should change here, either as 0 or 100%? ...
+	// ...or assessment influence be disabled for scoring (not completion though)?
+	
+	// if scaled, the max score here should not be the courseparams maxscore, but the scaled max score
+	// likewise, ensure reported score fits the course scoring report method
+	
+	if( persistentData.lmsConnected ){
+		//if( courseStatusObject.courseAssessmentScore > -1 ){
+		if( courseStatusObject.reportedScore > 0 ){
+			var success = false;
+			switch( persistentData.dataModel ){
+				case 'SCORM1.2' : 
+					success = LMSPersistData_Set({ 
+						'dataElement' : 	"cmi.core.score.raw" ,
+						'dataContent' : 	courseStatusObject.reportedScore , //courseStatusObject.courseModulesScore ,
+						'returnAction' : 	"Bool"
+					});
+					success = LMSPersistData_Set({ 
+						'dataElement' : 	"cmi.core.score.min" ,
+						'dataContent' : 	0.00 ,
+						'returnAction' : 	"Bool"
+					});
+					var useMaxScore = masterJSONStorage.courseParams.scoring.maxScore;
+					if( masterJSONStorage.courseParams.scoring.scoreReportMethod == "Scaled" ){
+						// currently only scaling 0-100
+						useMaxScore = 100.00;
+					}
+					success = LMSPersistData_Set({ 
+						'dataElement' : 	"cmi.core.score.max" ,
+						'dataContent' : 	useMaxScore ,
+						'returnAction' : 	"Bool"
+					});
+				break;
+				case 'SCORM2004.4' : 
+					success = LMSPersistData_Set({ 
+						'dataElement' : 	"cmi.score.raw" ,
+						'dataContent' : 	courseStatusObject.reportedScore ,
+						'returnAction' : 	"Bool"
+					});
+					success = LMSPersistData_Set({ 
+						'dataElement' : 	"cmi.score.min" ,
+						'dataContent' : 	0.00 ,
+						'returnAction' : 	"Bool"
+					});
+					success = LMSPersistData_Set({ 
+						'dataElement' : 	"cmi.score.max" ,
+						'dataContent' : 	masterJSONStorage.courseParams.scoring.maxScore ,
+						'returnAction' : 	"Bool"
+					});
+				break;
+			}
+		    if( success ){
+				//scorm.save();
+				setSuspendData();
+		    }else{
+		      
+		    }
+		}
+	}else{
+      //alert the user and close the course window
+      handleError("Error: Course is not connected to the LMS");
+   }
+}
+// ! F.Set Course Progress LMS ---
+function setCourseProgressLMS(status){
+	//console.log('attempt set course progress/completion status');
+	//If the lmsConnection is active...
+	if( persistentData.lmsConnected ){
+		// set the lesson status
+		// not using for passed/failed/score, is separate -- focused on not attempted, incomplete, completed
+		var success = false;
+		switch( persistentData.dataModel ){
+			case 'SCORM1.2' : 
+				success = LMSPersistData_Set({ 
+					'dataElement' : 	"cmi.core.lesson_status" ,
+					'dataContent' : 	status ,
+					'returnAction' : 	"Bool"
+				});
+			break;
+			case 'SCORM2004.4' : 
+				success = LMSPersistData_Set({ 
+					'dataElement' : 	"cmi.completion_status" ,
+					'dataContent' : 	status ,
+					'returnAction' : 	"Bool"
+				});
+			break;
+		}
+		if( success ){
+			//... disconnect from the LMS, we don't need to do anything else.
+			//scorm.quit();
+			persistentData.scorm.save();
+			//setSuspendData();
+		}else{ // If the course couldn't be set to completed for some reason...
+			//alert the user and close the course window
+			handleError("Error: Course could not be updated");
+		}
+	//If the course isn't connected to the LMS for some reason...
+	}else{
+		//alert the user and close the course window
+		handleError("Error: Course is not connected to the LMS");
+   }
+}
+
+// ! F.DateStamp.Prepare UTC date stamp & verbose variant ---
+function preparePersistentDateStamp( context ){ // this is different from the datestamper in the authoring tools, do not confuse
+	var purpose = 			context.purpose // Course Completion | Assessment Completion
+	var checkDate;
+	var useDate;
+	var interpretedDatestamp_Split;
+	switch( purpose ){
+		case "Course Completion" :
+			checkDate = 		dateStamp_CourseModules_UTC;
+		break;
+		case "Assessment Completion" :
+			checkDate = 		dateStamp_CourseAssessment_UTC;
+		break;
+	}
+	//2014-01-13T09:34:49Z : UTC format
+	if( checkDate == undefined || checkDate == null || checkDate == '' ){ // UTC var is global in the courseplayermain js
+		if( isNaN( ( date = typeof(date) !== 'undefined' ? new Date(date) : new Date() ).getTime() ) ){
+		   return null;
+		}
+		var pad2 = function(n){
+		    return ( n < 10 ? '0' : '' ) + n;
+		};
+		var tokens = [ [ ['FullYear'] , ['Month', 1] , ['Date'] ] , [ ['Hours'] , ['Minutes'] , ['Seconds'] ] ];
+		for( var a = tokens.length , i = 0 ; i < a ; i ++ ){
+			for( var b = tokens[i].length , j = 0 ; j < b ; j ++ ){
+				tokens[i][j] = pad2( date['getUTC' + tokens[i][j][0]]() + ( tokens[i][j][1] || 0 ) );
+			}
+		}
+		switch( purpose ){
+			case "Course Completion" :
+				if( courseStatusObject.courseModulesCompletionDate == 'x' ){
+					// only store a new completion date if it hasn't yet been loaded in from saved progress params
+					dateStamp_CourseModules_UTC = tokens[0].join('-') + 'T' + tokens[1].join(':') + 'Z'; //2014-01-13T09:34:49Z : UTC format
+					courseStatusObject.courseModulesCompletionDate = dateStamp_CourseModules_UTC;
+				}else{
+					dateStamp_CourseModules_UTC = courseStatusObject.courseAssessmentCompletionDate;
+				}
+				useDate = 	dateStamp_CourseModules_UTC;
+			break;
+			case "Assessment Completion" :
+				if( courseStatusObject.courseAssessmentCompletionDate == 'x' ){
+					dateStamp_CourseAssessment_UTC = tokens[0].join('-') + 'T' + tokens[1].join(':') + 'Z';
+					courseStatusObject.courseAssessmentCompletionDate = dateStamp_CourseAssessment_UTC;
+				}else{
+					dateStamp_CourseAssessment_UTC = courseStatusObject.courseAssessmentCompletionDate;
+				}
+				useDate = 	dateStamp_CourseAssessment_UTC;
+			break;
+		}
+	}else{
+		// use the date that has already been stored, if it has been
+		useDate = 	checkDate;
+	}
+	var interpretedDatestamp_Split = 	useDate.split('T');
+	var interpretedDatestamp_Date = 	interpretedDatestamp_Split[0].split('-');
+	var displayYear = 							removeLeadingZeros(interpretedDatestamp_Date[0]);
+	var displayMonth = 						monthArray[ removeLeadingZeros(interpretedDatestamp_Date[1]) - 1 ];
+	var displayDay = 							removeLeadingZeros(interpretedDatestamp_Date[2]);
+	//new Date("January 22, 2005 10:10:00");
+	var newStoreDate = 						new Date( displayMonth + " " + displayDay + ", " + displayYear + " " + interpretedDatestamp_Split[1].substring(0, interpretedDatestamp_Split[1].length - 1) );
+	var displayWeekday = 					weekdayArray[ ( newStoreDate.getDay() + 6 ) % 7 ];
+	var dateCombo = 							displayWeekday + ', ' + displayMonth + ' ' + displayDay + ', ' + displayYear;
+	switch( purpose ){
+		case "Course Completion" :
+			dateStamp_CourseModules_Verbose = 										dateCombo;
+			courseStatusObject.courseModulesCompletionDateVerbose = 		dateStamp_CourseModules_Verbose;
+		break;
+		case "Assessment Completion" :
+			dateStamp_CourseAssessment_Verbose = 									dateCombo;
+			courseStatusObject.courseAssessmentCompletionDateVerbose = 	dateStamp_CourseAssessment_Verbose;
+		break;
+	}
+}
+// ! F.Exit Course ---
+function exitCETCourse(){
+	//console.log('attempt exit course');
+	//alert('Simulation: Successful Course Exit Reaction');
+	switch( persistentData.dataModel ){
+		case 'SCORM1.2' : 
+		case 'SCORM2004.4' : 
+			scormUnloadHandler(); 
+			window.top.close(); // closing the window should also exit the scorm, redundancy might be problematic...
+		break;
+		case 'Internal' : 
+			alert('simulation: exit course!');
+			//window.top.close();
+			//window.close();
+		break;
+	}
+}
+// ! F.Start Timer ---
+function startLMSTimer(){
+	//console.log('attempt start timer');
+   var newTimeDate = new Date();
+   persistentData.scormStartTime = newTimeDate.getTime();
+}
+// ! F.Scorm Unload Handler ---
+function scormUnloadHandler(){
+	//console.log('attempt scorm unload/quit from lms');
+	switch( persistentData.dataModel ){
+		case 'SCORM1.2' : 
+		case 'SCORM2004.4' : 
+			//if(!persistentDataModel_Simulation){
+			//console.log('scorm unload attempt');
+			if( !persistentData.unloaded ){
+				//console.log('scorm unload attempt - this should save and then quit');
+				if( persistentData.toggleSessionTimeAccrue ){
+					//console.log('scorm session time storing during unload operation');
+					setSessionTime();
+				}
+				persistentData.scorm.save(); //save all data that has already been sent - 1.2 and 2004
+				persistentData.scorm.quit(); //close the SCORM API connection properly - 1.2 and 2004
+				persistentData.unloaded = true;
+			}
+		break;
+	}
+}
+// ! F.Set Learner LMS Session Time ---
+// call function right before LMSFinish
+function setSessionTime(){
+	//var doSave = context.doSave;
+	//console.log('attempt set session time');
+      var currentTime = new Date();
+      var endTime = currentTime.getTime();
+     //console.log('endTime = ' + endTime);
+      var calculatedTime = endTime - persistentData.scormStartTime;
+      var totalHours = Math.floor(calculatedTime / 1000 / 60 / 60);
+     //console.log('calculatedTime = ' + calculatedTime);
+     //console.log('totalHours = ' + totalHours);
+     calculatedTime = calculatedTime - totalHours * 1000 * 60 * 60;
+     //console.log('calculatedTime2 = ' + calculatedTime);
+     // if( totalHours < 1000 && totalHours > 99 ){
+            //totalHours = "0" + totalHours;
+            //totalHours = addLeadingZeros({ "baseNum" : totalHours });
+     //}else if( totalHours < 100 && totalHours > 9 ){
+            //totalHours = "00" + totalHours;
+           // totalHours = addLeadingZeros({ "baseNum" : totalHours , "resultMinLen" : 3 });
+     // }else if( totalHours < 10 ){
+            //totalHours = "000" + totalHours;
+            //totalHours = addLeadingZeros({ "baseNum" : totalHours , "resultMinLen" : 4 });
+      //}
+       totalHours = addLeadingZeros({ "baseNum" : totalHours , "resultMinLen" : 4 });
+      //console.log('totalHours2 = ' + totalHours);
+      var totalMinutes = Math.floor(calculatedTime / 1000 / 60);
+      calculatedTime = calculatedTime - totalMinutes * 1000 * 60;
+      if( totalMinutes < 10 ){
+            //totalMinutes = "0" + totalMinutes;
+            totalMinutes = addLeadingZeros({ "baseNum" : totalMinutes });
+      }
+      //console.log('totalMinutes = ' + totalMinutes);
+      var totalSeconds = Math.floor(calculatedTime / 1000);
+      if( totalSeconds < 10 ){
+            //totalSeconds = "0" + totalSeconds;
+            totalSeconds = addLeadingZeros({ "baseNum" : totalSeconds });
+      }
+      //console.log('totalSeconds = ' + totalSeconds);
+      var sessionTime = totalHours + ":" + totalMinutes + ":" + totalSeconds;
+      //console.log('sessionTime = ' + sessionTime);
+	  var success = false;
+      switch( persistentData.dataModel ){
+		case 'SCORM1.2' : 
+			//success = LMSPersistData_Set({ 
+			success = LMSPersistData_Set({ 
+				'dataElement' : 	"cmi.core.session_time" ,
+				'dataContent' : 	sessionTime ,
+				'returnAction' : 	"Bool"
+			});
+		break;
+		case 'SCORM2004.4' : 
+			//success = LMSPersistData_Set({ 
+			success = LMSPersistData_Set({ 
+				'dataElement' : 	"cmi.session_time" ,
+				'dataContent' : 	sessionTime ,
+				'returnAction' : 	"Bool"
+			});
+		break;
+	}
+      //var success = scorm.set("cmi.core.session_time", sessionTime);
+      if( success ){
+		//console.log("session time passed to lms");
+      }else {
+      	//console.log("session time not passed to lms");
+      }
+}
+/*
+// ! F.Setup Learner Name ---
+function setupLearnerName(){
+	//console.log('attempt setup learner name');
+	//if(lmsConnected){
+	//Now let's get the username from the LMS
+	var grabLearnerName;
+	switch( persistentData.dataModel ){
+		case 'SCORM1.2' : 
+			grabLearnerName = LMSPersistData_Get({
+				'dataElement' : 	"cmi.core.student_name"
+			});
+		break;
+		case 'SCORM2004.4' : 
+			grabLearnerName = LMSPersistData_Get({ 
+				'dataElement' : 	"cmi.learner_name"
+			});
+		break;
+	}
+	//learnerName = sortUserName( grabLearnerName );
+	
+	//If the name was successfully retrieved...
+	//if( grabLearnerName != null && grabLearnerName != undefined && grabLearnerName != "" ){
+	if( grabLearnerName ){
+		learnerName = grabLearnerName;
+	}else{
+		//console.log("missing learnername...");
+	}
+}
+*/
+// ! F.Set Suspend Data ---
+//*
+//function setSuspendData( context ){
+function setSuspendData(){
+	//console.log('attempt set suspend data');
+	//=========[ assessment score storage ]==========================
+	// off for now?
+	//pData_Suspend += "[Asm]-1";
+	//pData_Suspend += "[Asm]";
+	// separate with &
+	// store a UTC datestamp, or x if not yet set
+	//if(dateStamp_UTC == undefined || dateStamp_UTC == null || dateStamp_UTC == ''){
+	    //suspendDataString += 'x';
+    //}else{
+	    //suspendDataString += dateStamp_UTC;
+    //}
+	
+	//pData_Suspend += courseStatusObject.courseAssessmentScore;
+	 //=========[ survey status storage ]==========================
+	 // off for now
+    //pData_Suspend += "[Srv]";
+   // pData_Suspend += courseStatusObject.courseSurveyStatus;
+    
+    //=========[ course score storage ]==========================
+	 // off for now
+    //pData_Suspend += "[Scr]";
+   // pData_Suspend += courseStatusObject.courseSurveyStatus;
+    
+	//////////////////////////////////////////
+	//////////////////////////////////////////
+	
+	//=========[ apply scorm data update to lms ]==========================
+	
+	//if( suspendMethod == 'suspendStringTest' ){
+		//console.log( 'suspendStringTest = ' + suspendDataString );
+	//}
+	
+	// check here that there is actually an lms to save to before executing
+	if( persistentData.lmsConnected ){
+		
+		var suspendDataString = ""; // empty suspend data string ready to fill with stuff
+		//suspendDataString += buildSuspendData({ 'generateNewDataSet' : true });
+		suspendDataString += buildSuspendData({});
+		
+	   //suspendDataString += dateStamp_UTC;
+	    var success = false;
+	    switch( persistentData.dataModel ){
+			case 'SCORM1.2' : 
+			case 'SCORM2004.4' : 
+				 success = LMSPersistData_Set({ 
+					'dataElement' : 		"cmi.suspend_data" ,
+					'dataContent' : 		suspendDataString ,
+					'returnAction' : 		"Bool"
+				});
+			break;
+		}
+			 //var success = scorm.set("cmi.core.lesson_location", "test_location_string");
+			 //console.log("suspend data 1c = " + joinPath);
+		  //};
+	      //console.log("suspend data 1d = " + joinPath);
+	      //var success = scorm.set("cmi.core.lesson_status", "completed");
+	      //If the course was successfully set to "completed"...
+	      if( success ){
+	      	//Ensure the LMS persists (saves) what was just sent
+			persistentData.scorm.save(); // works with scorm 1.2 and 2004
+	      	//console.log("suspend data 1e = " + joinPath);
+	        //... disconnect from the LMS, we don't need to do anything else.
+	        //scorm.quit();
+	      //If the course couldn't be set to completed for some reason...
+	      }else{
+	         //alert the user and close the course window
+	         //console.log("suspend data 1f = " + joinPath);
+	         //handleError("Error: Suspend Data not stored!");
+	      }
+	   //If the course isn't connected to the LMS for some reason...
+	}else{
+	      //alert the user and close the course window
+	      //if( suspendMethod == 'suspendStringTest' ){
+		  	 //console.log("string test mode, however following LMS Error caught: Course is not connected to the LMS");
+		  //}else{
+			  handleError("Error: Course is not connected to the LMS");
+		  //}
+	   //}
+   }
+}
+// ! F.LMS Persist Data : Get ---
+function LMSPersistData_Get( context ){
+	//console.log('attempt lms get');
+	var dataElement = 			context.dataElement;
+	switch( persistentData.dataModel ){
+		case 'SCORM1.2' : 
+		case 'SCORM2004.4' : 
+			return persistentData.scorm.get( dataElement );
+		break;
+	}
+}
+// ! F.LMS Persist Data : Set ---
+function LMSPersistData_Set( context ){
+	//console.log('attempt lms set');
+	var dataElement = 			context.dataElement;
+	var dataContent = 			context.dataContent;
+	var returnAction = 			context.returnAction;
+	switch( persistentData.dataModel ){
+		case 'SCORM1.2' : 
+		case 'SCORM2004.4' : 
+			if( returnAction != undefined && returnAction != null && returnAction != '' ){
+				switch( returnAction ){
+					case "Bool" : // returns true/false for lib scorm set function boolean return
+						success = persistentData.scorm.set( dataElement , dataContent );
+						return success;
+					break;
+					default :
+						persistentData.scorm.set( dataElement , dataContent );
+					break;
+				}
+			}
+		break;
+	}
+}
+
+//! ===================================================================
+// ! LMS REF :
+
+// ===================================================================
+//! - Course Status
+/*===================================================================
+scorm 1.2:
+
+cmi.core.lesson_status
+passed, completed, failed, incomplete, browsed, not attempted [RW]
+--------------------------------------------------------
+scorm 2004.4:
+
+cmi.completion_status 		
+completed, incomplete, not attempted, unknown [RW]
+
+cmi.success_status
+passed, failed, unknown [RW]
+
+===================================================================*/
+//! - Scoring
+/*===================================================================
+scorm 1.2:
+
+cmi.core.score.raw
+CMIDecimal [RW]
+
+cmi.core.score.min -- currently always 0
+CMIDecimal [RW]
+
+cmi.core.score.max 
+CMIDecimal [RW]
+
+--------------------------------------------------------
+scorm 2004.4:
+
+cmi.score.raw 
+real (10,7) [RW] -- floating point number with up to 10 digits and up to 7 significant figures
+
+cmi.score.min -- currently always 0
+real (10,7) [RW]
+
+cmi.score.max 
+real (10,7), RW [RW]
+
+===================================================================*/
+//! - Mastery Score
+/*===================================================================
+scorm 1.2:
+
+cmi.student_data.mastery_score
+CMIDecimal [RO]
+--------------------------------------------------------
+scorm 2004.4:
+
+cmi.scaled_passing_score
+real (10,7) range (-1..1) [RO]
+
+===================================================================*/
+//! - Suspend Data
+/*===================================================================
+scorm 1.2:
+
+cmi.suspend_data
+CMIString (SPM: 4096) [RW]
+--------------------------------------------------------
+scorm 2004.4:
+
+cmi.suspend_data
+characterstring (SPM: 64000) [RW]
+
+===================================================================*/
+//! - Learner Interactions
+/*===================================================================
+scorm 1.2:
+
+cmi.interactions.n.student_response
+format depends on interaction type [WO]
+
+cmi.interactions.n.id
+CMIIdentifier (255) [WO] -- Unique label for the interaction
+--------------------------------------------------------
+scorm 2004.4:
+
+cmi.interactions.n.learner_response
+format depends on interaction type [WO]
+
+cmi.interactions.n.id
+long_identifier_type (SPM: 4000) [RW] -- Unique label for the interaction
+
+cmi.interactions.n.description
+localized_string_type (SPM: 250) [RW] -- Brief informative description of the interaction
+
+===================================================================*/
+//! - Session Time
+/*===================================================================
+scorm 1.2:
+
+cmi.core.session_time
+CMITimespan [WO]
+--------------------------------------------------------
+scorm 2004.4:
+
+cmi.session_time
+timeinterval (second,10,2) [WO] 
+
+===================================================================*/
+//! - Student Name (read)
+/*===================================================================
+scorm 1.2:
+
+cmi.core.student_name
+CMIString (SPM: 255) [RO]
+--------------------------------------------------------
+scorm 2004.4:
+
+cmi.learner_name
+localized_string_type (SPM: 250) [RO]
+*/
+
+/* 
+
+latest format as of december 2018
+
+[Met]v)1.0.0[Prg]p)1>3>@4#00&d)2018-11-12T17:23:53Z
+
+[Met] = 		meta area
+	v) = 		version
+[Prg] = 		progress area
+	& = 		split delimiter for progress sections
+	p) = 		paths
+		_ = 	split to groups
+		- = 	split to paths (within group)
+		> = 	splits steps
+		: = 	split step from id and choices
+		@ = 	last-visited step (precedes id)
+		# = 	after last step in path chain, splits path steps from clipboard view status list - exists per-path
+		, = 	split clipboard category groups
+	d) = 		completion
+
+// --------------------
+
+more/older ref, sort:
+
+// Section headers more identifiable?
+//"[Prg]c.1>2#010,0-c.1>3:1+2+4>2#011,00_x[Asm]-1&2014-01-13T09:34:49Z[Srv]0"
+
+// Reporting Score? Separate from (but optionally driven by) the assessment score.
+//"[Prg]c.1>2#010,0-c.1>3:1+2+4>2#011,00_x[Asm]-1&2014-01-13T09:34:49Z[Srv]0[Scr]0"
+
+// Basic initialized example - single path, unattempted.  Asm can be used to indicate reaching end (100).  
+// No survey, no clipboard, no scoring
+// even without scoring, this config can be used to indicate course completion
+//"[Prg]x[Asm]-1"
+
+// As above, but with 2-cat clipboard and scoring
+//"[Prg]x#00,0[Asm]-1[Scr]0"
+
+// Above, but with simple completion & date, and score matching (progress is actually still artificially x here, would be sequence)
+//"[Prg]x#00,0[Asm]100&2014-01-13T09:34:49Z[Scr]100"
+
+// Above, but with learner move sequence (completed status, 1 samc, 1 mamc, cb views applied)
+//"[Prg]c.1>3:4>5:2+3>2#11,1[Asm]100&2014-01-13T09:34:49Z[Scr]100"
+
+// --------------------
+
+//"[P]c.1>2#010,0-c.1>3:1+2+4>2#011,00_x[A]-1&2014-01-13T09:34:49Z[S]0"
+
+// [P]c.1>2#010,0-c.1>3:1+2+4>2#011,00_x#0,00000[A]-1&2014-01-13T09:34:49Z[S]1
+
+// [P] -- path chain, clipboard view status
+// c.1>2#010,0-c.1>3:1+2+4>2#011,00_x#0,00000
+// _ split groups
+// path chunk c.1>2#010,0
+// c. complete | i. incomplete | x (no period) unattempted
+// > splits steps
+// : split step from id and choices
+// + sub-list of mamc choices
+// # split out path clipboard view list
+// , split clipboard category groups
+
+// [A] -- assessment score and passing date (x if no date?)
+// -1&2014-01-13T09:34:49Z
+
+// [S] -- survey completion status
+// 0/1
+
+*/

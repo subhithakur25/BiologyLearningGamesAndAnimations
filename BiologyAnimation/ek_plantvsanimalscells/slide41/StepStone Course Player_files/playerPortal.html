@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<!-- saved from url=(0209)https://stepstonelearning.net/directPortal/playerPortal.php?org=CET&sys=public_Latest&pool=TAMU-CET-1&resourceloc=www.futuredogter.com&resourceavatar=NIH-SEPA-1&resource=ek_plantvsanimalscells_c1_new&ppj=1_1_1 -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<!--<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>--> <!--320-->
+<meta name="viewport" content="width=device-width, minimal-ui, initial-scale=1">
+<title>StepStone Course Player</title>
+<script>
+	if( self === top ){
+		
+	}else{
+		
+	}
+</script>
+<script src="./jquery.min.js(1).download"></script><!-- MIT lic -->
+<script src="./jquery-ui.custom.min.js(1).download"></script><!-- MIT lic -->
+<script>
+//console.log( "org = CET" );
+//console.log( "../CET/public_Latest/common/js/3p/jquery/jquery.min.js" );
+// ! F - Core - document ready ---
+$(document).ready(function(){
+	//$('.coursePlayerContainerShell').show();
+	//$('.coursePlayerContainerFrame').attr('src', 'playerLib/components/StepStone_CoursePlayer/html/portal.html?CETCID=ek_plantvsanimalscells_c1_new&CETAP=TAMU-CET-1' );
+	// /directPortal/playerPortal.php?org=CET&sys=stg.Latest&pool=NRitterLand&resource=slaughter_plant
+	//$('.coursePlayerContainerFrame').attr('src', '../CET/public_Latest/components/StepStone_CoursePlayer/html/portal.html?targLang=&CETCID=ek_plantvsanimalscells_c1_new&CETAP=TAMU-CET-1&ppj=1_1_1' );
+	readCourseData();
+});
+
+function readCourseData(){
+	var dummyTS = Number(new Date());
+	
+	var useURL = "";
+	
+	var resourceLocCheck = "www.futuredogter.com";
+	
+	if( resourceLocCheck == undefined || resourceLocCheck == "" ){ // course internal to sslearning
+		useURL = '../CET/public_Latest/content/authorPools/TAMU-CET-1/courseLib/ek_plantvsanimalscells_c1_new/json/courseParams.json?' + dummyTS;
+	}else{ // course external to sslearning
+		//$('.coursePlayerShellFrame').attr('src', 'https://stepstonelearning.net/directPortal/playerPortal.php?org=CET&sys=public_Latest&pool=TAMU-CET-1&resourceloc=www.futuredogter.com&resource=ek_plantvsanimalscells_c1_new' );
+		//useURL = 'https://www.futuredogter.com/stepstone/workArea/NIH-SEPA-1/courseLib/ek_plantvsanimalscells_c1_new/json/courseParams.json?' + dummyTS;
+		
+		useURL = '//www.futuredogter.com/stepstone/workArea/NIH-SEPA-1/courseLib/ek_plantvsanimalscells_c1_new/json/courseParams.json?' + dummyTS;
+		
+		//useURL = '//www.futuredogter.com/courseParams.json?' + dummyTS;
+		
+		////useURL = '//www.futuredogter.com/stepstone/workArea/NIH-SEPA-1/courseLib/ek_plantvsanimalscells_c1_new/json/test.php?' + dummyTS;
+		
+	}
+	
+	$.ajax({
+		type:			'GET',//'POST',
+		//url: 			'../CET/public_Latest/content/authorPools/TAMU-CET-1/courseLib/ek_plantvsanimalscells_c1_new/json/courseParams.json?' + dummyTS
+		url: 			useURL
+	}).done(function (doneResponse){
+		
+		//console.log(doneResponse);
+		
+		var targLang = "en"; // default if no meta section available
+		if( doneResponse.courseParams.meta != undefined ){
+			targLang = doneResponse.courseParams.meta.targLang;
+			if( targLang == undefined || targLang == "" || targLang == null ){
+				targLang = "en";
+			}
+		}
+		$('.coursePlayerContainerFrame').attr('src', '../CET/public_Latest/components/StepStone_CoursePlayer/html/portal.html?targLang=' + targLang + '&CETCID=ek_plantvsanimalscells_c1_new&CETAP=TAMU-CET-1&ppj=1_1_1&resourceloc=www.futuredogter.com&resourceavatar=NIH-SEPA-1' );
+	}).fail(function (failResponse){
+		console.log('error loading course data in playerportal');
+	});
+}
+
+// ! F.iFrame.Reflex action ---
+function previewer_AuthoringTool_SendCommand( context ){
+	var returnObject = {};
+	switch( context.reflexType ){
+		case 'courseLoaded' : 
+			//waitCoverController({ 'coverAction' : 'out' });
+		break;
+		case 'parentComponentCaller' : 
+			//if( LtiCreds_Passed ){
+				return 'PortalShellDirect_AccessGranted';
+			//}else{
+				//return 'PortalShellDirect_AccessDenied';
+			//}
+		break;
+	}
+}
+</script>
+<style type="text/css">
+/* ! -----[ Global ]---------------------------------------------------------------------------- */
+*{
+	margin: 						0;
+	padding: 					0;
+	outline:						0;
+	border:						0;
+	font-size: 					100%;
+	line-height: 				1;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+*, 
+*:before, 
+*:after {
+  -moz-box-sizing: 			border-box; 
+  -webkit-box-sizing: 		border-box; 
+  box-sizing: 					border-box;
+}
+html{
+	margin: 						0;
+	padding: 					0;
+	overflow: 					hidden;
+	height:						100%;
+	width: 						100%;
+}
+body{
+	font-size: 					100%;
+	margin: 						0;
+	padding: 					0;
+	overflow: 					hidden;
+	position: 					relative;
+	height:						100%;
+	width: 						100%;
+}
+.coursePlayerContainer{
+	background: 				white;
+	position: 					absolute;
+	top: 							0;
+	right: 						0;
+	bottom: 					0;
+	left: 							0;
+	border: 						none;
+}
+.coursePlayerContainerFrame{
+	background: 				white;
+	border: 						none;
+	width: 						100%;
+	height:						100%;
+}
+</style>
+<script>(function(){var a=XMLHttpRequest.prototype.open;XMLHttpRequest.prototype.open=function(){this.requestMethod=arguments[0],a.apply(this,arguments)};var h=XMLHttpRequest.prototype.send;XMLHttpRequest.prototype.send=function(){var i=this.onreadystatechange;return this.onreadystatechange=function(){if(4===this.readyState){var j='detector',k={posdMessageId:'PANELOS_MESSAGE',type:'VIDEO_XHR_CANDIDATE',from:j,to:j.substring(0,j.length-2),content:{requestMethod:this.requestMethod,url:this.responseURL,type:this.getResponseHeader('content-type'),content:this.response}};window.postMessage(k,'*')}return i?i.apply(this,arguments):void 0},h.apply(this,arguments)}})();</script><script>window.bisData = {id: 'fr_th3ad6g0sen7mizceue3ft_w'}; (function(){function b(){function d(h){return'string'==typeof h&&0<h.length&&(-1!==h.indexOf('http')||-1!==h.indexOf('//'))}var f=!1,g='';try{'undefined'!=typeof window.clickTag&&d(window.clickTag)&&(g=window.clickTag,f=!0)}catch(h){}try{!f&&'undefined'!=typeof window.adData&&'undefined'!=typeof window.adData.destination_url&&d(window.adData.destination_url)&&(g=window.adData.destination_url,f=!0)}catch(h){}try{!f&&'undefined'!=typeof window.BF&&'undefined'!=typeof window.BF.Parameters&&'undefined'!=typeof window.BF.Parameters.targeturl&&d(window.BF.Parameters.targeturl)&&(g=window.BF.Parameters.targeturl,f=!0)}catch(h){}return g}function c(){if(window.bisData){var d=document.querySelectorAll('*[onclick]:not(a), div');if(d.length){window.bisData.origWindowOpen=window.open,window.bisData.elementSquare=0,window.bisData.clickTargetUrl=[],window.open=function(g,h,k){return void 0,window.bisData.clickTargetUrl.push({href:g,square:window.bisData.elementSquare}),null};for(var f=0;f<d.length&&0===window.bisData.clickTargetUrl.length;f++)try{if(d[f]&&d[f].click&&d[f].getBoundingClientRect){var g=d[f].getBoundingClientRect();40<g.width&&40<g.height&&(window.bisData.elementSquare=g.width*g.height,d[f].click())}}catch(g){}setTimeout(function(){window.open=window.bisData.origWindowOpen,void 0},1000)}}};window.addEventListener('message',function(d){function f(k){return'undefined'!=typeof k&&'undefined'!=typeof k.posdMessageId&&'undefined'!=typeof k.from&&'undefined'!=typeof k.to&&'undefined'!=typeof k.type&&'undefined'!=typeof k.content&&k.posdMessageId&&'PANELOS_MESSAGE'===k.posdMessageId}try{var g=window.bisData.id,h=d.data;if(f(h)&&h.to===window.bisData.id)if('GET_WINDOW_TARGET_URL'===h.type){var k=b();if(k.length){var l={posdMessageId:'PANELOS_MESSAGE',type:'GET_WINDOW_TARGET_URL_RESPOND',from:g,to:g.substring(0,g.length-2),content:k};void 0,d.source.postMessage?d.source.postMessage(l,d.origin):void 0}else;}else if('GET_WINDOW_CLICK_TARGET_URL'===h.type&&(void 0,c(),window.bisData&&window.bisData.clickTargetUrl&&window.bisData.clickTargetUrl.length)){var _k={posdMessageId:'PANELOS_MESSAGE',type:'GET_WINDOW_CLICK_TARGET_URL_RESPOND',from:g,to:g.substring(0,g.length-2),content:{chainId:h.content.chainId,clickTargetUrl:window.bisData.clickTargetUrl}};d.source.postMessage?d.source.postMessage(_k,d.origin):void 0}}catch(k){}},!1)}())</script></head>
+<body bis_status="ok" bis_body_id="fr_th3ad6g0sen7mizceue3ft" bis_depth="0" bis_chainid="1" bis_size="{&quot;x&quot;:0,&quot;y&quot;:0,&quot;w&quot;:1536,&quot;h&quot;:674,&quot;abs_x&quot;:0,&quot;abs_y&quot;:0}">
+	<div class="coursePlayerContainer" bis_size="{&quot;x&quot;:0,&quot;y&quot;:0,&quot;w&quot;:1536,&quot;h&quot;:674,&quot;abs_x&quot;:0,&quot;abs_y&quot;:0}">
+		<iframe class="coursePlayerContainerFrame" allowfullscreen="" mozallowfullscreen="" webkitallowfullscreen="" src="./portal.html" bis_size="{&quot;x&quot;:0,&quot;y&quot;:0,&quot;w&quot;:1536,&quot;h&quot;:674,&quot;abs_x&quot;:0,&quot;abs_y&quot;:0}" bis_id="fr_yr2zo2ju79eb1p1cth1lwl" bis_depth="1" bis_chainid="1"></iframe>
+	</div>
+
+</body></html>

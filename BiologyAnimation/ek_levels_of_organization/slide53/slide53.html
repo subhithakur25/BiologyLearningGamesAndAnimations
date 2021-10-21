@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!-- saved from url=(0086)file:///C:/Users/sanje/Documents/Texas%20A&m/606/Project/jqueryDemo/jQueryExample.html -->
+<html>
+<head>
+        <style>
+            body {
+                font-size: 32px;
+            }
+
+            .question{
+                font-size: 15px;
+                border: 2px solid black;
+                background: cyan;
+                text-align: center;
+
+            }
+
+            .answer{
+                font-size: 12px;
+                width: 70px;
+            }
+            .question-container {
+                position: relative;
+                text-align: center;
+                float : left;
+                width: 550px;
+                height:450px;
+            }
+            .answer-container{
+                float : left ; position: absolute;
+                text-align: left;top: 100px;
+                left: 480px;width: 200px;
+                opacity: 1.0;
+                background-color: white;border: 2px solid black;
+            }
+        </style>
+    </head>
+    <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="DD_slide53.js"></script>
+    <div>
+    <div class="question-container" >
+        <img width="600" style= "z-index:-1" src="slide53_1.png">
+        <button id="submit" style = "float : right; ">Submit</button>
+        <div class="question" style="position: absolute;top: 210px;left: 200px;width: 100px;height: 70px">1</div>
+        <div class="question" style="position: absolute;top: 300px;left: 335px;width: 95px; height: 70px">2</div>
+        <div class="question" style="position: absolute;top: 400px;left: 170px;width: 120px;height: 70px">3</div>
+        <div class="question" style="position: absolute;top: 510px;left: 370px;width: 130px; height:70px">4</div>
+
+    </div>
+    <div class= "answer-container">
+        <div class="answer" id="1" >Cell Level</div>
+        <div class="answer" id="2">Tissue Level</div>
+        <div class="answer" id="3" >Organ Level</div>
+        <div class="answer" id="4" >Organ System Level</div>
+    </div>
+
+    </div>
+
+
+
+
+</body></html>

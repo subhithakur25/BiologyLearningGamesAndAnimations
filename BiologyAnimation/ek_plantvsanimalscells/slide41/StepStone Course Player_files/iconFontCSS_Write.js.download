@@ -1,0 +1,23 @@
+//staticVars.iconFontPath =  staticVars.commonPathPrime + staticVars.systemVersion + '/webfonts/iconfonts/CET-main/cet-iconsV11';
+staticVars.iconFontPath =  staticVars.commonPath + 'webfonts/iconfonts/CET-main/CET-iconfontset2016v2';
+var wFL = "<style type=\"text/css\">"; // webFontVersionLoad        
+wFL += 			"@font-face {";
+wFL += 				"font-family: 		'CET-StepStoneIcons1';";
+wFL += 				"src: 	url('" + staticVars.iconFontPath + ".eot?') format('eot');";
+wFL += 				"src: 	url('" + staticVars.iconFontPath + ".woff?') format('woff'),";
+wFL += 						"url('" + staticVars.iconFontPath + ".ttf?') format('truetype');";
+wFL += 				"font-weight: 	normal;";
+wFL += 				"font-style: 		normal;";
+wFL += 			"}";
+//-----
+//wFL += 			".CET-Authortool-Icon-Font{";
+wFL += 			".StepStone-Icon-Font{";
+wFL += 				"font-family: 					'CET-StepStoneIcons1';";
+wFL +=	 		"}";
+//-----
+//wFL += 			".CET-Authortool-Icon-Font:before{";
+wFL += 			".StepStone-Icon-Font:before{";
+wFL += 				"content: 							attr(data-StepStoneIcon);";
+wFL +=			"}";
+wFL +=  	"</style>";
+$("head").append( wFL );

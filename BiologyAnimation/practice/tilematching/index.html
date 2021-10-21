@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tile Matching</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            padding-top: 2%;
+            background-color: black;
+        }
+
+        #container {
+            width: 600px;
+            height: 300px;
+            margin: 10px auto;
+        }
+
+        #output-text {
+            color: white;
+            margin: 10px auto;
+            font-size: 40px;
+            font-weight: bold;
+            width: 600px;
+            text-align: center;
+        }
+
+        ul {
+            display: flex;
+            flex-wrap: wrap;
+            list-style: none;
+        }
+
+        li {
+            width: 140px;
+            height: 140px;
+            border: 1px solid black;
+            text-align: center;
+            margin: 5px auto;
+            cursor: pointer;
+            font-size: 20px;
+            background: #02CCBA;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        img {
+            width: 130px;
+            height: 130px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            margin: 10px auto;
+            margin-top: 2%;
+            width: 600px;
+            color: white;
+            text-align: center;
+        }
+
+        .instructions {
+            color: white;
+            margin: 5px auto;
+            width: 600px;
+            text-align: justify;
+            text-justify: inter-word;
+        }
+
+        @media screen and (max-width: 480px) {
+            h1, #container, #output-text, .instructions {
+                width: 300px;
+            }
+
+	    #container {
+                height: 600px;
+	    }
+        }
+
+        #clicked {
+            border: 5px solid yellow;
+            cursor: default;
+        }
+
+        #clicked .flip-tile-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-tile-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .flip-tile-front, .flip-tile-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-perspective: 0;
+            -webkit-backface-visibility: hidden;
+            -webkit-transform: translate3d(0, 0, 0);
+            visibility: visible;
+            backface-visibility: hidden;
+        }
+
+        .flip-tile-back {
+            transform: rotateY(180deg);
+        }
+
+        #removed {
+            visibility: hidden;
+        }
+
+        #unclicked {
+            border: 1px solid black;
+        }
+
+        #incorrect {
+            border: 5px solid red;
+            cursor: default;
+        }
+
+        #incorrect .flip-tile-inner {
+            transform: rotateY(180deg);
+        }
+
+        #correct {
+            border: 5px solid lime;
+            cursor: default;
+        }
+
+        #correct .flip-tile-inner {
+            transform: rotateY(180deg);
+        }
+
+        .set-text {
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+    <script type="text/javascript" src="js/iframeResizer.contentWindow.min.js"></script>
+    <script type="text/javascript" src="js/tilematching.js"></script>
+    <script type="text/javascript" src="js/tileContents.js"></script>
+    <h1>Match related tiles!</h1>
+    <div id="container">
+        <ul id="puzzle-grid">
+        </ul>
+    </div>
+    <p id="output-text"></p>
+    <h3 class="instructions">INSTRUCTIONS</h3>
+    <p class="instructions">Click a tile to turn it over and reveal it's content, then find the related tile. Clicking on a tile and it's related tile will make them disappear. Make all the tiles disappear to complete the game.</p>
+</body>
+</html>

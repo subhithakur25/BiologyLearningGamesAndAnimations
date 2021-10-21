@@ -1,0 +1,116 @@
+body{
+    font-size: 1.5vw;
+    background-color: white;
+}
+
+#master-container{
+    position: relative;
+    width: 100%;
+    padding-top: 50%;
+}
+
+div.question-container {
+    position: absolute;
+    text-align: center;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 65%;
+    background-image: url("../img/can_you_master_the_cells_mastermind.jpg");
+    background-repeat: no-repeat;
+    background-size: 90%;
+}
+
+img {
+    width: 150px;
+    height: 200px;
+}
+
+div.answer-container{
+    position: absolute;
+    top: 0;
+    left: 65%;
+    width: 35%; 
+    height: 100%;
+    opacity: 1.0;
+    background-color: white;
+}
+
+div.word-bank{
+    position: absolute;
+    left: 5%;
+    right: 5%;
+    top: 2%;
+    bottom: 20%;
+    padding: 3%;
+    border: 2px solid black;
+}
+
+div.submit-container{
+    position: absolute;
+    top: 80%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+    display: table-cell;
+    padding-top: 7%;
+}
+
+#submit{
+    font-size: 1.5vw;
+    width: 30%;
+}
+
+.question{
+    position: absolute;
+    border: 2px solid black;
+    background: cyan;
+    text-align: center;
+}
+
+.question.answer-hover{
+    background: orange;
+}
+
+.question.has-answer.answer-hover{
+    background: orange;
+}
+
+.question.has-answer{
+    background: lightgray;
+}
+
+.answer{
+    cursor: pointer;
+    margin: 2%;
+}
+
+.question > .answer{
+    margin: 0px;
+}
+
+div.hint{
+    position: absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    opacity: 0.9;
+    background-color: white;
+    visibility: hidden;
+}
+
+div.hint-content{
+    position: absolute;
+    width: 100%;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    text-align: center;
+    height: 30%;
+    margin:auto;
+}
+
+

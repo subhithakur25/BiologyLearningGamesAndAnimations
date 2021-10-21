@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Match Maker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="js/iframeResizer.contentWindow.min.js"></script>
+  <script type="text/javascript" src="js/slide63.js"></script>
+
+  <div id="masterContainer" class="masterContainer" data-viewportNarrow="false">
+    <header id="title">
+      <div id="subtext"> Select one Image from the top and the corresponding answer image to match them </div>
+    </header>
+    <div class="image-container" >
+        <canvas id="canvas" width="900" height="450">
+        </canvas>
+
+        <ul id="imageListItems" class="row-1">
+          <li id="image1" class="imageList"><img src="img/t1.png"></li>
+          <li id="image2" class="imageList"><img src="img/t2.png"></li>
+          <li id="image3" class="imageList"><img src="img/t3.png"></li>
+          <li id="image4" class="imageList"><img src="img/t4.png"></li>
+          <li id="image5" class="imageList"><img src="img/t5.png"></li>
+        </ul>
+
+        <ul id="imageListItems" class="row-2">
+          <li id="image1" class="imageList"><img src="img/b1.png"></li>
+          <li id="image2" class="imageList"><img src="img/b2.png"></li>
+          <li id="image3" class="imageList"><img src="img/b3.png"></li>
+          <li id="image4" class="imageList"><img src="img/b4.png"></li>
+          <li id="image5" class="imageList"><img src="img/b5.png"></li>
+        </ul>
+    </div>
+    <div id="Hint"></div>
+  </div>
+  <div id="viewPortNarrowThreshold"></div >
+</body>
+
+</html>

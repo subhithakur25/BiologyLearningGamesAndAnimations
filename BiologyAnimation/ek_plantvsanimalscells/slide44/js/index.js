@@ -152,7 +152,7 @@ var alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
   play = function () {
     word = word.replace(/\s/g, "-");
     buttons();
-    resetGame.disabled = true;
+    //resetGame.disabled = true;
     geusses = [ ];
     lives = 4;
     counter = 0;

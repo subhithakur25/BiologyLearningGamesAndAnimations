@@ -72,9 +72,11 @@ img {
 }
 
 #alphabet {
-  margin: 15px auto;
+  margin: 0px auto;
   padding: 0;
-  max-width: 900px;
+  max-width: 500px;
+  text-align: center;
+  
 }
 #alphabet:after {
   content: "";
@@ -84,11 +86,11 @@ img {
 
 #alphabet li {
   float: left;
-  margin: 0 10px 10px 0;
+  margin: 0 20px 20px 0;
   list-style: none;
   width: 35px;
   height: 30px;
-  padding-top: 10px;
+  padding-top: 5px;
   background: #fff;
   color: #E1BE6A;
   cursor: pointer;

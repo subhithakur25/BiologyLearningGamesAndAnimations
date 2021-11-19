@@ -16,6 +16,9 @@ $(document).ready(function () {
 
             if ($children.hasClass("answer")) {
                 $con.addClass("has-answer");
+                $con.css("background", "");
+                index = $con.attr("id").substring(1);
+                $("#"+ index).css("color", "");
                 $con.contents().each(function() {
                     if (!$(this).hasClass("answer")) {
                         $(this).remove();
@@ -94,6 +97,11 @@ $(document).ready(function () {
 
                 $q.children().draggable('enable');
                 $q.droppable('enable');
+            }
+            $q.css("background", "");
+            if ($q.hasClass("has-answer")) {
+                 index = $q.attr("id").substring(1);
+                 $("#"+ index).css("color", "");
             }
         });
 

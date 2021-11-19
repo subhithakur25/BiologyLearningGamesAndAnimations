@@ -86,6 +86,16 @@ and (max-device-width : 1024px) {
         padding-top: 0 !important;
     }
 
+    div.hint-container {
+        top: 130% !important;
+        padding-top: 0 !important;
+    }
+
+    #hint {
+        font-size: 3vw !important;
+        padding: 10px 30px !important;
+    }
+
     #submit {
         font-size: 3vw !important;
         padding: 10px 30px !important;
@@ -147,6 +157,28 @@ div.submit-container {
     text-align: center;
     cursor: pointer;
 }
+
+div.hint-container {
+    position: absolute;
+    top: 95%;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    text-align: center;
+    display: table-cell;
+    padding-top: 7%;
+}
+
+#hint {
+    font-size: 1vw;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    cursor: pointer;
+}
+
 
 /* styling of the individual answer blanks */
 .dropBox {

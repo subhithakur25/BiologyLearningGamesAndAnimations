@@ -49,25 +49,32 @@ p {
 }
 
 img {
-  position: absolute;
-  top: 250px;
-  left: 900px;
-  width: 200px;
-  height: 200px;
-  margin: 0 200px;
+  position:absolute;
+  top:35%;
+  right:10%;
+  width: 10pc;
+  height: 10pc;
+  margin: 0px 0px;
 }
 
 @media only screen and (max-device-width: 480px) {
   img {
-    top: 850px;
-    left: 200px;
+    top: 60pc;
+    left: 25pc;
+  }
+}
+
+@media only screen and (device-width: 280px) {
+  img {
+    top: 70pc;
+    left: 25pc;
   }
 }
 
 @media only screen and (device-width: 768px) {
   img {
-    top: 600px;
-    left: 200px;
+    top: 45pc;
+    left: 25pc;
   }
 }
 

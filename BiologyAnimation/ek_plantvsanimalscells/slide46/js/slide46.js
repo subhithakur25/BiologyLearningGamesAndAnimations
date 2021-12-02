@@ -24,6 +24,9 @@ $(document).ready(function () {
 
             if ($children.hasClass("answer")) {
                 $con.addClass("has-answer");
+                 $con.css("background", "");
+                index = $con.attr("id").substring(1);
+                $("#"+ index).css("color", "");
                 $con.contents().each(function() {
                     if (!$(this).hasClass("answer")) {
                         $(this).remove();
@@ -102,7 +105,15 @@ $(document).ready(function () {
                 $q.droppable('disable');
                 $q.off('dblclick');
             }
+             $q.css("background", "");
+            if ($q.hasClass("has-answer")) {
+                 index = $q.attr("id").substring(1);
+                 $("#"+ index).css("color", "");
+            }
         });
+        
+        
+
 		var $hint_content = $('.hint-content');
 		
         if(numCorrect == 11){
@@ -118,6 +129,57 @@ $(document).ready(function () {
 		}
 		$('.hint').css('visibility', 'visible');
     });
+    
+    $("#hint").click(function() {
+        // var numCorrect = 0;
+        // var initialState = $(window).clone();
+
+        var colors = [
+            "#000000", // 0. black
+            "#800000", // 1. maroon
+            "#9A6324", // 2. brown
+            "#808000", // 3. olive
+            "#000075", // 4. navy
+            "#911eb4", // 5. purple
+            "#f7347a", // 6. pink
+            "#047806", // 7. green
+            "#777777", // 8. gray
+            "#133337", // 9. some blue-green
+            "#336EFF", // 10. blue
+            "#AD7D00", // 11. yellow-brown
+        ]
+        $('.dropBox').each(function() {
+            $q = $(this);
+            if ($q.attr("id") == "#" + $q.children().attr("id")) {
+                // numCorrect += 1;
+                $q.addClass('correct');
+                $q.children().draggable('disable');
+                $q.droppable('disable');
+                $q.off('dblclick');
+            } else {
+                if ($q.hasClass("has-answer")) {
+                    index = $q.attr("id").substring(1);
+                    color = colors[parseInt((index))];
+                    // console.log(index);
+
+                    // $q.addClass('incorrect');
+                    $q.css("background-color", color);
+                    // $q.css("color", color);
+                    $("#"+ index).css("color", color);
+                }
+
+                $q.children().draggable('enable');
+                $q.droppable('enable');
+            }
+        });
+
+        // $('#result').text(`You answered ${numCorrect}/11 questions correctly!`);
+
+        // setTimeout(function() {
+        //     $(document).replaceWith(initialState);
+        // }, 2500);
+    });
+    
 	 $('.question').each(function(){
         update($(this));
     });

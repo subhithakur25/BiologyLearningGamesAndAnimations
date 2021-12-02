@@ -81,15 +81,15 @@ and (max-device-width : 1024px) {
         height: 100% !important;
     }
 
-    div.submit-container {
+    div.button-container {
+        position: relative;
         top: 120% !important;
-        padding-top: 0 !important;
+        left: 15%;
+        text-align: center;
+        display: inline;
+        padding: 2%;
     }
-
-    div.hint-container {
-        top: 130% !important;
-        padding-top: 0 !important;
-    }
+    
 
     #hint {
         font-size: 3vw !important;
@@ -137,16 +137,15 @@ div.word-bank {
     border: 2px solid black;
 }
 
-div.submit-container {
-    position: absolute;
-    top: 85%;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 0;
+div.button-container {
+    position: relative;
+    top: 90%;
+    left: 15%;
     text-align: center;
-    display: table-cell;
-    padding-top: 7%;
+    display: inline;
+    padding: 2%;
 }
+
 
 #submit {
     font-size: 1vw;
@@ -156,17 +155,6 @@ div.submit-container {
     padding: 5px 10px;
     text-align: center;
     cursor: pointer;
-}
-
-div.hint-container {
-    position: absolute;
-    top: 95%;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 0;
-    text-align: center;
-    display: table-cell;
-    padding-top: 7%;
 }
 
 #hint {
@@ -216,7 +204,7 @@ div.hint-container {
 
 #result {
     position: absolute;
-    bottom: -5%;
+    top: 95%;
     font-size: 1.5vw;
     font-weight: bold;
     float: center;

@@ -101,9 +101,11 @@ $(document).ready(function () {
                 if ($q.hasClass("has-answer")) {
                     $q.addClass('incorrect');
                 }
-				$q.children().draggable('disable');
-                $q.droppable('disable');
-                $q.off('dblclick');
+                //updated by surbhi
+				//$q.children().draggable('disable');
+				$q.children().draggable('enable');
+                $q.droppable('enable');
+                //$q.off('dblclick');
             }
              $q.css("background", "");
             if ($q.hasClass("has-answer")) {
@@ -112,23 +114,29 @@ $(document).ready(function () {
             }
         });
         
-        
+         $('#result').text(`You answered ${numCorrect}/11 questions correctly!`);
 
-		var $hint_content = $('.hint-content');
-		
-        if(numCorrect == 11){
-			//$('#result').text(`You answered all questions correctly!`);
-			$hint_content.text('' );
-            $hint_content.append('<p>You answered all questions correctly!</p>' );
-		}
-		else{
-			//$('#result').text(`You answered ${numCorrect}/11 questions correctly! Hint: Go back and study the diagram in the section Organisms`);
-			$hint_content.text('' );
-            $hint_content.append('<p>You answered ' + numCorrect +'/11 answers correctly!</p>' );
-            $hint_content.append('<p>Hint: Go back and study the diagram in the section Organisms.</p>' );
-		}
-		$('.hint').css('visibility', 'visible');
+        window.setTimeout(function() {
+            $('#result').text('');
+        }, 2500)
     });
+
+
+	//	var $hint_content = $('.hint-content');
+		
+     //   if(numCorrect == 11){
+		//	//$('#result').text(`You answered all questions correctly!`);
+		//	$hint_content.text('' );
+         //   $hint_content.append('<p>You answered all questions correctly!</p>' );
+	//	}
+	//	else{
+			//$('#result').text(`You answered ${numCorrect}/11 questions correctly! Hint: Go back and study the diagram in the section Organisms`);
+	//		$hint_content.text('' );
+      //      $hint_content.append('<p>You answered ' + numCorrect +'/11 answers correctly!</p>' );
+        //    $hint_content.append('<p>Hint: Go back and study the diagram in the section Organisms.</p>' );
+		//}
+	//	$('.hint').css('visibility', 'visible');
+    //});
     
     $("#hint").click(function() {
         // var numCorrect = 0;
@@ -180,11 +188,11 @@ $(document).ready(function () {
         // }, 2500);
     });
     
-	 $('.question').each(function(){
-        update($(this));
-    });
+	// $('.question').each(function(){
+      //  update($(this));
+  //  });
 
-    $('.hint').click(function(){
-        $(this).css("visibility", "hidden");
-    });
+    //$('.hint').click(function(){
+    //    $(this).css("visibility", "hidden");
+  //  });
 });

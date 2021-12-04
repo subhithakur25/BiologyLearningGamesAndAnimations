@@ -208,7 +208,7 @@ div.button-container {
     background: #BB2525;
 }
 
-div.hint{
+/*div.hint{
     position: absolute;
     top:0;
     bottom:0;
@@ -229,4 +229,12 @@ div.hint-content{
     text-align: center;
     height: 30%;
     margin:auto;
+} */
+
+#result {
+    position: absolute;
+    top: 95%;
+    font-size: 1.5vw;
+    font-weight: bold;
+    float: center;
 }

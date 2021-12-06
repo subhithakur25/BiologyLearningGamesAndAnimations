@@ -21,9 +21,18 @@ $(document).ready(function() {
             var qName = questions[i];
             if ($('input[name="' + qName + '"]:checked').val() == answers[qName]) {
                 correct = correct + 1;
+                $('#question'+(i+1)).css('background-color', 'white');
+            }
+            else {
+                $('#question'+(i+1)).css('background-color', 'lightpink');
             }
         }
-        hndlr.html('You got ' + correct + ' out of ' + questions.length + ' correct !');
+        if (correct == questions.length) {
+            hndlr.html('Congrats ! You got all of them correct !');
+        }
+        else {
+            hndlr.html('You got ' + correct + ' out of ' + questions.length + ' correct ! Hint : Verify your answers in the colored boxes');
+        }
     }
 
     $("#image1").on('click', {imageId: 1, textHandler: $("#hint_text")}, showImageHint);
@@ -31,7 +40,5 @@ $(document).ready(function() {
     $("#image3").on('click', {imageId: 3, textHandler: $("#hint_text")}, showImageHint);
     $("#image4").on('click', {imageId: 4, textHandler: $("#hint_text")}, showImageHint);
     $("#submit_btn").on('click', {rbButtonNames: ["image1option", "image2option", "image3option", "image4option"], textHandler: $("#hint_text")}, evaluateAnswers);
-
-
 
 });

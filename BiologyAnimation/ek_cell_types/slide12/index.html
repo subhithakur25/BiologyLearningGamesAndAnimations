@@ -7,7 +7,7 @@
         <style> h1 {
             text-align: center;
         } </style>
-        <h1> Click the Boxes to See the Comparison </h1>
+        <h1> Click the boxes to see the comparison </h1>
 
     </header>
 
@@ -26,6 +26,9 @@
         margin-left: 17vw;
         margin-right: 17vw;
         border: solid 1px;
+        padding-top: 3.6vh;
+        text-align: center;
+        font-weight: bold;
     }
 
     .big_box2 {
@@ -34,6 +37,9 @@
         margin-left: 17vw;
         margin-right: 17vw;
         border: solid 1px;
+        padding-top: 5vh;
+        text-align: center;
+        font-weight: bold;
     }
 
     #a {
@@ -173,7 +179,10 @@
         margin-left: 17vw;
         margin-right: 17vw;
         border: solid 1px;
-        }
+        padding-top: 3.6vh;
+        text-align: center;
+        font-weight: bold;
+    }
 
     .big_box2 {
         width: 66vw;
@@ -181,7 +190,10 @@
         margin-left: 17vw;
         margin-right: 17vw;
         border: solid 1px;
-        }
+        padding-top: 5vh;
+        text-align: center;
+        font-weight: bold;
+    }
 
 	}
 
@@ -191,20 +203,15 @@
 
 <body>
 
- <div >
-
-
-        <div class= "big_box2" id="a"></div>
+    <div>
+        <div class= "big_box2" id="a">Click Me !</div>
         <div class= "big_box" id="b"></div>
         <div class= "big_box" id="c"></div>
-
         <div class= "big_box" id="d"></div>
-
         <div class= "big_box2" id="e"></div>
         <div class= "big_box" id="f"></div>
         <div class= "big_box" id="g"></div>
         <div class= "big_box2" id="h"></div>
-
     </div>
 
      <div class="container">
@@ -215,24 +222,31 @@
     <script type="text/javascript">
     	$( "#a" ).click(function() {
             $( "#a" ).hide();
+            $( "#b" ).html('Click Me!');
 
             $( "#b" ).click(function() {
                 $( "#b" ).hide();
+                $( "#c" ).html('Click Me!');
                 
                 $( "#c" ).click(function() {
                     $( "#c" ).hide();
+                    $( "#d" ).html('Click Me!');
 
                         $( "#d" ).click(function() {
                             $( "#d" ).hide();
+                            $( "#e" ).html('Click Me!');
 
                             $( "#e" ).click(function() {
                                 $( "#e" ).hide();
+                                $( "#f" ).html('Click Me!');
 
                                 $( "#f" ).click(function() {
                                     $( "#f" ).hide();
+                                    $( "#g" ).html('Click Me!');
 
                                     $( "#g" ).click(function() {
                                         $( "#g" ).hide();
+                                        $( "#h" ).html('Click Me!');
 
                                         $( "#h" ).click(function() {
                                             $( "#h" ).hide();    

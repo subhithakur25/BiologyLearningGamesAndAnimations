@@ -3,6 +3,7 @@
 
   <head>
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/popup.css">
   </head>
   
   <body>
@@ -16,16 +17,15 @@
 	
     <script type="text/javascript" src="js/slide31.js"></script>
 	<script type="text/javascript" src="js/contents.js"></script>
+  <script type="text/javascript" src="js/popup.js"></script>
 
     <div id="master-container">
-      <div class="question-container" img src="img/can_you_master_the_cells_mastermind.jpg" >
-	  
-		<div class="question" style="top:13.5%; left:15%; width:18%; height:3.5%" id=1></div>
-        <div class="question" style="top:26%; left:7.5%; width:18%; height:3.5%" id=2></div>
-        <div class="question" style="top:69.5%; left:16%; width:18%; height:3.5%" id=3></div>
-        <div class="question" style="top:77%; left:21%; width:18%; height:3.5%" id=4></div>
+    <div class="question-container" img src="img/can_you_master_the_cells_mastermind.jpg" >
+		  <div class="question" style="top:14%; left:15%; width:18%; height:3.5%" id=1></div>
+        <div class="question" style="top:26.7%; left:7.5%; width:18%; height:3.5%" id=2></div>
+        <div class="question" style="top:70.4%; left:16%; width:18%; height:3.5%" id=3></div>
+        <div class="question" style="top:77.2%; left:21%; width:18%; height:3.5%" id=4></div>
         <div class="question" style="top:82%; left:7%; width:18%; height:3.5%" id=5></div>
-		
       </div>
       <div class= "answer-container">
         <div class="word-bank">
@@ -49,7 +49,18 @@
         </div>
       </div>
     </div>
-	  
+    <button class="trigger_popup_fricc" id="1">HINT 1</button>
+    <button class="trigger_popup_fricc" id="2">HINT 2</button>
+    <button class="trigger_popup_fricc" id="3">HINT 3</button>
+    <button class="trigger_popup_fricc" id="4">HINT 4</button>
+    <button class="trigger_popup_fricc" id="5">HINT 5</button>
+    <div class="hover_bkgr_fricc">
+        <span class="helper"></span>
+        <div>
+            <div class="popupCloseButton">&times;</div>
+            <p id="hint_content">Add any HTML content<br />inside the popup box!</p>
+        </div>
+    </div>
   </body>
   
 </html>

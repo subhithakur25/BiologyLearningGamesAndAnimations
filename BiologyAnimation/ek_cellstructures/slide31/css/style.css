@@ -1,6 +1,7 @@
 body{
     font-size: 1.5vw;
     background-color: white;
+    z-index: -1;
 }
 
 #master-container{
@@ -21,11 +22,6 @@ div.question-container {
     background-size: 90%;
 }
 
-img {
-    width: 150px;
-    height: 200px;
-}
-
 div.answer-container{
     position: absolute;
     top: 0;
@@ -42,7 +38,7 @@ div.word-bank{
     right: 5%;
     top: 2%;
     bottom: 20%;
-    padding: 3%;
+    padding: 0%;
     border: 2px solid black;
 }
 
@@ -54,7 +50,7 @@ div.submit-container{
     bottom: 0;
     text-align: center;
     display: table-cell;
-    padding-top: 7%;
+    padding-top: 2%;
 }
 
 #submit{
@@ -112,5 +108,3 @@ div.hint-content{
     height: 30%;
     margin:auto;
 }
-
-

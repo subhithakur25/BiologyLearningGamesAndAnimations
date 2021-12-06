@@ -40,7 +40,7 @@ $(document).ready(function () {
             $q.css("top", "");
             $q.css("left", "");
         },
-        zIndex: 1
+        zIndex: 2
     });
 	
     $(".question").droppable({
@@ -101,5 +101,4 @@ $(document).ready(function () {
     $('.hint').click(function(){
         $(this).css("visibility", "hidden");
     });
-	
 });

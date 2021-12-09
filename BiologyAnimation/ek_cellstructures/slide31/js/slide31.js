@@ -1,5 +1,6 @@
 $(document).ready(function () {
-	
+	var correct_ans = new Array();
+
 	for (var i = 0; i < questions.length; i++) {
 		document.getElementById("a" + (i+1)).innerHTML = questions[i]["answer"];
 	}
@@ -79,6 +80,8 @@ $(document).ready(function () {
             }else{
 				$q.css('background-color', 'crimson');
                 num_wrong += 1;
+                correct_ans.push(questions[parseInt($q.attr("id"))-1]["answer"])
+                console.log(questions[parseInt($q.attr("id"))-1]["answer"])
             }
         });
 
@@ -88,9 +91,15 @@ $(document).ready(function () {
             $hint_content.append('<p>You got them all right!</p>' );
         }else{
             $hint_content.text('' );
-            $hint_content.append('<p>You got ' + num_wrong +' answers wrong.</p>' );
+            $hint_content.append('<p>You got ' + num_wrong +' answers wrong.<br></p>' );
 			$hint_content.append(slides_info.hint);
+            correct_ans.forEach(myFunction)
         }
+
+        function myFunction(item, index) {
+            $hint_content.append("<br>For more info, click on <a href = 'https://en.wikipedia.org/wiki/"+item+"' target='_blank'>"+item+"</a><br>" ) 
+          }
+
         $('.hint').css('visibility', 'visible');
     });
 

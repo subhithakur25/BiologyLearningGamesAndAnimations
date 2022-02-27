@@ -1,17 +1,15 @@
 # BiologyLearningGamesAndAnimations
-CSCE606_Project_Fall2021
+CSCE606_Project_Spring2022
 
-## Team - YASEG ##
 
 ### Team Memebers
 
-> Surbhi Thakur \
-> Abhishek Sinha \
-> Rohan Chaudhury \
-> Rohit Sah \
-> Ganesh Biradar \
-> Sherine Kozhikadan \
-> Hemal Ketan Mamtora
+> Shubham Gupta\
+> Harini Vorungati\
+> Apurva Purushotama\
+> Nimisha \
+> Prajwal Das \
+
 
 
 ## Project topic - Biology Learning Games and Animations ##

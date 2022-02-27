@@ -8,7 +8,7 @@ CSCE606_Project_Spring2022
 > Harini Vorungati\
 > Apurva Purushotama\
 > Nimisha \
-> Prajwal Das \
+> Prajwal Das
 
 
 

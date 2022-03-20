@@ -2,7 +2,7 @@
 CSCE606_Project_Spring2022
 
 
-### Team Memebers
+### Team Members
 
 > Shubham Gupta\
 > Harini Vorungati\

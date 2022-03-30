@@ -1,0 +1,56 @@
+{
+    "nodeContent": {
+        "content": {
+            "title": "Step Title Here",
+            "text": "Text content goes here, above the mini-app area.",
+            "media": [{
+                "role": "BgBase1",
+                "type": "Image",
+                "variant": "Basic",
+                "repeat": "no-repeat",
+                "position": "center center",
+                "bgsize": "cover",
+                "display": "light_green_textured_bg.gif"
+            }],
+            "miniApps": [{
+                "role": "MainSandbox1",
+                "type": "Custom",
+                "variant": "Basic",
+                "launched": "slide68",
+                "apiSet": "Basic",
+                "maxW": "Auto",
+                "minH": "Auto",
+                "maxH": "Auto",
+                "caption": ""
+            }]
+        },
+        "type": "MiniApp",
+        "variant": "Basic",
+        "theme": "Basic",
+        "options": {
+            "ImageHPosition": "Left",
+            "ImageVPosition": "Top",
+            "ImageW": "100",
+            "ImageStaticToggle": "On",
+            "ImageZoomToggle": "On",
+            "TextStyle": "PageWidth",
+            "SandboxFraming": "Clear"
+        }
+    },
+    "nodeAssessment": {
+        "type": "Pass Through",
+        "variant": "Basic",
+        "theme": "Basic",
+        "shuffle": "false",
+        "outputs": [{
+            "cid": "1",
+            "outputStatus": "Neutral",
+            "outputBehavior": "Step Forward",
+            "text": "",
+            "targetNode": "2"
+        }]
+    },
+    "nodeAuthoringData": {
+        "stepNotes": ""
+    }
+}

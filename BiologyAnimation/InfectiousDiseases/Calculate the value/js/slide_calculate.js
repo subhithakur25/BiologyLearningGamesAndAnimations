@@ -1,5 +1,10 @@
 $(document).ready(function () {
-	
+	var timer1 = setInterval(function(){
+    if( $('.question-container').height() > 0 ){
+        $('#master-container').css( 'height' , 'auto' );
+        clearInterval(timer1);
+    }
+}, 100);
 	for (var i = 0; i < questions.length; i++) {
 		document.getElementById("a" + (i+1)).innerHTML = questions[i]["answer"];
 	}

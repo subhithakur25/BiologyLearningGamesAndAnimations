@@ -10,6 +10,7 @@ $(document).ready(function () {
         start:function(ev, ui){
         }
     });
+    
     $(".question").droppable({
         out: function(event, ui) {
 			if($.inArray($(this).text(), answered) < 0) {

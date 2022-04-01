@@ -7,7 +7,7 @@ html, body {
 #master-container {
     position: relative;
     width: 100%;
-    padding-top: 50%;
+    padding-top: 40%;
     height: auto;
 }
 
@@ -89,23 +89,32 @@ and (max-device-width : 1024px) {
         height: 100% !important;
     }
 
-    div.submit-container {
+    /* div.submit-container {
         top: 120% !important;
+        padding-top: 0 !important;
+    } */
+    
+     div.button-container {
+        position: relative;
+        top: 120% !important;
+         left: 15%;
+        text-align: center;
+        display: inline;
+        padding: 2%;
+     }
+     
+    div.hint-container {
+        top: 130% !important;
         padding-top: 0 !important;
     }
 
-    #submit {
+    #hint {
         font-size: 3vw !important;
         padding: 10px 30px !important;
     }
-
-    #result {
-        top: 180% !important;
-        bottom: 0 !important;
-        text-align: center;
-        width: 90%;
-        height: 10%;
+    #submit {
         font-size: 3vw !important;
+        padding: 10px 30px !important;
     }
 }
 
@@ -135,15 +144,13 @@ div.word-bank {
     border: 2px solid black;
 }
 
-div.submit-container {
-    position: absolute;
-    top: 85%;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 0;
+div.button-container {
+    position: relative;
+    top: 90%;
+    left: 30%;
     text-align: center;
-    display: table-cell;
-    padding-top: 7%;
+    display: inline;
+    padding: 2%;
 }
 
 #submit {
@@ -156,8 +163,27 @@ div.submit-container {
     cursor: pointer;
 }
 
+
+#hint {
+    font-size: 1vw;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    cursor: pointer;
+}
+
 /* styling of the individual answer blanks */
 .dropBox {
+    position: absolute;
+    background: #34A0FF;
+    border: 2px solid black;
+    text-align: center;
+    color: black;
+    font-weight: 700;
+}
+.drpBox {
     position: absolute;
     background: #34A0FF;
     border: 2px solid black;
@@ -190,9 +216,32 @@ div.submit-container {
     background: #BB2525;
 }
 
+/*div.hint{
+    position: absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    opacity: 0.9;
+    background-color: white;
+    visibility: hidden;
+}
+
+div.hint-content{
+    position: absolute;
+    width: 100%;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    text-align: center;
+    height: 30%;
+    margin:auto;
+} */
+
 #result {
     position: absolute;
-    bottom: -5%;
+    top: 95%;
     font-size: 1.5vw;
     font-weight: bold;
     float: center;

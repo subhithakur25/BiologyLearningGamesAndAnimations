@@ -1,11 +1,5 @@
-$(document).ready(function () {
-    var timer1 = setInterval(function(){
-    if( $('.question-container').height() > 0 ){
-        $('#master-container').css( 'height' , 'auto' );
-        clearInterval(timer1);
-    }
-}, 100);
 
+$(document).ready(function () {
     var answers= $("#word-bank");
     data.sort(() => .5 - Math.random());
     data.forEach(function (item) {

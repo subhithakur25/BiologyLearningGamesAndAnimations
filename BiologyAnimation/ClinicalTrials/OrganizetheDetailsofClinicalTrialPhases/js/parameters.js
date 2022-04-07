@@ -1,51 +1,43 @@
 var data = [
 	{
 		"id": 1,
-		"value": "Oxygen"
+		"value": "Safety",
+		"font-size": 100
 	},
 	{
 		"id": 2,
-		"value": "Fire"
+		"value": "Fewer than 100 people"
 	},
 	{
 		"id": 3,
-		"value": "Temperature"
+		"value": "Side Effects"
 	},
 	{
 		"id": 4,
-		"value": "Soil"
+		"value": "Safety"
 	},
 	{
 		"id": 5,
-		"value": "Sun"
+		"value": "Effectiveness"
 	},
 	{
 		"id": 6,
-		"value": "Water"
+		"value": "Side Effects"
 	},
 	{
 		"id": 7,
-		"value": "Worm"
+		"value": "At least 100 people"
 	},
 	{
 		"id": 8,
-		"value": "Deer"
+		"value": "Comparision to similar treatments"
 	},
 	{
 		"id": 9,
-		"value": "Rabbit"
+		"value": "At least 100 people"
 	},
 	{
 		"id": 10,
-		"value": "Grass"
-	},
-	{
-		"id": 11,
-		"value": "Fungi"
-	},
-	{
-		"id": 12,
-		"value": "Bacteria"
+		"value": "Long term study"
 	}
-];	
-	
+];

@@ -1,18 +1,12 @@
-$(document).ready(function () {
-    var timer1 = setInterval(function(){
-    if( $('.question-container').height() > 0 ){
-        $('#master-container').css( 'height' , 'auto' );
-        clearInterval(timer1);
-    }
-}, 100);
 
+$(document).ready(function () {
     var answers= $("#word-bank");
     data.sort(() => .5 - Math.random());
     data.forEach(function (item) {
         console.log(item);
-        answers.append($(`<div class="answer" id="${item["id"]}" >${item["value"]}</div>`))
+        answers.append($(`<div class="answer" id="${item["id"]}"  >${item["value"]}</div>`))
     });
-	
+
     var move_to = function($obj, $target) {
         $parent = $obj.parent();
         $parent.detach($obj);
@@ -98,13 +92,20 @@ $(document).ready(function () {
         $('.dropBox').each(function() {
             $q = $(this);
             // if ($q.attr("id") == "#" + $q.children().attr("id")) {
-if ((($q.attr("id") == "#1" || $q.attr("id") == "#2" || $q.attr("id") == "#3" || $q.attr("id") == "#4" || $q.attr("id") == "#5" || $q.attr("id") == "#6" ) 
-&& ($q.children().attr("id") <=6 )) 
-    ||  
+if ((($q.attr("id") == "#1" || $q.attr("id") == "#2" || $q.attr("id") == "#3" )
+&& (($q.children().attr("id") == 1 ) || ($q.children().attr("id") == 2)||($q.children().attr("id") == 3) ||($q.children().attr("id") == 4) ||($q.children().attr("id") == 6) ))
+    ||
 
-(($q.attr("id") == "#7" || $q.attr("id") == "#8" || $q.attr("id") == "#9" || $q.attr("id") == "#10" || $q.attr("id") == "#11" || $q.attr("id") == "#12" ) 
-&& ($q.children().attr("id") >6 )) )
-    
+(($q.attr("id") == "#4" || $q.attr("id") == "#5" || $q.attr("id") == "#6" )
+&& (($q.children().attr("id") == 1) ||($q.children().attr("id") == 4) ||($q.children().attr("id") == 5)||($q.children().attr("id") == 7)||($q.children().attr("id") == 9) ))
+||
+(($q.attr("id") == "#7" || $q.attr("id") == "#8" || $q.attr("id") == "#9" )
+&& (($q.children().attr("id") == 3) ||($q.children().attr("id") == 6) ||($q.children().attr("id") == 7)||($q.children().attr("id") == 8)||($q.children().attr("id") == 9) ))
+||
+(($q.attr("id") == "#10" || $q.attr("id") == "#11" || $q.attr("id") == "#12" )
+&& (($q.children().attr("id") == 10)  ))
+)
+
 {
                 numCorrect += 1;
                 $q.addClass('correct');
@@ -115,10 +116,10 @@ if ((($q.attr("id") == "#1" || $q.attr("id") == "#2" || $q.attr("id") == "#3" ||
                 if ($q.hasClass("has-answer")) {
                     $q.addClass('incorrect');
                 }
-                
+
 				$q.children().draggable('enable');
                 $q.droppable('enable');
-               
+
             }
              $q.css("background", "");
             if ($q.hasClass("has-answer")) {
@@ -126,8 +127,8 @@ if ((($q.attr("id") == "#1" || $q.attr("id") == "#2" || $q.attr("id") == "#3" ||
                  $("#"+ index).css("color", "");
             }
         });
-        
-         $('#result').text(`You matched ${numCorrect}/12  options correctly!`);
+
+         $('#result').text(`You matched ${numCorrect}/10  options correctly!`);
 
         window.setTimeout(function() {
             $('#result').text('');
@@ -137,9 +138,9 @@ if ((($q.attr("id") == "#1" || $q.attr("id") == "#2" || $q.attr("id") == "#3" ||
 
 
 
-    
+
     $("#hint").click(function() {
-  
+
 
 
         var colors = [
@@ -183,6 +184,6 @@ if ((($q.attr("id") == "#1" || $q.attr("id") == "#2" || $q.attr("id") == "#3" ||
 
 
     });
-    
+
 
 });
